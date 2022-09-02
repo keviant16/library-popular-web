@@ -1,0 +1,7 @@
+{
+  "name": "library-popular-web",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
