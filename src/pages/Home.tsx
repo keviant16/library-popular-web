@@ -1,22 +1,47 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
+import Footer from '../components/Footer';
+import { Header } from '../components/Header';
+import Faq from '../components/sections/Faq';
+import Overview from '../components/sections/Overview';
 
 const Home: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header />
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
+        <IonGrid>
+
+          <IonRow>
+            <IonCol>
+              <Overview />
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol>
+              {/* <NewBookList/> */}
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol>
+              <Faq />
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol>
+              About us
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol>
+              <Footer />
+            </IonCol>
+          </IonRow>
+
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
