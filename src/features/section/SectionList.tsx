@@ -1,5 +1,5 @@
 import { IonList, IonListHeader, IonLabel, IonItem, IonInput, IonButton, IonIcon, IonSpinner } from "@ionic/react"
-import { text, add } from "ionicons/icons"
+import { add } from "ionicons/icons"
 import { useEffect, useState } from "react";
 import Section from "../../interface/Section";
 import { addSection, getAllSections } from "../../services/SectionService";
@@ -10,6 +10,7 @@ const SectionList = () => {
     const [loading, setLoading] = useState(false);
     const [sectionList, setSectionList] = useState([]);
     const [error, setError] = useState("");
+
     useEffect(() => {
         setLoading(true)
         initSectionList()
@@ -79,7 +80,6 @@ const SectionList = () => {
                         callback={initSectionList}
                     />
                 ))}
-
         </IonList>
     )
 }

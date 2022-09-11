@@ -1,21 +1,18 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
+import { Header } from '../../components/Header';
+import TagList from '../../features/tags/TagList';
 const Tags: React.FC = () => {
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Blank</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Tags</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonToolbar>
-                    <IonTitle size="large">Dashboard Tags</IonTitle>
-                </IonToolbar>
+            <Header />
+            <IonContent>
+                <IonGrid fixed >
+                    <IonRow>
+                        <IonCol>
+                            <TagList />
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
             </IonContent>
         </IonPage>
     );
