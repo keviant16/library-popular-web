@@ -44,7 +44,7 @@ const App: React.FC = () => (
         <IonItem>
           <IonThumbnail slot="start">
             <img src={library_logo} alt="" />
-          </IonThumbnail>7
+          </IonThumbnail>
           <IonLabel>
             <h1>
               Librairie Populaire

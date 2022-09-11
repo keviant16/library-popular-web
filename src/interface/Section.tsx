@@ -1,5 +1,6 @@
 export default interface Section {
     label: string,
     bookNumber: number
-    resourceId: number,
+    resourceId: number | null,
+
 }
