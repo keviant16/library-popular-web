@@ -2,6 +2,7 @@ import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../../components/Header';
 import SectionList from '../../features/section/SectionList';
 
+
 const Sections: React.FC = () => (
     <IonPage>
         <Header />

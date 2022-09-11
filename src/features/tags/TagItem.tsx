@@ -1,31 +1,29 @@
 import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner, useIonAlert } from "@ionic/react"
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
-import Section from "../../interface/Section";
-import { deleteSection, editSection } from "../../services/SectionService";
+import Tag from "../../interface/Tag";
+import { deleteTag, editTag } from "../../services/TagService";
 
-interface SectionItemProps {
-    section: Section,
-    callback: () =>
-        Promise<void>,
+interface TagItemProps {
+    tag: Tag,
+    callback: () => Promise<void>,
 }
-const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
-    const [editing, setEditing] = useState(false);
-    const [input, setInput] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
+    const [editing, setEditing] = useState<boolean>(false);
+    const [input, setInput] = useState<string>();
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>();
     const [presentAlert] = useIonAlert();
 
-    const deleteSectionOnClick = async (resourceId: number | null) => {
+    const deleteTagOnClick = async (resourceId: number | null) => {
         setLoading(true)
-
-        await deleteSection(resourceId);
+        await deleteTag(resourceId);
         props.callback()
         setLoading(false)
     }
 
 
-    const editSelectionOnClick = async (resourceId: number | null, section: Section) => {
+    const editTagOnClick = async (resourceId: number | null, tag: Tag) => {
 
         if (!input) {
             setError("Le champs est vide")
@@ -33,15 +31,15 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
         }
 
         setLoading(true)
-        const sectionRequest: Section = {
+        const tagRequest: Tag = {
             label: input,
-            bookNumber: section.bookNumber,
-            resourceId: section.resourceId
+            bookNumber: tag.bookNumber,
+            resourceId: tag.resourceId
         }
 
-        const status: any = await editSection(resourceId, sectionRequest);
+        const status: any = await editTag(resourceId, tagRequest);
         if (status === 409) {
-            setError("La section " + input + " existe déjà.")
+            setError("La tag " + input + " existe déjà.")
             setLoading(false)
             return
         }
@@ -53,7 +51,7 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
 
     const toogleEditOnClick = async () => {
         setEditing(!editing)
-        setInput(props.section.label);
+        setInput(props.tag.label);
     }
 
     const handleOnChange = (e: any) => {
@@ -61,13 +59,11 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
         setError("")
     }
 
-
-
     const handleDelete = () => {
         presentAlert({
             header: "Attention !",
-            subHeader: `Etes vous sur de vouloir supprimer la section ${props.section.label} ?`,
-            message: `Les livres présents dans la section ${props.section.label} seront ajouter a la section 'Sans catégories'.`,
+            subHeader: `Etes vous sur de vouloir supprimer la tag ${props.tag.label} ?`,
+            message: `Les livres ayant le tag ${props.tag.label} le perderont`,
             buttons: [
                 {
                     text: 'Annuler',
@@ -81,7 +77,7 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
                     role: 'confirm',
                     handler: () => {
                         //confirm
-                        deleteSectionOnClick(props.section.resourceId)
+                        deleteTagOnClick(props.tag.resourceId)
                     },
                 },
             ],
@@ -102,14 +98,14 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
                 </>
                 :
                 <IonLabel>
-                    <h2>{props.section.label}</h2>
-                    <p>{props.section.bookNumber} {props.section.bookNumber > 0 ? "livres" : "livre"}</p>
+                    <h2>{props.tag.label}</h2>
+                    <p>{props.tag.bookNumber} {props.tag.bookNumber > 0 ? "livres" : "livre"}</p>
                 </IonLabel>
             }
 
             <IonButtons slot='end'>
                 {editing &&
-                    <IonButton onClick={() => editSelectionOnClick(props.section.resourceId, props.section)} color={"success"} fill="solid">
+                    <IonButton onClick={() => editTagOnClick(props.tag.resourceId, props.tag)} color={"success"} fill="solid">
                         <IonIcon slot="icon-only" icon={checkmark} />
                     </IonButton>
                 }
@@ -125,5 +121,5 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
     )
 }
 
-export default SectionItem;
+export default TagItem;
 
