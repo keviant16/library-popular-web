@@ -10,7 +10,6 @@ const Home: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid>
-
           <IonRow>
             <IonCol>
               <Overview />

@@ -8,7 +8,6 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
-
     return (
         <IonButton color={props.color} onClick={props.onClick}>{props.content}</IonButton>
     );

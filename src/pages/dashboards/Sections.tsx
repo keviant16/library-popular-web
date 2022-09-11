@@ -1,25 +1,22 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
+import { Header } from '../../components/Header';
+import SectionList from '../../features/section/SectionList';
 
-const Sections: React.FC = () => {
-    return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Blank</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Sections</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonToolbar>
-                    <IonTitle size="large">Dashboard Sections</IonTitle>
-                </IonToolbar>
-            </IonContent>
-        </IonPage>
-    );
-};
+const Sections: React.FC = () => (
+    <IonPage>
+        <Header />
+        <IonContent>
+            <IonGrid fixed >
+                <IonRow>
+                    <IonCol>
+                        <SectionList />
+                    </IonCol>
+                </IonRow>
+            </IonGrid>
+        </IonContent>
+    </IonPage>
+
+)
 
 export default Sections;
+

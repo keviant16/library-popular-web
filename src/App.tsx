@@ -28,6 +28,9 @@ import Books from './pages/Books';
 import Dashboard from './pages/Dashboard';
 import Cart from './pages/Cart';
 import library_logo from './assets/logos/library-logo.svg';
+import Reservations from './pages/dashboards/Reservations';
+import Tags from './pages/dashboards/Tags';
+import Sections from './pages/dashboards/Sections';
 
 
 setupIonicReact();
@@ -38,12 +41,10 @@ const App: React.FC = () => (
   <IonApp>
     <IonHeader>
       <IonToolbar>
-
-
         <IonItem>
           <IonThumbnail slot="start">
             <img src={library_logo} alt="" />
-          </IonThumbnail>7
+          </IonThumbnail>
           <IonLabel>
             <h1>
               Librairie Populaire
@@ -61,6 +62,10 @@ const App: React.FC = () => (
         <Route exact path="/livres" component={Books} />
         <Route exact path="/panier" component={Cart} />
         <Route exact path="/tableau-de-bord" component={Dashboard} />
+        <Route exact path="/tableau-de-bord/sections" component={Sections} />
+        {/* <Route exact path="/tableau-de-bord/livres" component={Books} /> */}
+        <Route exact path="/tableau-de-bord/tags" component={Tags} />
+        <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
