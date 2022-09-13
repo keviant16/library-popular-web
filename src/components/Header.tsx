@@ -3,6 +3,7 @@ import { IonHeader, IonToolbar, IonTitle, IonButton, IonButtons, IonIcon, IonMen
 import { menu } from 'ionicons/icons';
 
 
+
 export const Header: React.FC = () => (
     <IonHeader>
         <IonToolbar>
@@ -13,7 +14,9 @@ export const Header: React.FC = () => (
                     </IonButton>
                 </IonMenuToggle>
             </IonButtons>
-            <IonTitle>Library Populaire</IonTitle>
+            <IonTitle>
+                <h1>Library Populaire</h1>
+            </IonTitle>
         </IonToolbar>
     </IonHeader>
 );

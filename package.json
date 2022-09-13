@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@awesome-cordova-plugins/barcode-scanner": "^5.45.0",
+    "@capacitor/android": "4.1.0",
     "@capacitor/app": "4.0.1",
-    "@capacitor/core": "4.1.0",
+    "@capacitor/core": "^4.1.0",
     "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/status-bar": "4.0.1",
@@ -22,6 +24,7 @@
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "ionicons": "^6.0.3",
+    "phonegap-plugin-barcodescanner": "^8.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
@@ -67,7 +70,7 @@
     ]
   },
   "devDependencies": {
-    "@capacitor/cli": "4.1.0"
+    "@capacitor/cli": "^4.1.0"
   },
   "description": "An Ionic project"
 }
