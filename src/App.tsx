@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonHeader, IonItem, IonLabel, IonRouterOutlet, IonThumbnail, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
@@ -66,6 +66,7 @@ const App: React.FC = () => (
         {/* <Route exact path="/tableau-de-bord/livres" component={Books} /> */}
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
+        <Redirect from='/' to={"/accueil"} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
