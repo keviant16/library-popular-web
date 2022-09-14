@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonThumbnail, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -27,16 +27,12 @@ import './theme/typography.css';
 import Books from './pages/Books';
 import Dashboard from './pages/Dashboard';
 import Cart from './pages/Cart';
-import library_logo from './assets/logos/library-logo.svg';
 import Reservations from './pages/dashboards/Reservations';
 import Tags from './pages/dashboards/Tags';
 import Sections from './pages/dashboards/Sections';
 import { book, cart, home, logIn } from 'ionicons/icons';
 
-
 setupIonicReact();
-
-
 
 const App: React.FC = () => (
   <IonApp>
