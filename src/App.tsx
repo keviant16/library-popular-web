@@ -31,6 +31,7 @@ import library_logo from './assets/logos/library-logo.svg';
 import Reservations from './pages/dashboards/Reservations';
 import Tags from './pages/dashboards/Tags';
 import Sections from './pages/dashboards/Sections';
+import Inventory from './pages/dashboards/Inventory';
 
 
 setupIonicReact();
@@ -63,7 +64,7 @@ const App: React.FC = () => (
         <Route exact path="/panier" component={Cart} />
         <Route exact path="/tableau-de-bord" component={Dashboard} />
         <Route exact path="/tableau-de-bord/sections" component={Sections} />
-        {/* <Route exact path="/tableau-de-bord/livres" component={Books} /> */}
+        <Route exact path="/tableau-de-bord/livres" component={Inventory} />
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
         <Redirect from='/' to={"/accueil"} />

@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 
-const Books: React.FC = () => {
+const Inventory: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
@@ -22,4 +22,4 @@ const Books: React.FC = () => {
     );
 };
 
-export default Books;
+export default Inventory;
