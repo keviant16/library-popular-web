@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonHeader, IonItem, IonLabel, IonRouterOutlet, IonThumbnail, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -27,35 +27,48 @@ import './theme/typography.css';
 import Books from './pages/Books';
 import Dashboard from './pages/Dashboard';
 import Cart from './pages/Cart';
-import library_logo from './assets/logos/library-logo.svg';
 import Reservations from './pages/dashboards/Reservations';
 import Tags from './pages/dashboards/Tags';
 import Sections from './pages/dashboards/Sections';
 import Inventory from './pages/dashboards/Inventory';
-
+import { book, cart, home, logIn } from 'ionicons/icons';
 
 setupIonicReact();
 
-
-
 const App: React.FC = () => (
   <IonApp>
-    <IonHeader>
-      <IonToolbar>
-        <IonItem>
-          <IonThumbnail slot="start">
-            <img src={library_logo} alt="" />
-          </IonThumbnail>
-          <IonLabel>
-            <h1>
-              Librairie Populaire
-            </h1>
-          </IonLabel>
-        </IonItem>
-        <IonTitle>
-        </IonTitle>
-      </IonToolbar>
-    </IonHeader>
+    <IonMenu contentId='main'>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonTitle>
+            Menu
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent>
+        <IonMenuToggle auto-hide="false">
+          <IonList>
+            <IonItem button routerLink='/accueil'>
+              <IonIcon slot='start' color='secondary' icon={home} />
+              <IonLabel>Accueil</IonLabel>
+            </IonItem>
+            <IonItem button>
+              <IonIcon slot='start' color='secondary' icon={book} />
+              <IonLabel>Rechercher un livre</IonLabel>
+            </IonItem>
+            <IonItem button>
+              <IonIcon slot='start' color='secondary' icon={cart} />
+              <IonLabel>Reservation</IonLabel>
+            </IonItem>
+            <IonItem button color='secondary' routerLink='/tableau-de-bord'>
+              <IonIcon slot='start' icon={logIn} />
+              <IonLabel>Espace bénévole</IonLabel>
+            </IonItem>
+          </IonList>
+        </IonMenuToggle>
+      </IonContent>
+    </IonMenu>
 
     <IonReactRouter>
       <IonRouterOutlet id='main'>
@@ -67,7 +80,7 @@ const App: React.FC = () => (
         <Route exact path="/tableau-de-bord/livres" component={Inventory} />
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
-        <Redirect from='/' to={"/accueil"} />
+        <Redirect exact from="/" to="/accueil" />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

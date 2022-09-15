@@ -1,21 +1,23 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButtons, IonContent, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { Header } from '../components/Header';
+import Scanner from '../components/Scanner';
 
 const Dashboard: React.FC = () => {
+
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Blank</IonTitle>
-                </IonToolbar>
-            </IonHeader>
+            <Header />
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Dashboard</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+
                 <IonToolbar>
-                    <IonTitle size="large">Dashboard</IonTitle>
+                    <IonToolbar>
+                        <IonButtons>
+                            <Scanner />
+                        </IonButtons>
+                        <IonTitle>Default Buttons</IonTitle>
+
+                    </IonToolbar>
+
                 </IonToolbar>
             </IonContent>
         </IonPage>
