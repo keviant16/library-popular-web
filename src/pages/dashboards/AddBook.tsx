@@ -1,17 +1,25 @@
 import { IonCol, IonContent, IonGrid, IonNav, IonPage, IonRow } from '@ionic/react';
+import { useState } from 'react';
 import { Header } from '../../components/Header';
-import BookList from '../../features/books/BookList';
 
 
-const Inventory: React.FC = () => {
+const AddBook: React.FC = () => {
+    const [input, setInput] = useState<string>();
+
     return (
         <IonPage>
             <Header />
             <IonContent>
                 <IonGrid fixed>
                     <IonRow>
+                        <IonCol>input...</IonCol>
+                    </IonRow>
+                    <IonRow>
                         <IonCol>
-                            <BookList />
+                            ggbook..
+                        </IonCol>
+                        <IonCol>
+                            BookForm..
                         </IonCol>
                     </IonRow>
                 </IonGrid>
@@ -20,4 +28,4 @@ const Inventory: React.FC = () => {
     );
 };
 
-export default Inventory;
+export default AddBook;

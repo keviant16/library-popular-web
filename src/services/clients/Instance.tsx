@@ -6,3 +6,11 @@ export const client = axios.create({
         Accept: "*/*",
     }
 })
+
+export const googleClient = axios.create({
+    baseURL: "https://www.googleapis.com/books",
+    headers: {
+        // "Access-Control-Allow-Origin": "*",
+        Accept: "*/*",
+    }
+})

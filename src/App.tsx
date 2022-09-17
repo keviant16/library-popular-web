@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -32,6 +32,7 @@ import Tags from './pages/dashboards/Tags';
 import Sections from './pages/dashboards/Sections';
 import Inventory from './pages/dashboards/Inventory';
 import { book, cart, home, logIn } from 'ionicons/icons';
+import AddBook from './pages/dashboards/AddBook';
 
 setupIonicReact();
 
@@ -61,9 +62,26 @@ const App: React.FC = () => (
               <IonIcon slot='start' color='secondary' icon={cart} />
               <IonLabel>Reservation</IonLabel>
             </IonItem>
-            <IonItem button color='secondary' routerLink='/tableau-de-bord'>
-              <IonIcon slot='start' icon={logIn} />
-              <IonLabel>Espace bénévole</IonLabel>
+          </IonList>
+          <IonList>
+            <IonListHeader>
+              Espace bénévole
+            </IonListHeader>
+            <IonItem button routerLink='/tableau-de-bord/livres'>
+              <IonIcon color='secondary' slot='start' />
+              <IonLabel>Liste de livres</IonLabel>
+            </IonItem>
+            <IonItem button routerLink='/tableau-de-bord/sections'>
+              <IonIcon color='secondary' slot='start' />
+              <IonLabel>Liste de sections</IonLabel>
+            </IonItem>
+            <IonItem button routerLink='/tableau-de-bord/tags'>
+              <IonIcon color='secondary' slot='start' />
+              <IonLabel>Liste de tags</IonLabel>
+            </IonItem>
+            <IonItem button routerLink='/tableau-de-bord/reservations'>
+              <IonIcon color='secondary' slot='start' />
+              <IonLabel>Liste de reservations</IonLabel>
             </IonItem>
           </IonList>
         </IonMenuToggle>
@@ -78,6 +96,7 @@ const App: React.FC = () => (
         <Route exact path="/tableau-de-bord" component={Dashboard} />
         <Route exact path="/tableau-de-bord/sections" component={Sections} />
         <Route exact path="/tableau-de-bord/livres" component={Inventory} />
+        <Route exact path="/tableau-de-bord/livres/ajouter-un-livre" component={AddBook} />
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
         <Redirect exact from="/" to="/accueil" />

@@ -61,8 +61,6 @@ const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
         setError("")
     }
 
-
-
     const handleDelete = () => {
         presentAlert({
             header: "Attention !",

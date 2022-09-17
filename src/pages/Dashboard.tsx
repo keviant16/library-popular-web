@@ -1,6 +1,5 @@
-import { IonButtons, IonContent, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBreadcrumb, IonBreadcrumbs, IonContent, IonPage } from '@ionic/react';
 import { Header } from '../components/Header';
-import Scanner from '../components/Scanner';
 
 const Dashboard: React.FC = () => {
 
@@ -8,17 +7,13 @@ const Dashboard: React.FC = () => {
         <IonPage>
             <Header />
             <IonContent fullscreen>
-
-                <IonToolbar>
-                    <IonToolbar>
-                        <IonButtons>
-                            <Scanner />
-                        </IonButtons>
-                        <IonTitle>Default Buttons</IonTitle>
-
-                    </IonToolbar>
-
-                </IonToolbar>
+                {/* <DashboardButton /> */}
+                <IonBreadcrumbs>
+                    <IonBreadcrumb href="#home">Home</IonBreadcrumb>
+                    <IonBreadcrumb href="#electronics">Electronics</IonBreadcrumb>
+                    <IonBreadcrumb href="#cameras">Cameras</IonBreadcrumb>
+                    <IonBreadcrumb href="#film">Film</IonBreadcrumb>
+                </IonBreadcrumbs>
             </IonContent>
         </IonPage>
     );
