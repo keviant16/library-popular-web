@@ -1,9 +1,7 @@
 import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonLabel, IonList, IonListHeader, IonNavLink, IonPage, IonRow, IonSearchbar, IonThumbnail, } from '@ionic/react';
-import { book, filter } from 'ionicons/icons';
+import { filter } from 'ionicons/icons';
 import { useState } from 'react';
 import { Header } from '../components/Header';
-import BookForm from '../features/books/BookForm';
-import BookList from '../features/books/BookList';
 
 const Books: React.FC = () => {
     const [searchText, setSearchText] = useState('');

@@ -1,4 +1,4 @@
-import { IonBreadcrumb, IonBreadcrumbs, IonContent, IonItem, IonLabel, IonPage } from '@ionic/react';
+import { IonBreadcrumb, IonBreadcrumbs, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../components/Header';
 
 const Dashboard: React.FC = () => {
@@ -6,29 +6,56 @@ const Dashboard: React.FC = () => {
     return (
         <IonPage>
             <Header />
-            <IonContent fullscreen>
-                {/* <DashboardButton /> */}
-                <IonBreadcrumbs>
-                    <IonBreadcrumb href="#home">Home</IonBreadcrumb>
-                    <IonBreadcrumb href="#electronics">Electronics</IonBreadcrumb>
-                    <IonBreadcrumb href="#cameras">Cameras</IonBreadcrumb>
-                    <IonBreadcrumb href="#film">Film</IonBreadcrumb>
-                </IonBreadcrumbs>
-                <IonItem href="#">
-                    <IonLabel>Anchor Item</IonLabel>
-                </IonItem>
+            <IonContent>
+                <IonGrid fixed>
+                    <IonRow className="ion-justify-content-center">
+                        <IonCol size="12" sizeSm="8">
+                            <IonItem lines='none' >
+                                <IonLabel>
+                                    <h1>Bonjour !</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
+                                </IonLabel>
+                            </IonItem>
+                        </IonCol>
+                    </IonRow>
 
-                <IonItem href="#" disabled={true}>
-                    <IonLabel>Disabled Anchor Item</IonLabel>
-                </IonItem>
+                    <IonRow className="ion-justify-content-center">
 
-                <IonItem button>
-                    <IonLabel>Button Item</IonLabel>
-                </IonItem>
 
-                <IonItem button disabled={true}>
-                    <IonLabel>Disabled Button Item</IonLabel>
-                </IonItem>
+                        <IonCol size="12" sizeSm="8">
+                            <IonList>
+                                <IonItem button detail routerLink='/tableau-de-bord/sections'>
+                                    <IonLabel>
+                                        <h2>Section</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
+                                    </IonLabel>
+                                </IonItem>
+
+                                <IonItem button detail>
+                                    <IonLabel>
+                                        <h2>Tags</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
+                                    </IonLabel>
+                                </IonItem>
+
+                                <IonItem button detail routerLink='/tableau-de-bord/livres'>
+                                    <IonLabel>
+                                        <h2>Livres</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
+                                    </IonLabel>
+                                </IonItem>
+
+                                <IonItem button detail>
+                                    <IonLabel>
+                                        <h2>Reservations</h2>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
+                                    </IonLabel>
+                                </IonItem>
+                            </IonList>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+
             </IonContent>
         </IonPage>
     );

@@ -4,7 +4,7 @@ import Accordion from "../Accordion";
 
 const Faq: React.FC = () => {
     return (
-        <IonGrid>
+        <IonGrid fixed>
             <IonRow className="ion-justify-content-center">
                 <IonCol size="12" sizeSm="10">
                     <h1>FAQ</h1>

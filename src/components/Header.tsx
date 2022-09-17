@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonHeader, IonToolbar, IonButton, IonButtons, IonIcon, IonMenuToggle, IonItem, IonLabel, IonThumbnail } from '@ionic/react';
+import { IonHeader, IonToolbar, IonButton, IonButtons, IonIcon, IonMenuToggle, IonItem, IonLabel } from '@ionic/react';
 import { menu } from 'ionicons/icons';
 import library_logo from "../assets/logos/library-logo.png";
 

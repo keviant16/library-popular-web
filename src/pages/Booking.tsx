@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonList, IonListHeader, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonLabel, IonList, IonListHeader, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../components/Header';
 
 const Booking: React.FC = () => {

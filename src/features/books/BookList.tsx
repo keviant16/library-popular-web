@@ -50,12 +50,7 @@ const BookList = () => {
                     <p>D'Ici vous pouvez ajouter, modifer et supprimer un livre de la librairie</p>
                 </IonLabel>
             </IonListHeader>
-
-            <IonItem>
-                <IonButton routerLink="tableau-de-bord/livres/ajouter-un-livre" >Ajouter livre</IonButton>
-            </IonItem>
-
-            <IonItem>
+            {/* <IonItem>
                 <IonLabel position="stacked">Enter le code barre de votre livre</IonLabel>
                 <IonInput
                     value={input}
@@ -72,7 +67,7 @@ const BookList = () => {
                 >
                     <IonIcon slot="icon-only" icon={add} />
                 </IonButton>
-            </IonItem>
+            </IonItem> */}
 
             {/* {
                 loading ? <IonSpinner name="bubbles" /> :

@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonAvatar, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -33,7 +33,6 @@ import Sections from './pages/dashboards/Sections';
 import Inventory from './pages/dashboards/Inventory';
 import { book, cart, home, logIn, logOut, person, statsChart } from 'ionicons/icons';
 import AddBook from './pages/dashboards/AddBook';
-import { userInfo } from 'os';
 import Booking from './pages/Booking';
 
 setupIonicReact();
@@ -62,7 +61,7 @@ const App: React.FC = () => (
             </IonItem>
             <IonItem button routerLink="/panier">
               <IonIcon slot='start' color='secondary' icon={cart} />
-              <IonLabel>panier</IonLabel>
+              <IonLabel>Panier</IonLabel>
             </IonItem>
             <IonItem button>
               <IonIcon icon={logIn} slot='start' color='secondary' />
@@ -94,7 +93,6 @@ const App: React.FC = () => (
         <Route exact path="/tableau-de-bord" component={Dashboard} />
         <Route exact path="/tableau-de-bord/sections" component={Sections} />
         <Route exact path="/tableau-de-bord/livres" component={Inventory} />
-        <Route exact path="/tableau-de-bord/livres/ajouter-un-livre" component={AddBook} />
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
         <Redirect exact from="/" to="/accueil" />
