@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonAvatar, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -26,13 +26,15 @@ import './theme/typography.css';
 
 import Books from './pages/Books';
 import Dashboard from './pages/Dashboard';
-import Cart from './pages/Cart';
+import Cart from './pages/Booking';
 import Reservations from './pages/dashboards/Reservations';
 import Tags from './pages/dashboards/Tags';
 import Sections from './pages/dashboards/Sections';
 import Inventory from './pages/dashboards/Inventory';
-import { book, cart, home, logIn } from 'ionicons/icons';
+import { book, cart, home, logIn, logOut, person, statsChart } from 'ionicons/icons';
 import AddBook from './pages/dashboards/AddBook';
+import { userInfo } from 'os';
+import Booking from './pages/Booking';
 
 setupIonicReact();
 
@@ -54,34 +56,30 @@ const App: React.FC = () => (
               <IonIcon slot='start' color='secondary' icon={home} />
               <IonLabel>Accueil</IonLabel>
             </IonItem>
-            <IonItem button>
+            <IonItem button routerLink="/livres">
               <IonIcon slot='start' color='secondary' icon={book} />
               <IonLabel>Rechercher un livre</IonLabel>
             </IonItem>
-            <IonItem button>
+            <IonItem button routerLink="/panier">
               <IonIcon slot='start' color='secondary' icon={cart} />
-              <IonLabel>Reservation</IonLabel>
+              <IonLabel>panier</IonLabel>
             </IonItem>
-          </IonList>
-          <IonList>
-            <IonListHeader>
-              Espace bénévole
-            </IonListHeader>
-            <IonItem button routerLink='/tableau-de-bord/livres'>
-              <IonIcon color='secondary' slot='start' />
-              <IonLabel>Liste de livres</IonLabel>
+            <IonItem button>
+              <IonIcon icon={logIn} slot='start' color='secondary' />
+              <IonLabel>Connexion</IonLabel>
             </IonItem>
-            <IonItem button routerLink='/tableau-de-bord/sections'>
-              <IonIcon color='secondary' slot='start' />
-              <IonLabel>Liste de sections</IonLabel>
+            <IonItem button routerLink='/tableau-de-bord'>
+              <IonIcon color='secondary' slot='start' icon={statsChart} />
+              <IonLabel>Tableau de board</IonLabel>
             </IonItem>
-            <IonItem button routerLink='/tableau-de-bord/tags'>
-              <IonIcon color='secondary' slot='start' />
-              <IonLabel>Liste de tags</IonLabel>
+
+            <IonItem button routerLink='/'>
+              <IonIcon color='secondary' slot='start' icon={person} />
+              <IonLabel>Profil</IonLabel>
             </IonItem>
-            <IonItem button routerLink='/tableau-de-bord/reservations'>
-              <IonIcon color='secondary' slot='start' />
-              <IonLabel>Liste de reservations</IonLabel>
+            <IonItem button routerLink='/'>
+              <IonIcon color='secondary' slot='start' icon={logOut} />
+              <IonLabel>Déconnexion</IonLabel>
             </IonItem>
           </IonList>
         </IonMenuToggle>
@@ -92,7 +90,7 @@ const App: React.FC = () => (
       <IonRouterOutlet id='main'>
         <Route exact path="/accueil" component={Home} />
         <Route exact path="/livres" component={Books} />
-        <Route exact path="/panier" component={Cart} />
+        <Route exact path="/panier" component={Booking} />
         <Route exact path="/tableau-de-bord" component={Dashboard} />
         <Route exact path="/tableau-de-bord/sections" component={Sections} />
         <Route exact path="/tableau-de-bord/livres" component={Inventory} />

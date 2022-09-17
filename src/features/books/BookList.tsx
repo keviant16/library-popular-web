@@ -32,25 +32,8 @@ const BookList = () => {
         }
 
         setLoading(true)
-        const newBook: Book = {
-            id: null,
-            title: "",
-            description: "",
-            publisher: "",
-            publishedDate: "",
-            pageCount: 0,
-            image: "",
-            isbn: "",
-            status: "",
-            price: 0,
-            qty: 0,
-            creationDate: null,
-            section: { label: "section", bookNumber: 0, resourceId: 1 },
-            authors: [],
-            tags: []
-        }
 
-        await addBook(newBook);
+        // await addBook(newBook);
         initBookList()
     }
 
