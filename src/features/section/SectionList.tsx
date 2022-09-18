@@ -11,11 +11,6 @@ const SectionList = () => {
     const [sectionList, setSectionList] = useState([]);
     const [error, setError] = useState("");
 
-    useEffect(() => {
-        setLoading(true)
-        initSectionList()
-    }, []);
-
     const initSectionList = async () => {
         const sections: any = await getAllSections();
         setSectionList(sections)
@@ -46,6 +41,11 @@ const SectionList = () => {
         setInput(e.detail.value!)
         setError("")
     }
+
+    useEffect(() => {
+        setLoading(true)
+        initSectionList()
+    }, []);
 
     return (
         <IonList>
