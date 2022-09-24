@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonLabel, IonList, IonListHeader, IonNavLink, IonPage, IonRow, IonSearchbar, IonThumbnail, } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonRow, IonSearchbar, IonThumbnail, } from '@ionic/react';
 import { filter } from 'ionicons/icons';
 import { useState } from 'react';
 import { Header } from '../components/Header';

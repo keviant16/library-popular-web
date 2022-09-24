@@ -1,4 +1,4 @@
-import { IonBreadcrumb, IonBreadcrumbs, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonPage, IonRow } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../components/Header';
 
 const Dashboard: React.FC = () => {
@@ -20,8 +20,6 @@ const Dashboard: React.FC = () => {
                     </IonRow>
 
                     <IonRow className="ion-justify-content-center">
-
-
                         <IonCol size="12" sizeSm="8">
                             <IonList>
                                 <IonItem button detail routerLink='/tableau-de-bord/étagères'>
