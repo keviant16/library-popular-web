@@ -7,15 +7,13 @@ import library_logo from "../assets/logos/library-logo.png";
 export const Header: React.FC = () => (
     <IonHeader>
         <IonToolbar>
-            <IonButtons slot="end">
+            <IonButtons slot="start">
                 <IonMenuToggle>
                     <IonButton>
                         <IonIcon slot="icon-only" icon={menu}></IonIcon>
                     </IonButton>
                 </IonMenuToggle>
             </IonButtons>
-
-
             <div style={{ textAlign: "center", display: "flex", justifyContent: "center" }}>
                 <IonItem lines="none">
                     <img alt="Silhouette of mountains" src={library_logo} />
@@ -24,7 +22,6 @@ export const Header: React.FC = () => (
                     </IonLabel>
                 </IonItem>
             </div>
-
         </IonToolbar>
     </IonHeader>
 );

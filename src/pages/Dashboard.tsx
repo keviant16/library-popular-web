@@ -24,14 +24,14 @@ const Dashboard: React.FC = () => {
 
                         <IonCol size="12" sizeSm="8">
                             <IonList>
-                                <IonItem button detail routerLink='/tableau-de-bord/sections'>
+                                <IonItem button detail routerLink='/tableau-de-bord/étagères'>
                                     <IonLabel>
-                                        <h2>Section</h2>
+                                        <h2>Etagères</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
                                     </IonLabel>
                                 </IonItem>
 
-                                <IonItem button detail>
+                                <IonItem button detail routerLink='/tableau-de-bord/tags'>
                                     <IonLabel>
                                         <h2>Tags</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
                                     </IonLabel>
                                 </IonItem>
 
-                                <IonItem button detail>
+                                <IonItem button detail routerLink='/tableau-de-bord/reservations'>
                                     <IonLabel>
                                         <h2>Reservations</h2>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>

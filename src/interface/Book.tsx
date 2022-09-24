@@ -1,25 +1,30 @@
-import Author from "./Author";
-import imageLink from "./ImageLink";
-import IndustryIdentifier from "./IndustryIdentifier";
-import Section from "./Section";
-import Tag from "./Tag";
-
 export default interface Book {
-    id?: number,
-    isbn: IndustryIdentifier[],
-    title?: string,
-    subtitle?: string,
-    description?: string,
-    publisher?: string,
+
+    title: string,
+    subtitle: string,
+    publisher: string,
     publishedDate?: string,
-    pageCount?: number,
-    imageLink?: imageLink,
+    pageCount?: 0,
     price: number,
     qty: number,
-    creationDate?: Date,
-    section?: Section,
-    authors: string[],
-    tags: Tag[]
+    description: string,
+    _links: {
+        self: {
+            href: string
+        },
+        book: {
+            href: string
+        },
+        bookshelf: {
+            href: string
+        },
+        tags: {
+            href: string
+        },
+        authors: {
+            href: string
+        }
+    }
 }
 
 

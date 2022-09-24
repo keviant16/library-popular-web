@@ -32,8 +32,9 @@ export const editBook = async (resourceId: number | null, book: Book) => {
 export const getAllbooks: any = async () => {
     try {
         let response = await client.get("/books")
-        return response.data._embedded.books
+        return response.data
     } catch (error: any) {
-        return error.response.status
+        console.error(error);
+
     }
 }

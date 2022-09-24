@@ -11,19 +11,25 @@ interface SearchApiBookProps {
 
 const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) => {
     const [searchText, setSearchText] = useState<string>("");
-    const [bookList, setBookList] = useState<Book[]>();
-
+    const [bookList, setBookList] = useState<GoogleBook[]>();
 
     function handleChange(value: string) {
         setSearchText(value)
     }
 
     async function handleApiBookCall() {
+
+        if (searchText.length !== 17) {
+            return
+        }
+
         let response = await getGoogleBooksByCodeIsbn(searchText)
 
         if (response.hasOwnProperty("items")) {
-            const bookArray: Book[] = response.items.map((item: GoogleBook) => googleBookItemToBook(item))
-            setBookList(bookArray)
+            console.log(response);
+
+            // const bookArray: Book[] = response.items.map((item: GoogleBook) => googleBookItemToBook(item))
+            setBookList(response.items)
         } else {
             setBookList([])
         }
@@ -34,20 +40,17 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
 
         if (volumeInfo === undefined) return undefined
 
-        return {
-            isbn: volumeInfo.industryIdentifiers,
-            title: volumeInfo.title,
-            subtitle: volumeInfo.subtitle,
-            description: volumeInfo.description,
-            publisher: volumeInfo.publisher,
-            publishedDate: volumeInfo.publishedDate,
-            pageCount: volumeInfo.pageCount,
-            imageLink: volumeInfo.imageLinks,
-            price: 0.5,
-            qty: 1,
-            authors: volumeInfo.authors,
-            tags: []
-        }
+        // return {
+        //     isbn: volumeInfo.industryIdentifiers,
+        //     title: volumeInfo.title,
+        //     subtitle: volumeInfo.subtitle,
+        //     description: volumeInfo.description,
+        //     publisher: volumeInfo.publisher,
+        //     publishedDate: volumeInfo.publishedDate,
+        //     pageCount: volumeInfo.pageCount,
+        //     imageLink: volumeInfo.imageLinks,
+        //     authors: volumeInfo.authors,
+        // }
     }
 
     useEffect(() => {
@@ -71,29 +74,30 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
             <IonContent className="ion-padding">
                 <p style={{ paddingLeft: 8 }}>Entrer le code isbn</p>
                 <IonSearchbar debounce={250} placeholder='ex : 978-2-253-13646-0' value={searchText} onIonChange={e => handleChange(e.detail.value!)} showCancelButton="focus"></IonSearchbar>
+
                 <IonList>
                     <IonListHeader>
                         <h4>Résultats pour {searchText} : {bookList?.length}</h4>
                     </IonListHeader>
-                    {bookList?.map((book: Book, index: number) => (
-                        <>
+                    {bookList?.map((book: GoogleBook, index: number) => {
+                        console.log(book)
+                        return (
                             <IonNavLink key={index} routerDirection="forward" component={() => <BookForm book={book} modal={props.modal} />}>
                                 <IonItem button>
                                     <IonThumbnail slot="start">
                                         <IonImg
-                                            alt={"couverture-du-livre" + book.title}
-                                            src={book.imageLink?.smallThumbnail ? book.imageLink?.smallThumbnail : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"}
-
+                                            alt={"couverture-du-livre" + book.volumeInfo.title}
+                                            src={book.volumeInfo.imageLinks?.smallThumbnail ? book.volumeInfo.imageLinks.smallThumbnail : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"}
                                         />
                                     </IonThumbnail>
                                     <IonLabel>
-                                        <h2>{book.title}</h2>
-                                        <p>{book.authors && book.authors.map((author: string, idx: number) => idx < book.authors.length - 1 ? author + ", " : author)}</p>
+                                        <h2>{book.volumeInfo.title}</h2>
+                                        <p>{book.volumeInfo.authors && book.volumeInfo.authors.map((author: string, idx: number) => idx < book.volumeInfo.authors.length - 1 ? author + ", " : author)}</p>
                                     </IonLabel>
                                 </IonItem>
                             </IonNavLink>
-                        </>
-                    ))}
+                        )
+                    })}
 
 
                 </IonList>

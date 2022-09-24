@@ -1,23 +1,25 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../../components/Header';
-import SectionList from '../../features/section/SectionList';
+import AddModal from '../../components/AddModal';
+import BookshelfList from '../../features/bookshelves/BookshelfList';
 
 
-const Sections: React.FC = () => (
+const BookshelfDashboard: React.FC = () => (
     <IonPage>
         <Header />
         <IonContent>
-            <IonGrid fixed >
+            <IonGrid fixed>
                 <IonRow>
                     <IonCol>
-                        <SectionList />
+                        <BookshelfList />
                     </IonCol>
                 </IonRow>
             </IonGrid>
+            <AddModal view="bookshelf" />
         </IonContent>
     </IonPage>
 
 )
 
-export default Sections;
+export default BookshelfDashboard;
 

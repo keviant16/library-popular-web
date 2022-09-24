@@ -5,13 +5,7 @@
     box-shadow: 0 5px 10px gray;
 }
 
-.thumbnaill {
-    width: 128px;
-}
 
-.smallthumbnaill {
-    width: 80px
-}
 
 body.scanner-active {
     --background: transparent;

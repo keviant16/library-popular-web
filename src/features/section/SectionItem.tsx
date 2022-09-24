@@ -9,6 +9,7 @@ interface SectionItemProps {
     callback: () =>
         Promise<void>,
 }
+
 const SectionItem: React.FC<SectionItemProps> = (props: SectionItemProps) => {
     const [editing, setEditing] = useState(false);
     const [input, setInput] = useState("");

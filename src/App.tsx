@@ -29,11 +29,12 @@ import Dashboard from './pages/Dashboard';
 import Cart from './pages/Booking';
 import Reservations from './pages/dashboards/Reservations';
 import Tags from './pages/dashboards/Tags';
-import Sections from './pages/dashboards/Sections';
+import Sections from './pages/dashboards/BookshelfDashboard';
 import Inventory from './pages/dashboards/Inventory';
 import { book, cart, home, logIn, logOut, person, statsChart } from 'ionicons/icons';
 import AddBook from './pages/dashboards/AddBook';
 import Booking from './pages/Booking';
+import BookshelfDashboard from './pages/dashboards/BookshelfDashboard';
 
 setupIonicReact();
 
@@ -91,7 +92,7 @@ const App: React.FC = () => (
         <Route exact path="/livres" component={Books} />
         <Route exact path="/panier" component={Booking} />
         <Route exact path="/tableau-de-bord" component={Dashboard} />
-        <Route exact path="/tableau-de-bord/sections" component={Sections} />
+        <Route exact path="/tableau-de-bord/étagères" component={BookshelfDashboard} />
         <Route exact path="/tableau-de-bord/livres" component={Inventory} />
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />

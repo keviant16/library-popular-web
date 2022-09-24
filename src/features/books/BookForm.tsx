@@ -1,38 +1,87 @@
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonListHeader, IonNote, IonRadio, IonRadioGroup, IonRange, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
-import { useFormik } from 'formik';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonListHeader, IonNote, IonRadio, IonRadioGroup, IonRange, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import { RefObject, useEffect, useState } from 'react';
-import Book from '../../interface/Book';
+import GoogleBook from '../../interface/GoogleBook';
 import Section from '../../interface/Section';
 import Tag from '../../interface/Tag';
-import { getAllSections } from '../../services/SectionService';
+import { getAllBookshelves } from '../../services/BookshelfService';
+
 import { getAllTags } from '../../services/TagService';
 
 interface BookFormProps {
     modal: RefObject<HTMLIonModalElement>,
-    book: Book
+    book: GoogleBook
 }
 
 const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
     const [sectionList, setSectionList] = useState<Section[]>([]);
     const [tagList, setTagList] = useState<Tag[]>([]);
+    const [loading, setLoading] = useState<boolean>();
+    const [error, setError] = useState<string>("");
 
 
-    const formik = useFormik({
-        initialValues: {
-            price: 0.5,
-            qty: 1,
-            section: "",
-            tags: []
-        },
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
+    async function handleAddBookClick() {
+        console.log(props.book);
+
+        // const newBook = {
+        //     title: string,
+        //     subtitle: string,
+        //     publisher: string,
+        //     publishedDate?: string,
+        //     pageCount?: 0,
+        //     price: number,
+        //     qty: number,
+        //     description: string,
+
+        // }
+
+        // if (!props.book.section) {
+        //     setError("La section est vide")
+        //     setLoading(false)
+        //     return
+        // }
+
+        // if (!props.book.price) {
+        //     setError("Le prix est vide")
+        //     setLoading(false)
+
+        //     return
+        // }
+
+        setLoading(true)
+        setError("")
+        // const status: number | undefined = await addBook(props.book)
+        setLoading(false)
+        props.modal.current?.dismiss()
+    }
+
+    function handleTagChange(e: string[]) {
+        const currentTags: any[] = e.map((element: string) =>
+            tagList.find((value: Tag) => (value.label === element))
+        );
+        // props.book.tags = currentTags;
+    }
+
+    function handleSectionChange(e: any) {
+        const currentSection: Section | undefined = sectionList.find((value) => (value.label === e));
+        // props.book.section = currentSection
+    }
+
+    function handlePriceChange(e: any) {
+        // props.book.price = parseFloat(e)
+    }
 
     async function initSectionList() {
-        const sections: any = await getAllSections();
-        setSectionList(sections)
+        // const sections: any = await getAllSections();
+        // setSectionList(sections)
     }
+
+    async function initBookshelvesList() {
+        const bookshelves: any = await getAllBookshelves();
+        setSectionList(bookshelves)
+    }
+
+
+
 
     async function initTagList() {
         const tags: any = await getAllTags();
@@ -40,8 +89,9 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
     }
 
     useEffect(() => {
-        initSectionList()
-        initTagList()
+        // initSectionList()
+        // initTagList()
+        // initBookshelvesList()
     }, []);
 
     return (
@@ -60,23 +110,27 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
             <IonContent className="ion-padding">
                 <IonGrid>
                     <IonRow>
-                        <IonCol size="12" sizeSm="3">
-                            <IonImg alt={"couverture-du-livre" + props.book.title}
+                        <IonCol sizeSm="3">
+                            <IonImg alt={"couverture-du-livre" + props.book.volumeInfo.title}
                                 className="thumbnaill"
-                                src={props.book.imageLink?.thumbnail ? props.book.imageLink.thumbnail : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"} />
+                                src={props.book.volumeInfo.imageLinks?.thumbnail ? props.book.volumeInfo.imageLinks.thumbnail : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"} />
                         </IonCol>
-                        <IonCol size="12" sizeSm="9">
+                        <IonCol sizeSm="9" >
                             <IonList>
                                 <IonItem>
                                     <IonLabel>
                                         <h3>Titre :</h3>
-                                        <p>{props.book.title}</p>
+                                        <p>{props.book.volumeInfo.title}</p>
                                     </IonLabel>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel>
                                         <h3>Auteur(s) :</h3>
-                                        <p>{props.book.authors && props.book.authors.map((author: string, idx: number) => idx < props.book.authors.length - 1 ? author + ", " : author)}</p>
+                                        <ul>
+                                            {props.book.volumeInfo.authors.map((author: string, idx: number) => (
+                                                <li key={idx}><p>{author}</p></li>
+                                            ))}
+                                        </ul>
                                     </IonLabel>
                                 </IonItem>
                             </IonList>
@@ -87,7 +141,7 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                     <IonLabel>
                                         <h3>Section :</h3>
                                     </IonLabel>
-                                    <IonSelect placeholder="Histoire">
+                                    <IonSelect placeholder="Histoire" onIonChange={(e) => handleSectionChange(e.detail.value)}>
                                         {sectionList.map((value, index) => (
                                             <IonSelectOption key={index} value={value.label}>{value.label}</IonSelectOption>
                                         ))}
@@ -97,57 +151,70 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                     <IonLabel>
                                         <h3>Tags :</h3>
                                     </IonLabel>
-                                    <IonSelect multiple placeholder="Cuisine, Animaux">
+                                    <IonSelect multiple placeholder="Cuisine, Animaux" onIonChange={(e) => handleTagChange(e.detail.value)}>
                                         {tagList.map((value, index) => (
                                             <IonSelectOption key={index} value={value.label}>{value.label}</IonSelectOption>
                                         ))}
                                     </IonSelect>
                                 </IonItem>
-                                <IonButton expand="full">Ajouter</IonButton>
+                                <IonItem>
+                                    <IonLabel>
+                                        <h3>Prix :</h3>
+                                    </IonLabel>
+                                    <IonSelect placeholder="(en €)" onIonChange={(e) => handlePriceChange(e.detail.value)}>
+                                        <IonSelectOption value={1.00}>1.00 €</IonSelectOption>
+                                        <IonSelectOption value={0.50}>0.50 €</IonSelectOption>
+                                    </IonSelect>
+                                </IonItem>
+                                {error && <IonItem color={'danger'}>{error}</IonItem>}
+                                <IonButton expand="full" onClick={() => handleAddBookClick()}>
+                                    {loading && <IonSpinner name="bubbles" />}
+                                    Ajouter
+                                </IonButton>
                                 <IonItemGroup>
                                     <IonItemDivider>
                                         <IonLabel>Information supplementaire</IonLabel>
                                     </IonItemDivider>
-                                    {props.book.subtitle &&
+                                    {props.book.volumeInfo.subtitle &&
                                         <IonItem>
                                             <IonLabel>
                                                 <h3>Sous-titre :</h3>
-                                                <p>{props.book.subtitle && props.book.subtitle}</p>
+                                                <p>{props.book.volumeInfo.subtitle && props.book.volumeInfo.subtitle}</p>
                                             </IonLabel>
                                         </IonItem>
                                     }
-                                    {props.book.description &&
+                                    {props.book.volumeInfo.description &&
                                         <IonItem>
                                             <IonLabel>
                                                 <h3>Description :</h3>
-                                                <p>{props.book.description && props.book.description}</p>
+                                                <p>{props.book.volumeInfo.description && props.book.volumeInfo.description}</p>
                                             </IonLabel>
                                         </IonItem>
                                     }
 
-                                    {props.book.publisher &&
+                                    {props.book.volumeInfo.publisher &&
                                         <IonItem>
                                             <IonLabel>
                                                 <h3>Editeur :</h3>
-                                                <p>{props.book.publisher && props.book.publisher}</p>
+                                                <p>{props.book.volumeInfo.publisher && props.book.volumeInfo.publisher}</p>
                                             </IonLabel>
                                         </IonItem>
                                     }
 
-                                    {props.book.publishedDate &&
+                                    {props.book.volumeInfo.publishedDate &&
                                         <IonItem>
                                             <IonLabel>
                                                 <h3>Date de publication :</h3>
-                                                <p>{props.book.publishedDate && props.book.publishedDate}</p>
+                                                <p>{props.book.volumeInfo.publishedDate && props.book.volumeInfo.publishedDate}</p>
                                             </IonLabel>
                                         </IonItem>
                                     }
 
-                                    {props.book.pageCount &&
+                                    {props.book.volumeInfo.pageCount &&
                                         <IonItem>
                                             <IonLabel>
                                                 <h3>Nombre de livre :</h3>
-                                                <p>{props.book.pageCount && props.book.pageCount}</p>
+                                                <p>{props.book.volumeInfo.pageCount && props.book.volumeInfo.pageCount}</p>
                                             </IonLabel>
                                         </IonItem>
                                     }
@@ -159,113 +226,8 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
 
             </IonContent>
         </>
-
-
-
-
-
-
-
-        // <form onSubmit={formik.handleSubmit}>
-        //     <IonGrid>
-        //         <IonRow>
-        //             <IonCol>
-        //                 <IonImg
-        //                     alt={'page de couverture du livre ' + props.book.volumeInfo.title}
-        //                     src={props.book.volumeInfo.imageLinks?.thumbnail} />
-        //             </IonCol>
-        //             <IonCol>
-        //                 <IonList>
-        //                     <IonItem>
-        //                         <IonLabel>
-        //                             <h3>Titre</h3>
-        //                             <p>{props.book.volumeInfo.title}</p>
-        //                         </IonLabel>
-        //                     </IonItem>
-        //                     {props.book.volumeInfo.subtitle &&
-        //                         <IonItem>
-        //                             <IonLabel>
-        //                                 <h3>Sous-titre</h3>
-        //                                 <p>{props.book.volumeInfo.subtitle}</p>
-        //                             </IonLabel>
-        //                         </IonItem>
-        //                     }
-        //                     <IonItem>
-        //                         <IonLabel>
-        //                             <h3>Auteur(s)</h3>
-        //                             <p>
-        //                                 {props.book.volumeInfo.authors.map((author: string, idx: number) =>
-        //                                     idx < props.book.volumeInfo.authors.length - 1 ? author + ", " : author
-        //                                 )}
-        //                             </p>
-        //                         </IonLabel>
-        //                     </IonItem>
-
-        //                     <IonItem>
-        //                         <IonLabel>
-        //                             <h3>Nombre de page</h3>
-        //                             <p>{props.book.volumeInfo.pageCount}</p>
-        //                         </IonLabel>
-        //                     </IonItem>
-
-        //                     <IonItem>
-        //                         <IonLabel>
-        //                             <h3>Date de publication</h3>
-        //                             <p>{props.book.volumeInfo.publishedDate}</p>
-        //                         </IonLabel>
-        //                     </IonItem>
-
-        //                     {props.book.volumeInfo.publisher &&
-        //                         <IonItem>
-        //                             <IonLabel>
-        //                                 <h3>Editeur</h3>
-        //                                 <p>{props.book.volumeInfo.publisher}</p>
-        //                             </IonLabel>
-        //                         </IonItem>
-        //                     }
-        //                 </IonList>
-        //             </IonCol>
-        //         </IonRow>
-        //         <IonRow>
-        //             <IonCol>
-        //                 <IonList>
-        //                     <IonItem>
-        //                         <IonLabel>
-        //                             <h3>Section</h3>
-        //                         </IonLabel>
-        //                         <IonSelect>
-        //                             <IonSelectOption value="apples">Apples</IonSelectOption>
-        //                             <IonSelectOption value="oranges">Oranges</IonSelectOption>
-        //                             <IonSelectOption value="bananas">Bananas</IonSelectOption>
-        //                         </IonSelect>
-        //                     </IonItem>
-
-        //                     <IonItem>
-        //                         <IonLabel slot="start">
-        //                             <h3>Prix</h3>
-        //                             <p>de 0.50 € à 1.00 €</p>
-        //                         </IonLabel>
-        //                         <IonRange pin={true} pinFormatter={(value: number) => `${value} €`} ticks={true} snaps={true} min={0.5} max={1} />
-        //                     </IonItem>
-
-        //                     <IonItem>
-        //                         <IonLabel slot="start">
-        //                             <h3>Quantité</h3>
-        //                             <p>de 1 à 10 livres</p>
-        //                         </IonLabel>
-        //                         <IonRange ticks={true} snaps={true} min={1} max={10} pin={true} pinFormatter={(value: number) => `${value}`} />
-        //                     </IonItem>
-        //                 </IonList>
-        //             </IonCol>
-        //         </IonRow>
-        //         <IonRow>
-        //             <IonCol>
-        //                 <p>{props.book.volumeInfo.description}</p>
-        //             </IonCol>
-        //         </IonRow>
-        //     </IonGrid>
-        // </form >
     )
 }
 export default BookForm
+
 
