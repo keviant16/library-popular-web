@@ -13,7 +13,15 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
     const [searchText, setSearchText] = useState<string>("");
     const [bookList, setBookList] = useState<GoogleBook[]>();
 
-    function handleChange(value: string) {
+    useEffect(() => {
+        if (searchText) {
+            handleApiBookCall()
+        } else {
+            setBookList([])
+        }
+    }, [searchText]);
+
+    const handleChange = (value: string) => {
         setSearchText(value)
     }
 
@@ -53,13 +61,7 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
         // }
     }
 
-    useEffect(() => {
-        if (searchText) {
-            handleApiBookCall()
-        } else {
-            setBookList([])
-        }
-    }, [searchText]);
+
 
     return (
         <>

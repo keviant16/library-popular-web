@@ -1,8 +1,7 @@
-import { IonList, IonListHeader, IonLabel, IonItem, IonInput, IonButton, IonIcon, IonSpinner, IonNavLink } from "@ionic/react"
-import { add } from "ionicons/icons"
+import { IonList, IonListHeader, IonLabel } from "@ionic/react"
 import { useEffect, useState } from "react";
 import Book from "../../interface/Book";
-import { addBook, getAllbooks } from "../../services/BookService";
+import { getAllbooks } from "../../services/BookService";
 
 const BookList = () => {
     const [input, setInput] = useState<string>();

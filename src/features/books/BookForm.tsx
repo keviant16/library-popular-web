@@ -55,9 +55,9 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
     }
 
     function handleTagChange(e: string[]) {
-        const currentTags: any[] = e.map((element: string) =>
-            tagList.find((value: Tag) => (value.label === element))
-        );
+        // const currentTags: any[] = e.map((element: string) =>
+        //     // tagList.find((value: Tag) => (value.label === element))
+        // );
         // props.book.tags = currentTags;
     }
 
@@ -152,9 +152,9 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                         <h3>Tags :</h3>
                                     </IonLabel>
                                     <IonSelect multiple placeholder="Cuisine, Animaux" onIonChange={(e) => handleTagChange(e.detail.value)}>
-                                        {tagList.map((value, index) => (
+                                        {/* {tagList.map((value, index) => (
                                             <IonSelectOption key={index} value={value.label}>{value.label}</IonSelectOption>
-                                        ))}
+                                        ))} */}
                                     </IonSelect>
                                 </IonItem>
                                 <IonItem>

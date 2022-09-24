@@ -1,5 +1,4 @@
-import { IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonPage, IonRow } from '@ionic/react';
-import { add } from 'ionicons/icons';
+import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../../components/Header';
 import AddBookModal from '../../features/books/AddBookModal';
 import BookList from '../../features/books/BookList';

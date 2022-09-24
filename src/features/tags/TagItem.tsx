@@ -1,12 +1,13 @@
 import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner, useIonAlert } from "@ionic/react"
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateTag } from "../../app/features/tag/tagSlice";
 import Tag from "../../interface/Tag";
 import { deleteTag, editTag } from "../../services/TagService";
 
 interface TagItemProps {
     tag: Tag,
-    callback: () => Promise<void>,
 }
 const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
     const [editing, setEditing] = useState<boolean>(false);
@@ -14,44 +15,46 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>();
     const [presentAlert] = useIonAlert();
+    const dispatch = useDispatch()
 
-    const deleteTagOnClick = async (resourceId: number | null) => {
+    const handleChange = (e: any) => {
+        setInput(e.detail.value!)
+        setError("")
+    }
+
+    const deleteOnClick = async (id?: number) => {
         setLoading(true)
-        await deleteTag(resourceId);
-        props.callback()
+        await deleteTag(id);
         setLoading(false)
     }
 
 
-    const editTagOnClick = async (resourceId: number | null, tag: Tag) => {
-
+    const editOnClick = async () => {
         if (!input) {
             setError("Le champs est vide")
             return
         }
 
         setLoading(true)
-        const tagRequest: Tag = {
-            label: input,
-            bookNumber: tag.bookNumber,
-            resourceId: tag.resourceId
-        }
+        const value = { id: props.tag.id, name: input, qty: props.tag.qty }
+        const response: any = await editTag(value, props.tag.id);
 
-        const status: any = await editTag(resourceId, tagRequest);
-        if (status === 409) {
-            setError("La tag " + input + " existe déjà.")
+        if (response === 409) {
+            setError("Le tag " + input + " existe déjà.")
             setLoading(false)
-            return
+        } else if (typeof response !== "number") {
+            dispatch(updateTag(response))
+        } else {
+            console.error("unhandle error" + response);
         }
 
         setEditing(!editing)
-        props.callback()
         setLoading(false)
     }
 
     const toogleEditOnClick = async () => {
         setEditing(!editing)
-        setInput(props.tag.label);
+        setInput(props.tag.name);
     }
 
     const handleOnChange = (e: any) => {
@@ -62,8 +65,8 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
     const handleDelete = () => {
         presentAlert({
             header: "Attention !",
-            subHeader: `Etes vous sur de vouloir supprimer la tag ${props.tag.label} ?`,
-            message: `Les livres ayant le tag ${props.tag.label} le perderont`,
+            subHeader: `Etes vous sur de vouloir supprimer la tag ${props.tag.name} ?`,
+            message: `Les livres ayant le tag ${props.tag.name} le perderont`,
             buttons: [
                 {
                     text: 'Annuler',
@@ -77,7 +80,7 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
                     role: 'confirm',
                     handler: () => {
                         //confirm
-                        deleteTagOnClick(props.tag.resourceId)
+                        deleteOnClick(props.tag.id)
                     },
                 },
             ],
@@ -98,14 +101,14 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
                 </>
                 :
                 <IonLabel>
-                    <h2>{props.tag.label}</h2>
-                    <p>{props.tag.bookNumber} {props.tag.bookNumber > 0 ? "livres" : "livre"}</p>
+                    <h2>{props.tag.name} </h2>
+                    <p>{"(" + props.tag.qty + ")"}</p>
                 </IonLabel>
             }
 
             <IonButtons slot='end'>
                 {editing &&
-                    <IonButton onClick={() => editTagOnClick(props.tag.resourceId, props.tag)} color={"success"} fill="solid">
+                    <IonButton onClick={() => editOnClick()} color={"success"} fill="solid">
                         <IonIcon slot="icon-only" icon={checkmark} />
                     </IonButton>
                 }

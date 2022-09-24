@@ -10,18 +10,18 @@ export const addTag = async (tag: Tag) => {
     }
 }
 
-export const deleteTag = async (resourceId: number | null) => {
+export const deleteTag = async (id?: number) => {
     try {
-        let response = await client.delete("/tags/" + resourceId)
+        let response = await client.delete("/tags/" + id)
         return response.status
     } catch (error) {
         return error
     }
 }
 
-export const editTag = async (resourceId: number | null, tag: Tag) => {
+export const editTag = async (tag: Tag, id?: number,) => {
     try {
-        let response = await client.put("/tags/" + resourceId, tag)
+        let response = await client.put("/tags/" + id, tag)
         return response.status
     } catch (error: any) {
         return error.response.status
@@ -31,8 +31,7 @@ export const editTag = async (resourceId: number | null, tag: Tag) => {
 export const getAllTags = async () => {
     try {
         let response = await client.get("/tags")
-
-        return response.data._embedded.tags
+        return response.data
     } catch (error: any) {
         return error.response.status
     }

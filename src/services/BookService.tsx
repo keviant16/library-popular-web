@@ -1,5 +1,4 @@
 import { client } from "./clients/Instance"
-import Section from "../interface/Section"
 import Book from "../interface/Book"
 
 export const addBook = async (book: Book) => {

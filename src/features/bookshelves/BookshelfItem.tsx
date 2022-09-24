@@ -48,7 +48,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
         })
     }
 
-    const editSelectionOnClick = async () => {
+    const editOnOnClick = async () => {
         if (!input) {
             setError("Le champs est vide")
             return
@@ -105,7 +105,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
 
             <IonButtons slot='end'>
                 {editing &&
-                    <IonButton onClick={() => editSelectionOnClick()} color={"success"} fill="solid">
+                    <IonButton onClick={() => editOnOnClick()} color={"success"} fill="solid">
                         <IonIcon slot="icon-only" icon={checkmark} />
                     </IonButton>
                 }

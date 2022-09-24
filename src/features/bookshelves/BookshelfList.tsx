@@ -12,15 +12,15 @@ const BookshelfList: React.FC = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        const initOnStart = async () => {
+            const allBookshelves: Bookshelf[] = await getAllBookshelves();
+            dispatch(setBookshelves(allBookshelves))
+            setLoading(false)
+        }
+
         setLoading(true)
         initOnStart()
-    }, []);
-
-    const initOnStart = async () => {
-        const allBookshelves: Bookshelf[] = await getAllBookshelves();
-        dispatch(setBookshelves(allBookshelves))
-        setLoading(false)
-    }
+    }, [dispatch]);
 
     return (
         <IonList>
