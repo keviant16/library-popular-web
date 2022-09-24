@@ -2,7 +2,6 @@ import { IonFab, IonFabButton, IonIcon, IonModal, IonNav } from "@ionic/react";
 import { add } from "ionicons/icons";
 import React from "react";
 import { useRef } from "react";
-import SearchApiBook from "../features/books/SearchApiBook";
 import BookshelfAddForm from "../features/bookshelves/BookshelfAddForm";
 
 interface AddModalProps {

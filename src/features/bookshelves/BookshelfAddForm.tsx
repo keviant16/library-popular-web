@@ -1,7 +1,7 @@
-import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonIcon, IonInput, IonLabel, IonList, IonItem } from "@ionic/react"
-import { error } from "console"
-import { add, text } from "ionicons/icons"
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonInput, IonLabel, IonList, IonItem, IonSpinner } from "@ionic/react"
 import { RefObject, useState } from "react"
+import { useDispatch } from "react-redux"
+import { pushBookshelf } from "../../app/features/bookshelf/bookshelfSlice"
 import Bookshelf from "../../interface/Bookshelf"
 import { addBookshelf } from "../../services/BookshelfService"
 
@@ -13,6 +13,7 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
     const [input, setInput] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
+    const dispatch = useDispatch()
 
     const handleChange = (e: any) => {
         setInput(e.detail.value!)
@@ -26,10 +27,15 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
         }
     }
 
-    const isPresent = (status: number | undefined) => {
-        if (status === 409) {
+    const handleResponse = (response: number | Bookshelf) => {
+        if (response === 409) {
             setError("L'étagère " + input + " existe déjà.")
-            return
+
+        } else if (typeof response !== "number") {
+            dispatch(pushBookshelf(response))
+
+        } else {
+            console.error("unhandle error :" + response);
         }
     }
 
@@ -37,11 +43,9 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
         isEmpty()
         setLoading(true)
         const bookshelf: Bookshelf = { name: input };
-        const status: number | undefined = await addBookshelf(bookshelf);
-        console.log(status);
-
+        const response: number | Bookshelf = await addBookshelf(bookshelf);
         setLoading(false)
-        isPresent(status)
+        handleResponse(response)
     }
 
     return (
@@ -72,7 +76,7 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
                             expand="full"
                             size="default"
                             fill="solid">
-                            Ajouter
+                            {loading ? <IonSpinner name="bubbles" /> : "Ajouter"}
                         </IonButton>
                     </IonItem>
                 </IonList>

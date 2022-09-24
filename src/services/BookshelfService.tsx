@@ -5,25 +5,28 @@ import Bookshelf from "../interface/Bookshelf"
 export const addBookshelf = async (bookshelf: Bookshelf) => {
     try {
         let response = await client.post("/bookshelves", bookshelf)
-        return response.status
+        return response.data
+
     } catch (error: any) {
         return error.response.status
     }
 }
 
-export const deleteBookshelf = async (resourceId: number | null) => {
+export const deleteBookshelf = async (id?: number) => {
     try {
-        let response = await client.delete("/bookshelves/" + resourceId)
-        return response.status
+        let response = await client.delete("/bookshelves/" + id)
+        console.log(response);
+
     } catch (error) {
-        return error
+        console.error(error);
+
     }
 }
 
-export const editBookshelf = async (resourceId: number | null, bookshelf: Bookshelf) => {
+export const editBookshelf = async (bookshelf: Bookshelf, id?: number,) => {
     try {
-        let response = await client.put("/bookshelves/" + resourceId, bookshelf)
-        return response.status
+        let response = await client.put("/bookshelves/" + id, bookshelf)
+        return response.data
     } catch (error: any) {
         return error.response.status
     }

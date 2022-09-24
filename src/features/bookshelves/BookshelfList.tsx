@@ -1,13 +1,15 @@
 import { IonLabel, IonList, IonListHeader, IonSpinner } from "@ionic/react"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setBookshelves } from "../../app/features/bookshelf/bookshelfSlice";
 import Bookshelf from "../../interface/Bookshelf"
-import { getAllBookshelves } from "../../services/BookshelfService"
+import { getAllBookshelves } from "../../services/BookshelfService";
+import BookshelfItem from "./BookshelfItem";
 
 const BookshelfList: React.FC = () => {
-    const [input, setInput] = useState<string>();
     const [loading, setLoading] = useState<boolean>(false);
-    const [bookshelfList, setbookshelfList] = useState<Bookshelf[]>();
-    const [error, setError] = useState<string>();
+    const bookshelves = useSelector((state: any) => state.bookshelf.bookshelves)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setLoading(true)
@@ -15,8 +17,8 @@ const BookshelfList: React.FC = () => {
     }, []);
 
     const initOnStart = async () => {
-        const bookshelves: any = await getAllBookshelves();
-        setbookshelfList(bookshelves)
+        const allBookshelves: Bookshelf[] = await getAllBookshelves();
+        dispatch(setBookshelves(allBookshelves))
         setLoading(false)
     }
 
@@ -29,9 +31,8 @@ const BookshelfList: React.FC = () => {
                 </IonLabel>
             </IonListHeader>
             {loading ? <IonSpinner name="bubbles" /> :
-                bookshelfList &&
-                bookshelfList.map((bookshelf: Bookshelf, index: number) => (
-                    <div key={index}>{bookshelf.name} </div>
+                bookshelves.map((bookshelf: Bookshelf) => (
+                    <BookshelfItem key={bookshelf.id} bookshelf={bookshelf} />
                 ))
             }
         </IonList>
