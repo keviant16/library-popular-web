@@ -1,5 +1,5 @@
-import { Route } from 'react-router-dom';
-import { IonApp, IonHeader, IonItem, IonLabel, IonRouterOutlet, IonThumbnail, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { Redirect, Route } from 'react-router-dom';
+import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -26,46 +26,77 @@ import './theme/typography.css';
 
 import Books from './pages/Books';
 import Dashboard from './pages/Dashboard';
-import Cart from './pages/Cart';
-import library_logo from './assets/logos/library-logo.svg';
+import Cart from './pages/Booking';
 import Reservations from './pages/dashboards/Reservations';
 import Tags from './pages/dashboards/Tags';
-import Sections from './pages/dashboards/Sections';
-
+import Sections from './pages/dashboards/BookshelfDashboard';
+import Inventory from './pages/dashboards/Inventory';
+import { book, cart, home, logIn, logOut, person, statsChart } from 'ionicons/icons';
+import AddBook from './pages/dashboards/AddBook';
+import Booking from './pages/Booking';
+import BookshelfDashboard from './pages/dashboards/BookshelfDashboard';
 
 setupIonicReact();
 
-
-
 const App: React.FC = () => (
   <IonApp>
-    <IonHeader>
-      <IonToolbar>
-        <IonItem>
-          <IonThumbnail slot="start">
-            <img src={library_logo} alt="" />
-          </IonThumbnail>
-          <IonLabel>
-            <h1>
-              Librairie Populaire
-            </h1>
-          </IonLabel>
-        </IonItem>
-        <IonTitle>
-        </IonTitle>
-      </IonToolbar>
-    </IonHeader>
+    <IonMenu contentId='main'>
+      <IonHeader>
+        <IonToolbar color="primary">
+          <IonTitle>
+            Menu
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      <IonContent>
+        <IonMenuToggle auto-hide="false">
+          <IonList>
+            <IonItem button routerLink='/accueil'>
+              <IonIcon slot='start' color='secondary' icon={home} />
+              <IonLabel>Accueil</IonLabel>
+            </IonItem>
+            <IonItem button routerLink="/livres">
+              <IonIcon slot='start' color='secondary' icon={book} />
+              <IonLabel>Rechercher un livre</IonLabel>
+            </IonItem>
+            <IonItem button routerLink="/panier">
+              <IonIcon slot='start' color='secondary' icon={cart} />
+              <IonLabel>Panier</IonLabel>
+            </IonItem>
+            <IonItem button>
+              <IonIcon icon={logIn} slot='start' color='secondary' />
+              <IonLabel>Connexion</IonLabel>
+            </IonItem>
+            <IonItem button routerLink='/tableau-de-bord'>
+              <IonIcon color='secondary' slot='start' icon={statsChart} />
+              <IonLabel>Tableau de board</IonLabel>
+            </IonItem>
+
+            <IonItem button routerLink='/'>
+              <IonIcon color='secondary' slot='start' icon={person} />
+              <IonLabel>Profil</IonLabel>
+            </IonItem>
+            <IonItem button routerLink='/'>
+              <IonIcon color='secondary' slot='start' icon={logOut} />
+              <IonLabel>Déconnexion</IonLabel>
+            </IonItem>
+          </IonList>
+        </IonMenuToggle>
+      </IonContent>
+    </IonMenu>
 
     <IonReactRouter>
       <IonRouterOutlet id='main'>
         <Route exact path="/accueil" component={Home} />
         <Route exact path="/livres" component={Books} />
-        <Route exact path="/panier" component={Cart} />
+        <Route exact path="/panier" component={Booking} />
         <Route exact path="/tableau-de-bord" component={Dashboard} />
-        <Route exact path="/tableau-de-bord/sections" component={Sections} />
-        {/* <Route exact path="/tableau-de-bord/livres" component={Books} /> */}
+        <Route exact path="/tableau-de-bord/étagères" component={BookshelfDashboard} />
+        <Route exact path="/tableau-de-bord/livres" component={Inventory} />
         <Route exact path="/tableau-de-bord/tags" component={Tags} />
         <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
+        <Redirect exact from="/" to="/accueil" />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

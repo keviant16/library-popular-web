@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">library-popular-web</string>
+    <string name="title_activity_main">library-popular-web</string>
+    <string name="package_name">com.keviant.library</string>
+    <string name="custom_url_scheme">com.keviant.library</string>
+</resources>

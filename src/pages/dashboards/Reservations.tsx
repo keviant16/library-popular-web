@@ -1,22 +1,12 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonPage } from '@ionic/react';
+import { Header } from '../../components/Header';
 
 const Reservations: React.FC = () => {
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Blank</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">Reservations</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonToolbar>
-                    <IonTitle size="large">Dashboard Reservations</IonTitle>
-                </IonToolbar>
+            <Header />
+            <IonContent>
+
             </IonContent>
         </IonPage>
     );
