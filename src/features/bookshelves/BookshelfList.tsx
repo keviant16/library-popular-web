@@ -22,8 +22,6 @@ const BookshelfList: React.FC = () => {
         initOnStart()
     }, [dispatch]);
 
-
-
     return (
         <IonList>
             <IonListHeader>
