@@ -2,8 +2,9 @@ import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterBookshelf, updateBookshelf } from "../../app/features/bookshelf/bookshelfSlice";
+import { filterBookshelf, setBookshelves, updateBookshelf } from "../../app/features/bookshelf/bookshelfSlice";
 import Bookshelf from "../../interface/Bookshelf"
+import { getAllbooks } from "../../services/BookService";
 import { deleteBookshelf, editBookshelf } from "../../services/BookshelfService";
 
 interface BookshelfProps {
@@ -17,6 +18,11 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
     const [error, setError] = useState<string>();
     const [presentAlert] = useIonAlert();
     const dispatch = useDispatch()
+
+    const updateBookshelves = async () => {
+        const response: Bookshelf[] = await getAllbooks();
+        dispatch(setBookshelves(response))
+    }
 
     const handleChange = (e: any) => {
         setInput(e.detail.value!)
@@ -49,10 +55,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
     }
 
     const editOnOnClick = async () => {
-        if (!input) {
-            setError("Le champs est vide")
-            return
-        }
+        if (!input) return setError("Le champs est vide")
 
         setLoading(true)
         const value = { id: props.bookshelf.id, name: input }
@@ -61,29 +64,28 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
         if (response === 409) {
             setError("La étagère " + input + " existe déjà.")
             setLoading(false)
-
         } else if (typeof response !== "number") {
-            dispatch(updateBookshelf(response))
+            await updateBookshelves()
+            setEditing(!editing)
         } else {
             console.error("unhandle error" + response);
         }
 
-        setEditing(!editing)
         setLoading(false)
     }
 
     const deleteBookshelfOnClick = async (id?: number) => {
         setLoading(true)
         await deleteBookshelf(id);
-        dispatch(filterBookshelf(props.bookshelf))
+        await updateBookshelves()
         setLoading(false)
     }
 
     const toogleEditOnClick = async () => {
         setEditing(!editing)
         setInput(props.bookshelf.name);
+        setError("")
     }
-
 
     return (
         <IonItem>
