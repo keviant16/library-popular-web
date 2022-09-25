@@ -18,10 +18,7 @@ export const TagSlice = createSlice({
     initialState: initialState,
     reducers: {
         pushTag: (state, action: PayloadAction<Tag>) => {
-            return {
-                ...state,
-                tags: [...state.tags, action.payload]
-            }
+            state.tags = [...state.tags, action.payload]
         },
         setTags: (state, action: PayloadAction<Tag[]>) => {
             state.tags = action.payload

@@ -1,7 +1,6 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonListHeader, IonNote, IonRadio, IonRadioGroup, IonRange, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
 import { RefObject, useEffect, useState } from 'react';
 import GoogleBook from '../../interface/GoogleBook';
-import Section from '../../interface/Section';
 import Tag from '../../interface/Tag';
 import { getAllBookshelves } from '../../services/BookshelfService';
 
@@ -13,7 +12,6 @@ interface BookFormProps {
 }
 
 const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
-    const [sectionList, setSectionList] = useState<Section[]>([]);
     const [tagList, setTagList] = useState<Tag[]>([]);
     const [loading, setLoading] = useState<boolean>();
     const [error, setError] = useState<string>("");
@@ -62,7 +60,7 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
     }
 
     function handleSectionChange(e: any) {
-        const currentSection: Section | undefined = sectionList.find((value) => (value.label === e));
+        // const currentSection: Section | undefined = sectionList.find((value) => (value.label === e));
         // props.book.section = currentSection
     }
 
@@ -77,7 +75,7 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
 
     async function initBookshelvesList() {
         const bookshelves: any = await getAllBookshelves();
-        setSectionList(bookshelves)
+        // setSectionList(bookshelves)
     }
 
 
@@ -142,9 +140,9 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                         <h3>Section :</h3>
                                     </IonLabel>
                                     <IonSelect placeholder="Histoire" onIonChange={(e) => handleSectionChange(e.detail.value)}>
-                                        {sectionList.map((value, index) => (
+                                        {/* {sectionList.map((value, index) => (
                                             <IonSelectOption key={index} value={value.label}>{value.label}</IonSelectOption>
-                                        ))}
+                                        ))} */}
                                     </IonSelect>
                                 </IonItem>
                                 <IonItem>
