@@ -8,14 +8,14 @@ export default interface Book {
     subtitle?: string
     publisher?: string
     publishedDate?: string
+    image?: string
     isbn: string
-    pageCount?: 0
+    pageCount?: number
     price: number
-    qty: number
-    description: string
+    description?: string
     authors: Author[]
-    tags: Tag[],
-    bookshelf: Bookshelf
+    tags?: Tag[],
+    bookshelf?: Bookshelf
 }
 
 

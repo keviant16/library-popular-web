@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterBookshelf, setBookshelves, updateBookshelf } from "../../app/features/bookshelf/bookshelfSlice";
+import { setBookshelves } from "../../app/features/bookshelf/bookshelfSlice";
 import Bookshelf from "../../interface/Bookshelf"
 import { getAllbooks } from "../../services/BookService";
 import { deleteBookshelf, editBookshelf } from "../../services/BookshelfService";

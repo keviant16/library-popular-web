@@ -1,14 +1,14 @@
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonListHeader, IonNote, IonRadio, IonRadioGroup, IonRange, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
 import { RefObject, useEffect, useState } from 'react';
+import Book from '../../interface/Book';
 import GoogleBook from '../../interface/GoogleBook';
 import Tag from '../../interface/Tag';
 import { getAllBookshelves } from '../../services/BookshelfService';
-
 import { getAllTags } from '../../services/TagService';
 
 interface BookFormProps {
     modal: RefObject<HTMLIonModalElement>,
-    book: GoogleBook
+    book: any
 }
 
 const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {

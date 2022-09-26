@@ -2,8 +2,9 @@ import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
 import { Header } from '../../components/Header';
 import AddModal from '../../components/AddModal';
 import BookshelfList from '../../features/bookshelves/BookshelfList';
+import { add } from 'ionicons/icons';
 
-const BookshelfDashboard: React.FC = () => {
+const Bookshelf: React.FC = () => {
 
     return (
         <IonPage>
@@ -16,11 +17,11 @@ const BookshelfDashboard: React.FC = () => {
                         </IonCol>
                     </IonRow>
                 </IonGrid>
-                <AddModal view="bookshelf" />
+                <AddModal view="bookshelf" icon={add} />
             </IonContent>
         </IonPage>
     )
 }
 
-export default BookshelfDashboard;
+export default Bookshelf;
 

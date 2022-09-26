@@ -1,8 +1,8 @@
 import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner, useIonAlert } from "@ionic/react"
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { filterTag, setTags, updateTag } from "../../app/features/tag/tagSlice";
+import { useDispatch } from "react-redux";
+import { setTags } from "../../app/features/tag/tagSlice";
 import Tag from "../../interface/Tag";
 import { deleteTag, editTag, getAllTags } from "../../services/TagService";
 
