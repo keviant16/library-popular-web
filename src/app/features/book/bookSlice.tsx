@@ -1,39 +1,41 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import Bookshelf from '../../../interface/Bookshelf'
+import Book from '../../../interface/Book'
 
-interface BookshelfState {
-    bookshelves: Bookshelf[]
+interface BookState {
+    books: Book[]
 }
 
 const checkId = (changeId?: number, currentID?: number,) => {
     return changeId === currentID
 }
 
-const initialState: BookshelfState = {
-    bookshelves: []
+const initialState: BookState = {
+    books: []
 }
 
-export const bookshelfSlice = createSlice({
-    name: 'bookshelf',
+export const bookSlice = createSlice({
+    name: 'book',
     initialState: initialState,
     reducers: {
-        pushBookshelf: (state, action: PayloadAction<Bookshelf>) => {
-            state.bookshelves = [...state.bookshelves, action.payload]
+        pushBook: (state, action: PayloadAction<Book>) => {
+            state.books = [...state.books, action.payload]
         },
-        setBookshelves: (state, action: PayloadAction<Bookshelf[]>) => {
-            state.bookshelves = action.payload
+        setBooks: (state, action: PayloadAction<Book[]>) => {
+            state.books = action.payload
         },
-        filterBookshelf: (state, action: PayloadAction<Bookshelf>) => {
-            state.bookshelves = state.bookshelves.filter((bookshelf => bookshelf.name !== action.payload.name))
+        filterBook: (state, action: PayloadAction<Book>) => {
+            state.books = state.books.filter((book => book.id !== action.payload.id))
         },
-        updateBookshelf: (state, action: PayloadAction<Bookshelf>) => {
-            const copyBookshelves = [...state.bookshelves]
-            const index = copyBookshelves.findIndex((value) => checkId(action.payload.id, value.id))
-            copyBookshelves[index].name = action.payload.name
+        updateBook: (state, action: PayloadAction<Book>) => {
+            const copyBooks = [...state.books]
+            const index = copyBooks.findIndex((value) => checkId(action.payload.id, value.id))
+            copyBooks[index].bookshelf = action.payload.bookshelf
+            copyBooks[index].price = action.payload.price
+            copyBooks[index].tags = action.payload.tags
         },
     }
 })
 
-export const { pushBookshelf, setBookshelves, filterBookshelf, updateBookshelf } = bookshelfSlice.actions
+export const { pushBook, setBooks, filterBook, updateBook } = bookSlice.actions
 
-export default bookshelfSlice.reducer
+export default bookSlice.reducer

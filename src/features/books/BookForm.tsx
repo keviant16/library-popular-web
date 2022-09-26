@@ -1,6 +1,7 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
 import { RefObject, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { pushBook } from '../../app/features/book/bookSlice';
 import { setBookshelves } from '../../app/features/bookshelf/bookshelfSlice';
 import { setTags } from '../../app/features/tag/tagSlice';
 import Author from '../../interface/Author';
@@ -37,7 +38,8 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
         if (!props.book.bookshelf || !props.book.price) return
 
         setLoading(true)
-        await addBook(props.book)
+        const response: Book = await addBook(props.book)
+        dispatch(pushBook(response))
         setLoading(false)
         props.modal.current?.dismiss()
     }
