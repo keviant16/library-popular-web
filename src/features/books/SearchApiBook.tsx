@@ -23,7 +23,6 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
     const handleApiBookCall = async () => {
         if (searchText.length < 10 && searchText.length > 13) return setBookList([]);
         if (searchText.length === 11 || searchText.length === 12) return setBookList([]);
-        console.log("call");
 
         let response = await getGoogleBooksByCodeIsbn(searchText)
 
