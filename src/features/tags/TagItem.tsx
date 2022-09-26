@@ -1,10 +1,10 @@
 import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner, useIonAlert } from "@ionic/react"
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateTag } from "../../app/features/tag/tagSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { filterTag, setTags, updateTag } from "../../app/features/tag/tagSlice";
 import Tag from "../../interface/Tag";
-import { deleteTag, editTag } from "../../services/TagService";
+import { deleteTag, editTag, getAllTags } from "../../services/TagService";
 
 interface TagItemProps {
     tag: Tag,
@@ -17,47 +17,12 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
     const [presentAlert] = useIonAlert();
     const dispatch = useDispatch()
 
+    const updateTags = async () => {
+        const response: Tag[] = await getAllTags();
+        dispatch(setTags(response))
+    }
+
     const handleChange = (e: any) => {
-        setInput(e.detail.value!)
-        setError("")
-    }
-
-    const deleteOnClick = async (id?: number) => {
-        setLoading(true)
-        await deleteTag(id);
-        setLoading(false)
-    }
-
-
-    const editOnClick = async () => {
-        if (!input) {
-            setError("Le champs est vide")
-            return
-        }
-
-        setLoading(true)
-        const value = { id: props.tag.id, name: input, qty: props.tag.qty }
-        const response: any = await editTag(value, props.tag.id);
-
-        if (response === 409) {
-            setError("Le tag " + input + " existe déjà.")
-            setLoading(false)
-        } else if (typeof response !== "number") {
-            dispatch(updateTag(response))
-        } else {
-            console.error("unhandle error" + response);
-        }
-
-        setEditing(!editing)
-        setLoading(false)
-    }
-
-    const toogleEditOnClick = async () => {
-        setEditing(!editing)
-        setInput(props.tag.name);
-    }
-
-    const handleOnChange = (e: any) => {
         setInput(e.detail.value!)
         setError("")
     }
@@ -87,13 +52,46 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
         })
     }
 
+    const editOnClick = async () => {
+        if (!input) return setError("Le champs est vide")
+
+        setLoading(true)
+        const value = { id: props.tag.id, name: input, qty: props.tag.qty }
+        const response: any = await editTag(value, props.tag.id);
+
+        if (response === 409) {
+            setError("Le tag " + input + " existe déjà.")
+            setLoading(false)
+        } else if (typeof response !== "number") {
+            await updateTags()
+            setEditing(!editing)
+        } else {
+            console.error("unhandle error" + response);
+        }
+
+        setLoading(false)
+    }
+
+    const deleteOnClick = async (id?: number) => {
+        setLoading(true)
+        await deleteTag(id);
+        await updateTags()
+        setLoading(false)
+    }
+
+    const toogleEditOnClick = async () => {
+        setEditing(!editing)
+        setInput(props.tag.name);
+        setError("")
+    }
+
     return (
         <IonItem>
             {loading ? <IonSpinner name="bubbles" /> : editing ?
                 <>
                     <IonInput
                         value={input}
-                        onIonChange={(e) => handleOnChange(e)}
+                        onIonChange={(e) => handleChange(e)}
                         clearInput />
                     {error &&
                         <IonLabel slot="error" color={"danger"}>{error}</IonLabel>

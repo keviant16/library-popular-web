@@ -17,7 +17,6 @@ const BookshelfList: React.FC = () => {
             dispatch(setBookshelves(allBookshelves))
             setLoading(false)
         }
-
         setLoading(true)
         initOnStart()
     }, [dispatch]);

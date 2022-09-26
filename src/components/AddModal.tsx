@@ -3,6 +3,7 @@ import { add } from "ionicons/icons";
 import React from "react";
 import { useRef } from "react";
 import BookshelfAddForm from "../features/bookshelves/BookshelfAddForm";
+import TagAddForm from "../features/tags/TagAddForm";
 
 interface AddModalProps {
     view: string
@@ -21,6 +22,9 @@ const AddModal: React.FC<AddModalProps> = (props: AddModalProps) => {
             <IonModal ref={modal} trigger="open-modal">
                 {props.view === "bookshelf" &&
                     <IonNav root={() => <BookshelfAddForm modal={modal} />} ></IonNav>
+                }
+                {props.view === "tag" &&
+                    <IonNav root={() => <TagAddForm modal={modal} />} ></IonNav>
                 }
             </IonModal>
         </React.Fragment >

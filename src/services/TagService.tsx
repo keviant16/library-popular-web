@@ -4,7 +4,7 @@ import { client } from "./clients/Instance"
 export const addTag = async (tag: Tag) => {
     try {
         let response = await client.post("/tags", tag)
-        return response.status
+        return response.data
     } catch (error: any) {
         return error.response.status
     }
@@ -13,16 +13,16 @@ export const addTag = async (tag: Tag) => {
 export const deleteTag = async (id?: number) => {
     try {
         let response = await client.delete("/tags/" + id)
-        return response.status
+        console.log(response);
     } catch (error) {
-        return error
+        console.error(error);
     }
 }
 
 export const editTag = async (tag: Tag, id?: number,) => {
     try {
         let response = await client.put("/tags/" + id, tag)
-        return response.status
+        return response.data
     } catch (error: any) {
         return error.response.status
     }
@@ -33,6 +33,6 @@ export const getAllTags = async () => {
         let response = await client.get("/tags")
         return response.data
     } catch (error: any) {
-        return error.response.status
+        console.error(error);
     }
 }
