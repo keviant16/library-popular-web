@@ -96,11 +96,9 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
                     {error &&
                         <IonLabel slot="error" color={"danger"}>{error}</IonLabel>
                     }
-                </>
-                :
+                </> :
                 <IonLabel>
-                    <h2>{props.tag.name} </h2>
-                    <p>{"(" + props.tag.qty + ")"}</p>
+                    <h2>{props.tag.name + " (" + props.tag.qty + ")"} </h2>
                 </IonLabel>
             }
 

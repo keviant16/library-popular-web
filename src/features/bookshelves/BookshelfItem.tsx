@@ -58,7 +58,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
         if (!input) return setError("Le champs est vide")
 
         setLoading(true)
-        const value = { id: props.bookshelf.id, name: input }
+        const value: Bookshelf = { id: props.bookshelf.id, name: input, qty: props.bookshelf.qty }
         const response: any = await editBookshelf(value, props.bookshelf.id);
 
         if (response === 409) {
@@ -101,7 +101,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
                 </>
                 :
                 <IonLabel>
-                    <h2>{props.bookshelf.name}</h2>
+                    <h2>{props.bookshelf.name + " (" + props.bookshelf.qty + ")"}</h2>
                 </IonLabel>
             }
 

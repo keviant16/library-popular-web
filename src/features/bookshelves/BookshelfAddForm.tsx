@@ -42,7 +42,7 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
     const handleClick = async () => {
         isEmpty()
         setLoading(true)
-        const bookshelf: Bookshelf = { name: input };
+        const bookshelf: Bookshelf = { name: input, qty: 0 };
         const response: number | Bookshelf = await addBookshelf(bookshelf);
         setLoading(false)
         handleResponse(response)
@@ -59,7 +59,6 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-
                 <IonList>
                     <IonItem>
                         <IonInput
