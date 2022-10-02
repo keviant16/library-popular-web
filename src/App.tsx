@@ -54,18 +54,22 @@ const App: React.FC = () => (
               <IonIcon slot='start' color='secondary' icon={home} />
               <IonLabel>Accueil</IonLabel>
             </IonItem>
+
             <IonItem button routerLink="/livres">
               <IonIcon slot='start' color='secondary' icon={book} />
               <IonLabel>Rechercher un livre</IonLabel>
             </IonItem>
+
             <IonItem button routerLink="/panier">
               <IonIcon slot='start' color='secondary' icon={cart} />
               <IonLabel>Panier</IonLabel>
             </IonItem>
+
             <IonItem button>
               <IonIcon icon={logIn} slot='start' color='secondary' />
               <IonLabel>Connexion</IonLabel>
             </IonItem>
+
             <IonItem button routerLink='/tableau-de-bord'>
               <IonIcon color='secondary' slot='start' icon={statsChart} />
               <IonLabel>Tableau de board</IonLabel>
