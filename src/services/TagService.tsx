@@ -4,25 +4,25 @@ import { client } from "./clients/Instance"
 export const addTag = async (tag: Tag) => {
     try {
         let response = await client.post("/tags", tag)
-        return response.status
+        return response.data
     } catch (error: any) {
         return error.response.status
     }
 }
 
-export const deleteTag = async (resourceId: number | null) => {
+export const deleteTag = async (id?: number) => {
     try {
-        let response = await client.delete("/tags/" + resourceId)
-        return response.status
+        let response = await client.delete("/tags/" + id)
+        console.log(response);
     } catch (error) {
-        return error
+        console.error(error);
     }
 }
 
-export const editTag = async (resourceId: number | null, tag: Tag) => {
+export const editTag = async (tag: Tag, id?: number,) => {
     try {
-        let response = await client.put("/tags/" + resourceId, tag)
-        return response.status
+        let response = await client.put("/tags/" + id, tag)
+        return response.data
     } catch (error: any) {
         return error.response.status
     }
@@ -31,9 +31,8 @@ export const editTag = async (resourceId: number | null, tag: Tag) => {
 export const getAllTags = async () => {
     try {
         let response = await client.get("/tags")
-
-        return response.data._embedded.tags
+        return response.data
     } catch (error: any) {
-        return error.response.status
+        console.error(error);
     }
 }

@@ -1,11 +1,10 @@
-import { IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonIcon, IonPage, IonRow } from '@ionic/react';
-import { add } from 'ionicons/icons';
+import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
+import { add, } from 'ionicons/icons';
+import AddModal from '../../components/AddModal';
 import { Header } from '../../components/Header';
-import AddBookModal from '../../features/books/AddBookModal';
 import BookList from '../../features/books/BookList';
 
-
-const Inventory: React.FC = () => {
+const Stock: React.FC = () => {
     return (
         <IonPage>
             <Header />
@@ -17,10 +16,10 @@ const Inventory: React.FC = () => {
                         </IonCol>
                     </IonRow>
                 </IonGrid>
-                <AddBookModal />
+                <AddModal view="book" icon={add} />
             </IonContent>
         </IonPage>
     );
 };
 
-export default Inventory;
+export default Stock;

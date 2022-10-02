@@ -1,15 +1,15 @@
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonInput, IonLabel, IonList, IonItem, IonSpinner } from "@ionic/react"
 import { RefObject, useState } from "react"
 import { useDispatch } from "react-redux"
-import { pushBookshelf } from "../../app/features/bookshelf/bookshelfSlice"
-import Bookshelf from "../../interface/Bookshelf"
-import { addBookshelf } from "../../services/BookshelfService"
+import { pushTag } from "../../app/features/tag/tagSlice"
+import Tag from "../../interface/Tag"
+import { addTag } from "../../services/TagService"
 
 interface BookshelfAddFormProps {
     modal: RefObject<HTMLIonModalElement>
 }
 
-const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFormProps) => {
+const TagAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFormProps) => {
     const [input, setInput] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
@@ -27,12 +27,12 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
         }
     }
 
-    const handleResponse = (response: number | Bookshelf) => {
+    const handleResponse = (response: number | Tag) => {
         if (response === 409) {
-            setError("L'étagère " + input + " existe déjà.")
+            setError("Le tag " + input + " existe déjà.")
 
         } else if (typeof response !== "number") {
-            dispatch(pushBookshelf(response))
+            dispatch(pushTag(response))
 
         } else {
             console.error("unhandle error :" + response);
@@ -42,8 +42,8 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
     const handleClick = async () => {
         isEmpty()
         setLoading(true)
-        const bookshelf: Bookshelf = { name: input, qty: 0 };
-        const response: number | Bookshelf = await addBookshelf(bookshelf);
+        const value: Tag = { name: input, qty: 0 };
+        const response: number | Tag = await addTag(value);
         setLoading(false)
         handleResponse(response)
     }
@@ -63,7 +63,7 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
                     <IonItem>
                         <IonInput
                             value={input}
-                            placeholder="Ajouter une nouvelle section ici ..."
+                            placeholder="Ajouter un nouveau tag ici ..."
                             onIonChange={(e) => handleChange(e)} />
                         {error &&
                             <IonLabel slot="error" color={"danger"}>{error}</IonLabel>
@@ -83,4 +83,4 @@ const BookshelfAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFo
         </>
     )
 }
-export default BookshelfAddForm
+export default TagAddForm;

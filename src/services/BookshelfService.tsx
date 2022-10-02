@@ -19,7 +19,6 @@ export const deleteBookshelf = async (id?: number) => {
 
     } catch (error) {
         console.error(error);
-
     }
 }
 

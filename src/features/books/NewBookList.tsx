@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonIcon, IonImg, IonItem, IonLabel, IonRow, IonThumbnail } from "@ionic/react"
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonImg, IonRow } from "@ionic/react"
 
 const NewBookList: React.FC = () => {
 

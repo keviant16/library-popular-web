@@ -1,6 +1,5 @@
 import { IonButton, IonButtons, IonIcon, IonItem, IonLabel } from "@ionic/react"
 import { pencil, trash } from "ionicons/icons"
-import Section from "../interface/Section"
 
 interface ItemProps {
     resourceId: number,

@@ -3,9 +3,8 @@
 .section-image {
     border-radius: 25px;
     box-shadow: 0 5px 10px gray;
+    padding: 10px;
 }
-
-
 
 body.scanner-active {
     --background: transparent;

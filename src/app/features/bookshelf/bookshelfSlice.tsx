@@ -18,10 +18,7 @@ export const bookshelfSlice = createSlice({
     initialState: initialState,
     reducers: {
         pushBookshelf: (state, action: PayloadAction<Bookshelf>) => {
-            return {
-                ...state,
-                bookshelves: [...state.bookshelves, action.payload]
-            }
+            state.bookshelves = [...state.bookshelves, action.payload]
         },
         setBookshelves: (state, action: PayloadAction<Bookshelf[]>) => {
             state.bookshelves = action.payload
