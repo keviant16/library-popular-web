@@ -9,6 +9,8 @@ import BookItem from "./BookItem";
 const BookList = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const books = useSelector((state: any) => state.book.books)
+    console.log(books);
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -31,9 +33,10 @@ const BookList = () => {
             </IonListHeader>
             {loading ? <IonSpinner name="bubbles" /> :
                 books.map((book: Book) => (
-                    <BookItem key={book.id} book={book} />
-                ))}
-        </IonList >
+                    <BookItem key={book.id} book={book} editable={true} />
+                ))
+            }
+        </IonList>
     )
 }
 

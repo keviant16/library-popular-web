@@ -16,7 +16,7 @@ const AddModal: React.FC<AddModalProps> = (props: AddModalProps) => {
     return (
         <React.Fragment>
             <IonFab id="open-modal" vertical="bottom" horizontal="end" slot="fixed">
-                <IonFabButton >
+                <IonFabButton>
                     <IonIcon icon={props.icon} />
                 </IonFabButton>
             </IonFab>

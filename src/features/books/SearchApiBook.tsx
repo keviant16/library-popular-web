@@ -1,6 +1,5 @@
 import { IonItem, IonLabel, IonButton, IonList, IonThumbnail, IonImg, IonNavLink, IonSearchbar, IonListHeader, IonContent, IonButtons, IonHeader, IonToolbar, IonTitle } from "@ionic/react"
 import React, { RefObject, useEffect, useState } from "react"
-import Author from "../../interface/Author";
 import Book from "../../interface/Book";
 import GoogleBook from "../../interface/GoogleBook";
 import { getGoogleBooksByCodeIsbn } from "../../services/BookAPIService";
@@ -27,19 +26,12 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
         let response = await getGoogleBooksByCodeIsbn(searchText)
 
         if (!response.hasOwnProperty("items")) return setBookList([])
-        console.log(response.items);
         const bookArray: Book[] = response.items.map((item: GoogleBook) => googleBookItemToBook(item))
         setBookList(bookArray)
     }
 
     const googleBookItemToBook = (item: GoogleBook): Book | undefined => {
         if (item.volumeInfo === undefined) return undefined
-
-        const authorArray: Author[] = []
-        item.volumeInfo.authors.forEach((value => {
-            const authorObj: Author = { name: value }
-            authorArray.push(authorObj)
-        }))
 
         return {
             title: item.volumeInfo.title,
@@ -51,7 +43,9 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
             pageCount: item.volumeInfo.pageCount,
             price: 0.50,
             description: item.volumeInfo.description,
-            authors: authorArray,
+            authorsName: item.volumeInfo.authors,
+            tagsName: [],
+            bookshelfName: ""
         }
     }
 
@@ -67,8 +61,13 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
             </IonHeader>
             <IonContent className="ion-padding">
                 <p style={{ paddingLeft: 8 }}>Entrer le code isbn</p>
-                <IonSearchbar debounce={250} placeholder='ex : 9782253136460' value={searchText} onIonChange={e => setSearchText(e.detail.value!)} showCancelButton="focus"></IonSearchbar>
-
+                <IonSearchbar
+                    debounce={250}
+                    placeholder='ex : 9782253136460'
+                    value={searchText}
+                    onIonChange={e => setSearchText(e.detail.value!)}
+                    showCancelButton="focus"
+                />
                 <IonList>
                     <IonListHeader>
                         <h4>Résultats pour {searchText} : {bookList?.length}</h4>

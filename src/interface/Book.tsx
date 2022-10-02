@@ -1,7 +1,3 @@
-import Author from "./Author"
-import Bookshelf from "./Bookshelf"
-import Tag from "./Tag"
-
 export default interface Book {
     id?: number
     title: string
@@ -13,9 +9,9 @@ export default interface Book {
     pageCount?: number
     price: number
     description?: string
-    authors: Author[]
-    tags?: Tag[],
-    bookshelf?: Bookshelf
+    authorsName: string[]
+    tagsName: string[],
+    bookshelfName: string
 }
 
 

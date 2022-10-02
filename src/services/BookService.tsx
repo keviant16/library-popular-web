@@ -4,9 +4,9 @@ import Book from "../interface/Book"
 export const addBook = async (book: Book) => {
     try {
         let response = await client.post("/books", book)
-        return response.status
+        console.log(response);
     } catch (error: any) {
-        return error.response.status
+        console.error(error);
     }
 }
 
@@ -19,12 +19,12 @@ export const deleteBook = async (resourceId: number | null) => {
     }
 }
 
-export const editBook = async (resourceId: number | null, book: Book) => {
+export const editBook = async (book: Book, id?: number) => {
     try {
-        let response = await client.put("/books/" + resourceId, book)
-        return response.status
+        let response = await client.put("/books/" + id, book)
+        console.log(response);
     } catch (error: any) {
-        return error.response.status
+        console.error(error);
     }
 }
 
@@ -34,6 +34,5 @@ export const getAllbooks: any = async () => {
         return response.data
     } catch (error: any) {
         console.error(error);
-
     }
 }

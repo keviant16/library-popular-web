@@ -2,15 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Book from '../../../interface/Book'
 
 interface BookState {
-    books: Book[]
-}
-
-const checkId = (changeId?: number, currentID?: number,) => {
-    return changeId === currentID
+    books: Book[],
+    bookForm: any
 }
 
 const initialState: BookState = {
-    books: []
+    books: [],
+    bookForm: {}
 }
 
 export const bookSlice = createSlice({
@@ -26,16 +24,17 @@ export const bookSlice = createSlice({
         filterBook: (state, action: PayloadAction<Book>) => {
             state.books = state.books.filter((book => book.id !== action.payload.id))
         },
-        updateBook: (state, action: PayloadAction<Book>) => {
-            const copyBooks = [...state.books]
-            const index = copyBooks.findIndex((value) => checkId(action.payload.id, value.id))
-            copyBooks[index].bookshelf = action.payload.bookshelf
-            copyBooks[index].price = action.payload.price
-            copyBooks[index].tags = action.payload.tags
+        initBookForm: (state, action: PayloadAction<any>) => {
+            state.bookForm = action.payload
         },
+        setBookForm: (state, action: PayloadAction<any>) => {
+            const name = action.payload.name
+            const value = action.payload.value
+            state.bookForm = { ...state.bookForm, [name]: value }
+        }
     }
 })
 
-export const { pushBook, setBooks, filterBook, updateBook } = bookSlice.actions
+export const { pushBook, setBooks, filterBook, setBookForm, initBookForm } = bookSlice.actions
 
 export default bookSlice.reducer

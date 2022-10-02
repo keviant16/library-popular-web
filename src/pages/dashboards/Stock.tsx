@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
 import { add, } from 'ionicons/icons';
 import AddModal from '../../components/AddModal';
 import { Header } from '../../components/Header';

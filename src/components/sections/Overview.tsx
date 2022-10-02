@@ -6,7 +6,7 @@ const Overview: React.FC = () => {
     return (
         <IonGrid>
             <IonRow className="ion-padding ion-justify-content-center">
-                <IonCol size="12" sizeSm="5">
+                <IonCol size="12" sizeSm="5" >
                     <h1>Bienvenue visiteur et bénévole !</h1>
                     <h2>- La librairie bénévole ouvre son site </h2>
                     <p>Grâce à ce site, vous aurez la possibilité de rechercher un livre présent dans la librairie et de les réserver.</p>
@@ -22,7 +22,7 @@ const Overview: React.FC = () => {
                     <img src={library_picture} alt="book-library" className="section-image" />
                 </IonCol>
             </IonRow>
-        </IonGrid>
+        </IonGrid >
     );
 };
 
