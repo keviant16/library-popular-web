@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterBookshelf, setBookshelves, updateBookshelf } from "../../app/features/bookshelf/bookshelfSlice";
+import { setBookshelves } from "../../app/features/bookshelf/bookshelfSlice";
 import Bookshelf from "../../interface/Bookshelf"
 import { getAllbooks } from "../../services/BookService";
 import { deleteBookshelf, editBookshelf } from "../../services/BookshelfService";
@@ -58,7 +58,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
         if (!input) return setError("Le champs est vide")
 
         setLoading(true)
-        const value = { id: props.bookshelf.id, name: input }
+        const value: Bookshelf = { id: props.bookshelf.id, name: input, qty: props.bookshelf.qty }
         const response: any = await editBookshelf(value, props.bookshelf.id);
 
         if (response === 409) {
@@ -101,7 +101,7 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
                 </>
                 :
                 <IonLabel>
-                    <h2>{props.bookshelf.name}</h2>
+                    <h2>{props.bookshelf.name + " (" + props.bookshelf.qty + ")"}</h2>
                 </IonLabel>
             }
 

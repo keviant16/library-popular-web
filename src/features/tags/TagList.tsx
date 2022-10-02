@@ -1,4 +1,4 @@
-import { IonList, IonListHeader, IonLabel, IonItem, IonInput, IonButton, IonIcon, IonSpinner } from "@ionic/react";
+import { IonList, IonListHeader, IonLabel, IonSpinner } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTags } from "../../app/features/tag/tagSlice";

@@ -1,11 +1,8 @@
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonInput, IonLabel, IonList, IonItem, IonSpinner } from "@ionic/react"
 import { RefObject, useState } from "react"
 import { useDispatch } from "react-redux"
-import { pushBookshelf } from "../../app/features/bookshelf/bookshelfSlice"
 import { pushTag } from "../../app/features/tag/tagSlice"
-import Bookshelf from "../../interface/Bookshelf"
 import Tag from "../../interface/Tag"
-import { addBookshelf } from "../../services/BookshelfService"
 import { addTag } from "../../services/TagService"
 
 interface BookshelfAddFormProps {

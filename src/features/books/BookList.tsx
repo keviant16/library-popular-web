@@ -1,43 +1,27 @@
-import { IonList, IonListHeader, IonLabel } from "@ionic/react"
+import { IonList, IonListHeader, IonLabel, IonSpinner } from "@ionic/react"
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setBooks } from "../../app/features/book/bookSlice";
 import Book from "../../interface/Book";
 import { getAllbooks } from "../../services/BookService";
+import BookItem from "./BookItem";
 
 const BookList = () => {
-    const [input, setInput] = useState<string>();
-    const [loading, setLoading] = useState(false);
-    const [bookList, setBookList] = useState<Book[]>([]);
-    const [error, setError] = useState<string>();
-    const [bookItems, setBookItems] = useState<Book[]>();
+    const [loading, setLoading] = useState<boolean>(false);
+    const books = useSelector((state: any) => state.book.books)
+    console.log(books);
 
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        setLoading(true)
-        initBookList()
-    }, []);
-
-    const initBookList = async () => {
-        const bookResponse: any = await getAllbooks();
-        setBookList(bookResponse)
-        setLoading(false)
-    }
-
-    const addSectionOnClick = async () => {
-        if (!input) {
-            setError("Le champs est vide")
-            return
+        const initOnStart = async () => {
+            const response: Book[] = await getAllbooks();
+            dispatch(setBooks(response))
+            setLoading(false)
         }
-
         setLoading(true)
-
-        // await addBook(newBook);
-        initBookList()
-    }
-
-    const handleOnChange = (e: any) => {
-        setInput(e.detail.value!)
-        setError("")
-    }
+        initOnStart()
+    }, [dispatch]);
 
     return (
         <IonList>
@@ -47,37 +31,12 @@ const BookList = () => {
                     <p>D'Ici vous pouvez ajouter, modifer et supprimer un livre de la librairie</p>
                 </IonLabel>
             </IonListHeader>
-            {/* <IonItem>
-                <IonLabel position="stacked">Enter le code barre de votre livre</IonLabel>
-                <IonInput
-                    value={input}
-                    placeholder="ex: 2700232704"
-                    onIonChange={(e) => handleOnChange(e)} />
-                {error &&
-                    <IonLabel slot="error" color={"danger"}>{error}</IonLabel>
-                }
-                <IonButton
-                    slot="end"
-                    color={"primary"}
-                    fill="solid"
-                    routerLink='/tableau-de-bord/livres'
-                >
-                    <IonIcon slot="icon-only" icon={add} />
-                </IonButton>
-            </IonItem> */}
-
-            {/* {
-                loading ? <IonSpinner name="bubbles" /> :
-                    bookList.map((book: Book) => (
-                        <>book item</>
-                        // <SectionItem
-                        //     key={section.resourceId}
-                        //     section={section}
-                        //     callback={initBookList}
-                        // />
-                    ))
-            } */}
-        </IonList >
+            {loading ? <IonSpinner name="bubbles" /> :
+                books.map((book: Book) => (
+                    <BookItem key={book.id} book={book} editable={true} />
+                ))
+            }
+        </IonList>
     )
 }
 

@@ -4,6 +4,7 @@ import Book from "../../interface/Book";
 import GoogleBook from "../../interface/GoogleBook";
 import { getGoogleBooksByCodeIsbn } from "../../services/BookAPIService";
 import BookForm from "./BookForm";
+import BookItem from "./BookItem";
 
 interface SearchApiBookProps {
     modal: RefObject<HTMLIonModalElement>
@@ -11,57 +12,42 @@ interface SearchApiBookProps {
 
 const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) => {
     const [searchText, setSearchText] = useState<string>("");
-    const [bookList, setBookList] = useState<GoogleBook[]>();
+    const [bookList, setBookList] = useState<Book[]>();
 
     useEffect(() => {
-        if (searchText) {
-            handleApiBookCall()
-        } else {
-            setBookList([])
-        }
+        if (!searchText) return setBookList([])
+        handleApiBookCall()
     }, [searchText]);
 
-    const handleChange = (value: string) => {
-        setSearchText(value)
-    }
-
-    async function handleApiBookCall() {
-
-        if (searchText.length !== 17) {
-            return
-        }
+    const handleApiBookCall = async () => {
+        if (searchText.length < 10 && searchText.length > 13) return setBookList([]);
+        if (searchText.length === 11 || searchText.length === 12) return setBookList([]);
 
         let response = await getGoogleBooksByCodeIsbn(searchText)
 
-        if (response.hasOwnProperty("items")) {
-            console.log(response);
+        if (!response.hasOwnProperty("items")) return setBookList([])
+        const bookArray: Book[] = response.items.map((item: GoogleBook) => googleBookItemToBook(item))
+        setBookList(bookArray)
+    }
 
-            // const bookArray: Book[] = response.items.map((item: GoogleBook) => googleBookItemToBook(item))
-            setBookList(response.items)
-        } else {
-            setBookList([])
+    const googleBookItemToBook = (item: GoogleBook): Book | undefined => {
+        if (item.volumeInfo === undefined) return undefined
+
+        return {
+            title: item.volumeInfo.title,
+            subtitle: item.volumeInfo.subtitle,
+            publisher: item.volumeInfo.publisher,
+            publishedDate: item.volumeInfo.publishedDate,
+            image: item.volumeInfo.imageLinks?.thumbnail,
+            isbn: searchText,
+            pageCount: item.volumeInfo.pageCount,
+            price: 0.50,
+            description: item.volumeInfo.description,
+            authorsName: item.volumeInfo.authors,
+            tagsName: [],
+            bookshelfName: ""
         }
     }
-
-    function googleBookItemToBook(item: GoogleBook): Book | undefined {
-        const volumeInfo = item.volumeInfo
-
-        if (volumeInfo === undefined) return undefined
-
-        // return {
-        //     isbn: volumeInfo.industryIdentifiers,
-        //     title: volumeInfo.title,
-        //     subtitle: volumeInfo.subtitle,
-        //     description: volumeInfo.description,
-        //     publisher: volumeInfo.publisher,
-        //     publishedDate: volumeInfo.publishedDate,
-        //     pageCount: volumeInfo.pageCount,
-        //     imageLink: volumeInfo.imageLinks,
-        //     authors: volumeInfo.authors,
-        // }
-    }
-
-
 
     return (
         <>
@@ -75,33 +61,26 @@ const SearchApiBook: React.FC<SearchApiBookProps> = (props: SearchApiBookProps) 
             </IonHeader>
             <IonContent className="ion-padding">
                 <p style={{ paddingLeft: 8 }}>Entrer le code isbn</p>
-                <IonSearchbar debounce={250} placeholder='ex : 978-2-253-13646-0' value={searchText} onIonChange={e => handleChange(e.detail.value!)} showCancelButton="focus"></IonSearchbar>
-
+                <IonSearchbar
+                    debounce={250}
+                    placeholder='ex : 9782253136460'
+                    value={searchText}
+                    onIonChange={e => setSearchText(e.detail.value!)}
+                    showCancelButton="focus"
+                />
                 <IonList>
                     <IonListHeader>
                         <h4>Résultats pour {searchText} : {bookList?.length}</h4>
                     </IonListHeader>
-                    {bookList?.map((book: GoogleBook, index: number) => {
-                        console.log(book)
-                        return (
-                            <IonNavLink key={index} routerDirection="forward" component={() => <BookForm book={book} modal={props.modal} />}>
-                                <IonItem button>
-                                    <IonThumbnail slot="start">
-                                        <IonImg
-                                            alt={"couverture-du-livre" + book.volumeInfo.title}
-                                            src={book.volumeInfo.imageLinks?.smallThumbnail ? book.volumeInfo.imageLinks.smallThumbnail : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"}
-                                        />
-                                    </IonThumbnail>
-                                    <IonLabel>
-                                        <h2>{book.volumeInfo.title}</h2>
-                                        <p>{book.volumeInfo.authors && book.volumeInfo.authors.map((author: string, idx: number) => idx < book.volumeInfo.authors.length - 1 ? author + ", " : author)}</p>
-                                    </IonLabel>
-                                </IonItem>
-                            </IonNavLink>
-                        )
-                    })}
-
-
+                    {bookList?.map((book: Book, index: number) => (
+                        <IonNavLink
+                            key={index}
+                            routerDirection="forward"
+                            component={() => <BookForm book={book} modal={props.modal} />}
+                        >
+                            <BookItem book={book} />
+                        </IonNavLink>
+                    ))}
                 </IonList>
             </IonContent>
         </>
