@@ -24,10 +24,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         const jwtToken = await login(loginForm);
         if (!jwtToken) return handle_error("incorrect_credentials");
         localStorage.setItem("jwtToken", jwtToken)
-
-        const jwt_content = jwt_decode(jwtToken);
-        const auth_has = define_auth_has_by_roles(jwt_content)
-        dispatch(set_auth_has(auth_has))
+        get_roles_from_token(jwtToken)
 
         setLoading(false)
         history.push('/tableau-de-bord')
@@ -41,14 +38,14 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         setLoading(false)
     }
 
-    const define_auth_has_by_roles = (jwt_content: any) => {
-        const hasAdmin = jwt_content.roles.find((role: any) => role.authority === "ADMIN") ? true : false
-        const hasVolunteer = jwt_content.roles.find((role: any) => role.authority === "VOLUNTEER") ? true : false
+    const get_roles_from_token = (jwtToken: any) => {
+        const jwt_content: any = jwt_decode(jwtToken);
 
-        return {
-            admin: hasAdmin,
-            volunteer: hasVolunteer
-        }
+        const isAdmin = jwt_content.roles.find((role: any) => role.authority === "ADMIN") ? "ADMIN" : ""
+        const isVolunteer = jwt_content.roles.find((role: any) => role.authority === "VOLUNTEER") ? "VOLUNTEER" : ""
+
+        localStorage.setItem("isAdmin", isAdmin)
+        localStorage.setItem("isVolunteer", isVolunteer)
     }
 
     const handle_change = (e: IonInputCustomEvent<InputChangeEventDetail>) => {
