@@ -33,6 +33,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import './theme/styles.css';
 import './theme/typography.css';
+import Login from './pages/Login';
 
 setupIonicReact();
 
@@ -65,7 +66,7 @@ const App: React.FC = () => (
               <IonLabel>Panier</IonLabel>
             </IonItem>
 
-            <IonItem button>
+            <IonItem button routerLink="/connexion">
               <IonIcon icon={logIn} slot='start' color='secondary' />
               <IonLabel>Connexion</IonLabel>
             </IonItem>
@@ -93,6 +94,7 @@ const App: React.FC = () => (
         <Route exact path="/accueil" component={Home} />
         <Route exact path="/livres" component={Books} />
         <Route exact path="/panier" component={Booking} />
+        <Route exact path="/connexion" component={Login} />
         <Route exact path="/tableau-de-bord" component={Dashboard} />
         <Route exact path="/tableau-de-bord/étagères" component={Bookshelf} />
         <Route exact path="/tableau-de-bord/livres" component={Stock} />

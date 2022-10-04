@@ -183,15 +183,21 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                     </IonSelect>
                                 </IonItem>
                                 {props.editable ?
-                                    loading ? <IonSpinner name="bubbles" /> : <>
-                                        <IonButton expand="full" onClick={addOrEditBookOnClick}>
-                                            Editer
-                                        </IonButton>
-                                        <IonButton color={"danger"} expand="full">
-                                            Retirer
-                                        </IonButton>
-                                    </> :
-                                    loading ? <IonSpinner name="bubbles" /> :
+                                    loading ?
+                                        <IonSpinner name="bubbles" />
+                                        :
+                                        <>
+                                            <IonButton expand="full" onClick={addOrEditBookOnClick}>
+                                                Editer
+                                            </IonButton>
+                                            <IonButton color={"danger"} expand="full">
+                                                Retirer
+                                            </IonButton>
+                                        </>
+                                    :
+                                    loading ?
+                                        <IonSpinner name="bubbles" />
+                                        :
                                         <IonButton expand="full" onClick={addOrEditBookOnClick}>
                                             Ajouter
                                         </IonButton>
