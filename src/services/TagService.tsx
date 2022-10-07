@@ -12,8 +12,7 @@ export const addTag = async (tag: Tag) => {
 
 export const deleteTag = async (id?: number) => {
     try {
-        let response = await client.delete("/tags/" + id)
-        console.log(response);
+        await client.delete("/tags/" + id)
     } catch (error) {
         console.error(error);
     }

@@ -5,7 +5,7 @@ const NewBookList: React.FC = () => {
     return (
         <IonGrid >
             <IonRow className="ion-justify-content-center">
-                <IonCol size="12" sizeSm="10">
+                <IonCol size="12" sizeSm="12">
                     <h1>Nouveautés !</h1>
                     <p>Voici la liste des livres ajoutées cette semaine.</p>
                 </IonCol>

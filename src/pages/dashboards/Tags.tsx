@@ -4,11 +4,12 @@ import AddModal from '../../components/AddModal';
 import { Header } from '../../components/Header';
 import TagList from '../../features/tags/TagList';
 const Tags: React.FC = () => {
+
     return (
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid fixed >
+                <IonGrid fixed>
                     <IonRow>
                         <IonCol>
                             <TagList />

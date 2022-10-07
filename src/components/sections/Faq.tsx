@@ -1,18 +1,17 @@
 import { IonAccordionGroup, IonCol, IonGrid, IonRow } from "@ionic/react";
 import Accordion from "../Accordion";
 
-
 const Faq: React.FC = () => {
     return (
         <IonGrid fixed>
             <IonRow className="ion-justify-content-center">
-                <IonCol size="12" sizeSm="10">
+                <IonCol size="12">
                     <h1>FAQ</h1>
                     <p>Retrouvez les réponses au questions les plus communes que vous pouvez avoir.</p>
                 </IonCol>
             </IonRow>
             <IonRow className="ion-justify-content-center">
-                <IonCol size="12" sizeSm="5">
+                <IonCol size="12" sizeSm="6">
                     <IonAccordionGroup>
                         <Accordion
                             value={"first"}
@@ -31,7 +30,7 @@ const Faq: React.FC = () => {
                         />
                     </IonAccordionGroup>
                 </IonCol>
-                <IonCol size="12" sizeSm="5">
+                <IonCol size="12" sizeSm="6">
                     <IonAccordionGroup>
                         <Accordion
                             value={"first"}

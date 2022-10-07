@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Tag from '../../../interface/Tag'
+import { checkId } from '../../../utils/Utils'
 
 interface TagState {
     tags: Tag[]
 }
 
-const checkId = (changeId?: number, currentID?: number,) => {
-    return changeId === currentID
-}
+
 
 const initialState: TagState = {
     tags: []

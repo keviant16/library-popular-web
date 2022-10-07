@@ -1,12 +1,24 @@
-@import './variables.css';
+ @import './variables.css';
 
-.section-image {
-    border-radius: 25px;
-    box-shadow: 0 5px 10px gray;
-    padding: 10px;
-}
+ .section-image {
+     border-radius: 25px;
+     box-shadow: 0 5px 10px gray;
+     padding: 10px;
+ }
 
-body.scanner-active {
-    --background: transparent;
-    --ion-background-color: transparent;
-}
+ .blue {
+     background-color: var(--ion-color-primary-tint);
+ }
+
+ .red {
+     background-color: var(--ion-color-secondary-tint);
+ }
+
+ .book-blue {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     overflow: hidden;
+     line-height: 0;
+ }

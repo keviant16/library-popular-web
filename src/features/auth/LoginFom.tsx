@@ -1,18 +1,23 @@
 import { IonInputCustomEvent } from "@ionic/core";
-import { IonItem, IonLabel, IonInput, IonList, IonButton, InputChangeEventDetail, IonSpinner, IonListHeader } from "@ionic/react";
+import { IonItem, IonLabel, IonInput, IonList, IonButton, InputChangeEventDetail, IonSpinner } from "@ionic/react";
 import { FunctionComponent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { set_auth_has, set_login_form } from "../../app/features/auth/authSlice";
-import { login } from "../../services/AuthService";
+import { set_is_admim, set_is_auth, set_is_volunteer } from "../../app/features/auth/authSlice";
+import { login } from "../../services/CredentialService";
 import jwt_decode from "jwt-decode";
 
 interface LoginFormProps { }
 
+const initiaState = {
+    uid: "",
+    password: ""
+}
+
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
     const [loading, setLoading] = useState<boolean>(false);
+    const [loginForm, setLoginForm] = useState(initiaState);
     const [error, setError] = useState<string>("");
-    const loginForm = useSelector((state: any) => state.auth.loginForm)
     const history = useHistory();
     const dispatch = useDispatch()
 
@@ -23,10 +28,11 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
         const jwtToken = await login(loginForm);
         if (!jwtToken) return handle_error("incorrect_credentials");
-        localStorage.setItem("jwtToken", jwtToken)
-        get_roles_from_token(jwtToken)
 
+        localStorage.setItem("jwtToken", jwtToken)
+        store_roles(jwtToken)
         setLoading(false)
+
         history.push('/tableau-de-bord')
     }
 
@@ -38,27 +44,29 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         setLoading(false)
     }
 
-    const get_roles_from_token = (jwtToken: any) => {
+    const store_roles = (jwtToken: any) => {
         const jwt_content: any = jwt_decode(jwtToken);
-
-        const isAdmin = jwt_content.roles.find((role: any) => role.authority === "ADMIN") ? "ADMIN" : ""
-        const isVolunteer = jwt_content.roles.find((role: any) => role.authority === "VOLUNTEER") ? "VOLUNTEER" : ""
-
+        const isAdmin: string | boolean = jwt_content.roles.find((role: any) => role.authority === "ADMIN") ? "ADMIN" : ""
+        const isVolunteer: string | boolean = jwt_content.roles.find((role: any) => role.authority === "VOLUNTEER") ? "VOLUNTEER" : ""
         localStorage.setItem("isAdmin", isAdmin)
         localStorage.setItem("isVolunteer", isVolunteer)
+
+        if (isAdmin) dispatch(set_is_admim(true))
+        if (isVolunteer) dispatch(set_is_volunteer(true))
+        dispatch(set_is_auth(true))
+
+        return isAdmin
     }
 
     const handle_change = (e: IonInputCustomEvent<InputChangeEventDetail>) => {
-        const eventName = e.target.name
-        const eventValue = e.detail.value
-        dispatch(set_login_form({ name: eventName, value: eventValue }))
+        setLoginForm(prev => ({ ...prev, [e.target.name]: e.detail.value }))
         setError("")
     }
 
     return (
-        <IonList style={{ border: "" }}>
+        <IonList>
             <IonItem>
-                <IonLabel>Uid : </IonLabel>
+                <IonLabel>Identifiant : </IonLabel>
                 <IonInput type="text" value={loginForm.uid} onIonChange={(e) => handle_change(e)} name="uid" />
             </IonItem>
 
@@ -81,12 +89,3 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 }
 
 export default LoginForm;
-
-{/* <IonItem>
-<IonCheckbox slot="start" />
-<IonLabel>Role admin</IonLabel>
-</IonItem>
-<IonItem>
-<IonCheckbox slot="start" />
-<IonLabel>Role bénévole</IonLabel>
-</IonItem> */}

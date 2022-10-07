@@ -1,7 +1,7 @@
 import { IonFab, IonFabButton, IonIcon, IonModal, IonNav } from "@ionic/react";
-import { add } from "ionicons/icons";
 import React from "react";
 import { useRef } from "react";
+import RegisterForm from "../features/auth/RegisterForm";
 import SearchApiBook from "../features/books/SearchApiBook";
 import BookshelfAddForm from "../features/bookshelves/BookshelfAddForm";
 import TagAddForm from "../features/tags/TagAddForm";
@@ -29,6 +29,9 @@ const AddModal: React.FC<AddModalProps> = (props: AddModalProps) => {
                 }
                 {props.view === "book" &&
                     <IonNav root={() => <SearchApiBook modal={modal} />} ></IonNav>
+                }
+                {props.view === "credential" &&
+                    <IonNav root={() => <RegisterForm modal={modal} />} ></IonNav>
                 }
             </IonModal>
         </React.Fragment >

@@ -1,6 +1,7 @@
-import { IonItem, IonThumbnail, IonImg, IonLabel, IonModal } from "@ionic/react";
+import { IonItem, IonThumbnail, IonImg, IonLabel, IonModal, IonChip } from "@ionic/react";
 import { useRef } from "react";
 import Book from "../../interface/Book";
+import { handleStatusChipColor, handleStatusValue } from "../../utils/Utils";
 import BookForm from "./BookForm";
 
 
@@ -9,7 +10,11 @@ interface BookItemProps {
     editable?: boolean
 }
 
+
+
 const BookItem: React.FC<BookItemProps> = (props: BookItemProps) => {
+
+
     const modal = useRef<HTMLIonModalElement>(null);
 
     return (
@@ -22,11 +27,35 @@ const BookItem: React.FC<BookItemProps> = (props: BookItemProps) => {
                     />
                 </IonThumbnail>
                 <IonLabel>
-                    <h2>{props.book.title}</h2>
-                    <p>{props.book.authorsName && props.book.authorsName.map((authorName: string, idx: number) => idx < props.book.authorsName.length - 1 ? authorName + ", " : authorName)}</p>
+                    <h3>{props.book.title}</h3>
+
+                    <p>
+                        {props.book.authors &&
+                            props.book.authors.map((authorName: string, idx: number) =>
+                                idx < props.book.authors.length - 1 ? authorName + ", " : authorName)
+                        }
+                    </p>
+
+                    {props.book.bookshelf &&
+                        <p>Etagère : {props.book.bookshelf}</p>
+                    }
+
+                    <p>{props.book.status &&
+                        <IonChip color={handleStatusChipColor(props.book.status)}>
+                            {handleStatusValue(props.book.status)}
+                        </IonChip>
+                    }
+                        {props.book.tags && props.book.tags.length > 0 &&
+                            props.book.tags.map((tags: string, idx: number) => < IonChip key={idx} > {tags}</IonChip>)
+                        }
+                    </p>
+                </IonLabel>
+                <IonLabel slot="end">
+                    {props.book.price && <p>{props.book.price} €</p>}
                 </IonLabel>
             </IonItem>
-            {props.editable &&
+            {
+                props.editable &&
                 <IonModal ref={modal} trigger={"open-modal-" + props.book.id}>
                     <BookForm modal={modal} book={props.book} editable={props.editable} />
                 </IonModal>

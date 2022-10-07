@@ -20,32 +20,17 @@ const TagAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFormProp
         setError("")
     }
 
-    const isEmpty = () => {
-        if (!input) {
-            setError("Le champs est vide")
-            return
-        }
-    }
-
-    const handleResponse = (response: number | Tag) => {
-        if (response === 409) {
-            setError("Le tag " + input + " existe déjà.")
-
-        } else if (typeof response !== "number") {
-            dispatch(pushTag(response))
-
-        } else {
-            console.error("unhandle error :" + response);
-        }
-    }
-
     const handleClick = async () => {
-        isEmpty()
+        if (!input) return setError("Le champs est vide")
         setLoading(true)
-        const value: Tag = { name: input, qty: 0 };
-        const response: number | Tag = await addTag(value);
+
+        const new_tag: Tag = { name: input, qty: 0 };
+        const response_tag_or_status: number | Tag = await addTag(new_tag);
         setLoading(false)
-        handleResponse(response)
+
+        if (response_tag_or_status === 409) return setError("Le tag " + input + " existe déjà.")
+        if (typeof response_tag_or_status === "number") return setError("error" + response_tag_or_status)
+        dispatch(pushTag(response_tag_or_status))
     }
 
     return (
@@ -61,23 +46,29 @@ const TagAddForm: React.FC<BookshelfAddFormProps> = (props: BookshelfAddFormProp
             <IonContent className="ion-padding">
                 <IonList>
                     <IonItem>
+                        <IonLabel>Nom du tag: </IonLabel>
                         <IonInput
                             value={input}
                             placeholder="Ajouter un nouveau tag ici ..."
-                            onIonChange={(e) => handleChange(e)} />
-                        {error &&
-                            <IonLabel slot="error" color={"danger"}>{error}</IonLabel>
-                        }
+                            onIonChange={(e) => handleChange(e)}
+                        />
+
                         <IonButton
                             onClick={handleClick}
                             slot="end"
                             color={"primary"}
                             expand="full"
                             size="default"
-                            fill="solid">
+                            fill="solid"
+                        >
                             {loading ? <IonSpinner name="bubbles" /> : "Ajouter"}
                         </IonButton>
                     </IonItem>
+                    {error &&
+                        <IonItem>
+                            <IonLabel slot="error" color={"danger"}>{error}</IonLabel>
+                        </IonItem>
+                    }
                 </IonList>
             </IonContent>
         </>

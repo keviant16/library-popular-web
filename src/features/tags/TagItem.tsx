@@ -2,9 +2,9 @@ import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setTags } from "../../app/features/tag/tagSlice";
+import { filterTag, updateTag } from "../../app/features/tag/tagSlice";
 import Tag from "../../interface/Tag";
-import { deleteTag, editTag, getAllTags } from "../../services/TagService";
+import { deleteTag, editTag } from "../../services/TagService";
 
 interface TagItemProps {
     tag: Tag,
@@ -16,11 +16,6 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
     const [error, setError] = useState<string>();
     const [presentAlert] = useIonAlert();
     const dispatch = useDispatch()
-
-    const updateTags = async () => {
-        const response: Tag[] = await getAllTags();
-        dispatch(setTags(response))
-    }
 
     const handleChange = (e: any) => {
         setInput(e.detail.value!)
@@ -36,15 +31,11 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
                 {
                     text: 'Annuler',
                     role: 'cancel',
-                    handler: () => {
-                        //cancel
-                    },
                 },
                 {
                     text: 'Confirmer',
                     role: 'confirm',
                     handler: () => {
-                        //confirm
                         deleteOnClick(props.tag.id)
                     },
                 },
@@ -54,28 +45,22 @@ const TagItem: React.FC<TagItemProps> = (props: TagItemProps) => {
 
     const editOnClick = async () => {
         if (!input) return setError("Le champs est vide")
-
         setLoading(true)
-        const value = { id: props.tag.id, name: input, qty: props.tag.qty }
-        const response: any = await editTag(value, props.tag.id);
 
-        if (response === 409) {
-            setError("Le tag " + input + " existe déjà.")
-            setLoading(false)
-        } else if (typeof response !== "number") {
-            await updateTags()
-            setEditing(!editing)
-        } else {
-            console.error("unhandle error" + response);
-        }
-
+        const current_tag = { id: props.tag.id, name: input, qty: props.tag.qty }
+        const ressponse_tag_or_status: any = await editTag(current_tag, props.tag.id);
         setLoading(false)
+        setEditing(!editing)
+
+        if (ressponse_tag_or_status === 409) return setError("Le tag " + input + " existe déjà.")
+        if (typeof ressponse_tag_or_status === "number") return setError("error" + ressponse_tag_or_status)
+        dispatch(updateTag(ressponse_tag_or_status))
     }
 
     const deleteOnClick = async (id?: number) => {
         setLoading(true)
         await deleteTag(id);
-        await updateTags()
+        dispatch(filterTag(props.tag))
         setLoading(false)
     }
 

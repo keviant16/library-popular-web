@@ -1,5 +1,4 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
-import Footer from '../components/Footer';
 import { Header } from '../components/Header';
 import About from '../components/sections/About';
 import Faq from '../components/sections/Faq';
@@ -12,19 +11,20 @@ const Home: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid>
-          <IonRow>
+
+          <IonRow className='blue'>
             <IonCol>
               <Overview />
             </IonCol>
           </IonRow>
 
-          <IonRow>
+          <IonRow >
             <IonCol>
               <NewBookList />
             </IonCol>
           </IonRow>
 
-          <IonRow>
+          <IonRow className='red'>
             <IonCol>
               <About />
             </IonCol>
@@ -35,12 +35,6 @@ const Home: React.FC = () => {
               <Faq />
             </IonCol>
           </IonRow>
-
-          {/* <IonRow>
-            <IonCol>
-              <Footer />
-            </IonCol>
-          </IonRow> */}
 
         </IonGrid>
       </IonContent>

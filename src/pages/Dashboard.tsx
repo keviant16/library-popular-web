@@ -1,7 +1,11 @@
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonPage, IonRow } from '@ionic/react';
+import { IonCol, IonContent, IonGrid, IonItem, IonLabel, IonPage, IonRow } from '@ionic/react';
+import { useSelector } from 'react-redux';
+import DashboardCard from '../components/DashboardCard';
 import { Header } from '../components/Header';
 
 const Dashboard: React.FC = () => {
+    const { is_volunteer, is_admin } = useSelector((state: any) => state.auth)
+
     return (
         <IonPage>
             <Header />
@@ -11,155 +15,100 @@ const Dashboard: React.FC = () => {
                         <IonCol>
                             <IonItem lines='none' >
                                 <IonLabel>
-                                    <h1>Bonjour !</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo ab tempora nostrum earum eum, nesciunt ex quos cumque ratione quasi, animi quaerat vero nemo quas beatae id modi quo consectetur.</p>
+                                    <h1>Espace {is_volunteer && "Bénévole"}  {is_volunteer && is_admin && " / "}  {is_admin && "Admin"}</h1>
                                 </IonLabel>
                             </IonItem>
                         </IonCol>
                     </IonRow>
                     <IonRow className="ion-justify-content-center">
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonCardHeader>
-                                    <IonCardSubtitle>Chiffre d'affaire du mois</IonCardSubtitle>
-                                    <IonCardTitle>10e</IonCardTitle>
-                                </IonCardHeader>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Donnations"}
+                                title={10 + " $"}
+                            />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonCardHeader>
-                                    <IonCardSubtitle>Nombre de livre vendu</IonCardSubtitle>
-                                    <IonCardTitle>100</IonCardTitle>
-                                </IonCardHeader>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Livre vendu"}
+                                title={100} />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonCardHeader>
-                                    <IonCardSubtitle>Nombre de livre reserver</IonCardSubtitle>
-                                    <IonCardTitle>17</IonCardTitle>
-                                </IonCardHeader>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Livre reserver"}
+                                title={17} />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonCardHeader>
-                                    <IonCardSubtitle>Nombre de livre disponible</IonCardSubtitle>
-                                    <IonCardTitle>17</IonCardTitle>
-                                </IonCardHeader>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Livre disponible"}
+                                title={17}
+                            />
                         </IonCol>
                     </IonRow>
                     <IonRow className="ion-justify-content-center">
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonItem href='/tableau-de-bord/étagères'>
-                                    <IonCardHeader>
-                                        <IonCardSubtitle>Acces aux</IonCardSubtitle>
-                                        <IonCardTitle>
-                                            <h2>Etagères</h2>
-                                        </IonCardTitle>
-                                    </IonCardHeader>
-                                </IonItem>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Acces aux"}
+                                title={"Etagères"}
+                                href='/tableau-de-bord/étagères'
+                                type='volunteer'
+                                isRole={is_volunteer}
+                            />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonItem href='/tableau-de-bord/tags'>
-                                    <IonCardHeader>
-                                        <IonCardSubtitle>Acces aux</IonCardSubtitle>
-                                        <IonCardTitle>
-                                            <h2>Tags</h2>
-                                        </IonCardTitle>
-                                    </IonCardHeader>
-                                </IonItem>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Acces aux"}
+                                title={'Tags'}
+                                href='/tableau-de-bord/tags'
+                                type='volunteer'
+                                isRole={is_volunteer}
+                            />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonItem href='/tableau-de-bord/livres'>
-                                    <IonCardHeader>
-                                        <IonCardSubtitle>Acces aux</IonCardSubtitle>
-                                        <IonCardTitle>
-                                            <h2>Livres</h2>
-                                        </IonCardTitle>
-                                    </IonCardHeader>
-                                </IonItem>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Acces aux"}
+                                title={'Livres'}
+                                href='/tableau-de-bord/livres'
+                                type='volunteer'
+                                isRole={is_volunteer}
+                            />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <IonCard>
-                                <IonItem href='/tableau-de-bord/reservations'>
-                                    <IonCardHeader>
-                                        <IonCardSubtitle>Acces aux</IonCardSubtitle>
-                                        <IonCardTitle>
-                                            <h2>Reservations</h2>
-                                        </IonCardTitle>
-                                    </IonCardHeader>
-                                </IonItem>
-                            </IonCard>
+                            <DashboardCard
+                                subtitle={"Acces aux"}
+                                title={'Reservations'}
+                                href='/tableau-de-bord/reservations'
+                                type='volunteer'
+                                isRole={is_volunteer}
+                            />
                         </IonCol>
                     </IonRow>
                     <IonRow>
                         <IonCol size="12" sizeSm="6">
                             <IonRow>
                                 <IonCol>
-                                    <IonCard>
-                                        <IonCardHeader>
-                                            <IonCardSubtitle>card title</IonCardSubtitle>
-                                            <IonCardTitle>
-                                                <h2>Card</h2>
-                                            </IonCardTitle>
-                                        </IonCardHeader>
-                                    </IonCard>
+                                    <DashboardCard
+                                        subtitle={"Acces aux"}
+                                        title={'Identifiants'}
+                                        href='tableau-de-bord/identifiants'
+                                        type='admin'
+                                        isRole={is_admin}
+                                    />
                                 </IonCol>
                                 <IonCol>
-                                    <IonCard>
-                                        <IonCardHeader>
-                                            <IonCardSubtitle>card title</IonCardSubtitle>
-                                            <IonCardTitle>
-                                                <h2>Card</h2>
-                                            </IonCardTitle>
-                                        </IonCardHeader>
-                                    </IonCard>
+                                    <DashboardCard subtitle={"..."} title={'....'} />
                                 </IonCol>
                             </IonRow>
                             <IonRow>
                                 <IonCol>
-                                    <IonCard>
-                                        <IonCardHeader>
-                                            <IonCardSubtitle>card title</IonCardSubtitle>
-                                            <IonCardTitle>
-                                                <h2>Card</h2>
-                                            </IonCardTitle>
-                                        </IonCardHeader>
-                                    </IonCard>
+                                    <DashboardCard subtitle={"..."} title={'....'} />
                                 </IonCol>
                                 <IonCol>
-                                    <IonCard>
-                                        <IonCardHeader>
-                                            <IonCardSubtitle>card title</IonCardSubtitle>
-                                            <IonCardTitle>
-                                                <h2>Card</h2>
-                                            </IonCardTitle>
-                                        </IonCardHeader>
-                                    </IonCard>
+                                    <DashboardCard subtitle={"..."} title={'....'} />
                                 </IonCol>
                             </IonRow>
                         </IonCol>
                         <IonCol size="12" sizeSm="6">
-                            <IonCard>
-                                <IonCardHeader>
-                                    <IonCardSubtitle>card title</IonCardSubtitle>
-                                    <IonCardTitle>
-                                        <h2>Card</h2>
-                                        <h2>Card</h2>
-                                        <h2>Card</h2>
-                                        <h2>Card</h2>
-                                    </IonCardTitle>
-                                </IonCardHeader>
-                            </IonCard>
+                            <DashboardCard subtitle={"..."} title={'....'} />
                         </IonCol>
                     </IonRow>
                 </IonGrid>

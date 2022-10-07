@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const jwtToken = localStorage.getItem('jwtToken')
-console.log(jwtToken);
 
 export const client = axios.create({
     baseURL: "http://localhost:8080/api",

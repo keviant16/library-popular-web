@@ -14,9 +14,7 @@ export const addBookshelf = async (bookshelf: Bookshelf) => {
 
 export const deleteBookshelf = async (id?: number) => {
     try {
-        let response = await client.delete("/bookshelves/" + id)
-        console.log(response);
-
+        await client.delete("/bookshelves/" + id)
     } catch (error) {
         console.error(error);
     }
