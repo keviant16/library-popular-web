@@ -1,9 +1,9 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
-import { Header } from '../components/Header';
-import About from '../components/sections/About';
-import Faq from '../components/sections/Faq';
-import Overview from '../components/sections/Overview';
-import NewBookList from '../features/books/NewBookList';
+import { Header } from '../../components/Header';
+import About from './sections/About';
+import Faq from './sections/Faq';
+import Overview from './sections/Overview';
+import NewBookList from '../../features/books/NewBookList';
 
 const Home: React.FC = () => {
   return (

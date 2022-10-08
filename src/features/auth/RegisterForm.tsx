@@ -2,7 +2,7 @@ import { IonInputCustomEvent } from "@ionic/core";
 import { IonItem, IonLabel, IonInput, IonList, IonButton, InputChangeEventDetail, IonSpinner, IonSelect, IonSelectOption, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 import { FunctionComponent, RefObject, useState } from "react";
 import { useDispatch } from "react-redux";
-import { set_credentials } from "../../app/features/auth/authSlice";
+import { set_credentials } from "../../app/slice/authSlice";
 import { getAllCredentials, register } from "../../services/CredentialService";
 
 interface RegisterFormProps {

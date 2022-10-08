@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { filterTag, updateTag } from "../../app/features/tag/tagSlice";
+import { filterTag, updateTag } from "../../app/slice/tagSlice";
 import Tag from "../../interface/Tag";
 import { deleteTag, editTag } from "../../services/TagService";
 

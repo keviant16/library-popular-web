@@ -1,5 +1,5 @@
 import { IonAccordionGroup, IonCol, IonGrid, IonRow } from "@ionic/react";
-import Accordion from "../Accordion";
+import Accordion from "../../../components/Accordion";
 
 const Faq: React.FC = () => {
     return (

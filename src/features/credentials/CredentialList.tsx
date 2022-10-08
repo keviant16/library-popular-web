@@ -1,7 +1,7 @@
 import { IonList, IonListHeader, IonLabel, IonSpinner } from "@ionic/react";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { set_credentials } from "../../app/features/auth/authSlice";
+import { set_credentials } from "../../app/slice/authSlice";
 import { getAllCredentials } from "../../services/CredentialService";
 import CredentialItem from "./CredentialItem";
 

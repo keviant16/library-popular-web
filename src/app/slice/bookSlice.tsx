@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import Book from '../../../interface/Book'
-import { checkId } from '../../../utils/Utils'
+import Book from '../../interface/Book'
+import { checkId } from '../../utils/Utils'
 
 interface BookState {
     books: Book[],

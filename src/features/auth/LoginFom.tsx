@@ -3,7 +3,7 @@ import { IonItem, IonLabel, IonInput, IonList, IonButton, InputChangeEventDetail
 import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { set_is_admim, set_is_auth, set_is_volunteer } from "../../app/features/auth/authSlice";
+import { set_is_admim, set_is_auth, set_is_volunteer } from "../../app/slice/authSlice";
 import { login } from "../../services/CredentialService";
 import jwt_decode from "jwt-decode";
 

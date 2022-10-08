@@ -5,7 +5,7 @@ export const handleStatusChipColor = (status: string) => {
 
 }
 export const handleStatusValue = (status: string) => {
-    if (status === "GONE") return "Parti"
+    if (status === "GONE") return "Indisponible"
     if (status === "RESERVED") return "Reserver"
     return "Disponible"
 }

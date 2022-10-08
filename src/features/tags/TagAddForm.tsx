@@ -1,7 +1,7 @@
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonInput, IonLabel, IonList, IonItem, IonSpinner } from "@ionic/react"
 import { RefObject, useState } from "react"
 import { useDispatch } from "react-redux"
-import { pushTag } from "../../app/features/tag/tagSlice"
+import { pushTag } from "../../app/slice/tagSlice"
 import Tag from "../../interface/Tag"
 import { addTag } from "../../services/TagService"
 

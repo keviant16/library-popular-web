@@ -8,7 +8,6 @@ interface AuthState {
     is_auth: boolean,
     is_volunteer: boolean,
     is_admin: boolean,
-
     credentials: any[]
 }
 

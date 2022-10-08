@@ -2,7 +2,7 @@ import { IonButton, IonButtons, IonIcon, IonItem, IonLabel, useIonAlert } from "
 import { trash } from "ionicons/icons";
 import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
-import { set_credentials } from "../../app/features/auth/authSlice";
+import { set_credentials } from "../../app/slice/authSlice";
 import { deleteCredential, getAllCredentials } from "../../services/CredentialService";
 
 interface CredentialItemProps {

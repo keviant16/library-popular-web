@@ -1,7 +1,7 @@
 import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonLabel, IonList, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
 import { RefObject, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pushBook, updateBook, } from '../../app/features/book/bookSlice';
+import { pushBook, updateBook, } from '../../app/slice/bookSlice';
 import Book from '../../interface/Book';
 import Bookshelf from '../../interface/Bookshelf';
 import Tag from '../../interface/Tag';
@@ -34,6 +34,7 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
     }
 
     const [loading, setLoading] = useState<boolean>();
+    const [loading2, setLoading2] = useState<boolean>();
     const [error, setError] = useState<string>("");
     const [bookForm, setBookForm] = useState(initialState);
     const tags = useSelector((state: any) => state.tag.tags)
@@ -70,6 +71,24 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
             tags: bookForm.tags,
         }
         const response_book_or_status: Book | number = await editBook(current_book, props.book.id)
+        setLoading(false)
+
+        if (typeof response_book_or_status === "number") return setError("error" + response_book_or_status)
+        dispatch(updateBook(response_book_or_status))
+        props.modal.current?.dismiss()
+    }
+
+    const toogleStatusBookOnClick = async () => {
+        setLoading2(true)
+
+        const current_book: Book = {
+            ...props.book,
+            status: props.book.status === "GONE" ? "IN_STOCK" : "GONE"
+        }
+
+        const response_book_or_status: Book | number = await editBook(current_book, props.book.id)
+        setLoading(false)
+
         if (typeof response_book_or_status === "number") return setError("error" + response_book_or_status)
         dispatch(updateBook(response_book_or_status))
         props.modal.current?.dismiss()
@@ -137,11 +156,9 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                     <IonSelect name='bookshelf' value={bookForm.bookshelf}
                                         onIonChange={(e) => setBookForm(prev => ({ ...prev, bookshelf: e.detail.value }))}
                                     >
-                                        {bookshelves ? bookshelves.map((bookshelf: Bookshelf) => (
+                                        {bookshelves.map((bookshelf: Bookshelf) => (
                                             <IonSelectOption key={bookshelf.id} value={bookshelf.name}>{bookshelf.name}</IonSelectOption>
-                                        )) :
-                                            <IonSpinner name="bubbles" />
-                                        }
+                                        ))}
                                     </IonSelect>
                                 } />
 
@@ -149,11 +166,9 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                     <IonSelect multiple name="tags" value={bookForm.tags}
                                         onIonChange={(e) => setBookForm(prev => ({ ...prev, tags: e.detail.value }))}
                                     >
-                                        {tags ? tags.map((tag: Tag) => (
+                                        {tags.map((tag: Tag) => (
                                             <IonSelectOption key={tag.id} value={tag.name}>{tag.name}</IonSelectOption>
-                                        )) :
-                                            <IonSpinner name="bubbles" />
-                                        }
+                                        ))}
                                     </IonSelect>
                                 } />
 
@@ -176,8 +191,6 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                     </IonItem>
                                 }
 
-
-
                                 {props.editable ?
                                     <>
                                         <IonButton expand="full"
@@ -189,12 +202,12 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                                             {loading ? <IonSpinner name="bubbles" /> : "Editer"}
                                         </IonButton>
                                         <IonButton expand="full"
-                                            onClick={addBookOnClick}
-                                            color={"danger"}
+                                            onClick={toogleStatusBookOnClick}
+                                            color={props.book.status === "GONE" ? "success" : "danger"}
                                             size="default"
                                             fill="solid"
                                         >
-                                            {loading ? <IonSpinner name="bubbles" /> : "Retirer"}
+                                            {loading2 ? <IonSpinner name="bubbles" /> : props.book.status === "GONE" ? "Restorer" : "Retirer"}
                                         </IonButton>
                                     </>
                                     :

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import Tag from '../../../interface/Tag'
-import { checkId } from '../../../utils/Utils'
+import Tag from '../../interface/Tag'
+import { checkId } from '../../utils/Utils'
 
 interface TagState {
     tags: Tag[]

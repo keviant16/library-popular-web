@@ -1,7 +1,7 @@
 import { IonCol, IonContent, IonGrid, IonItem, IonLabel, IonPage, IonRow } from '@ionic/react';
 import { useSelector } from 'react-redux';
-import DashboardCard from '../components/DashboardCard';
-import { Header } from '../components/Header';
+import DashboardCard from '../../components/DashboardCard';
+import { Header } from '../../components/Header';
 
 const Dashboard: React.FC = () => {
     const { is_volunteer, is_admin } = useSelector((state: any) => state.auth)

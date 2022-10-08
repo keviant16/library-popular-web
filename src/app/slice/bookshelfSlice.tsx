@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import Bookshelf from '../../../interface/Bookshelf'
+import Bookshelf from '../../interface/Bookshelf'
 
 interface BookshelfState {
     bookshelves: Bookshelf[]

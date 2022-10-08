@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import bookshelfReducer from './features/bookshelf/bookshelfSlice'
-import bookReducer from './features/book/bookSlice'
-import tagReducer from './features/tag/tagSlice'
-import authReducer from './features/auth/authSlice'
+import bookshelfReducer from './slice/bookshelfSlice'
+import bookReducer from './slice/bookSlice'
+import tagReducer from './slice/tagSlice'
+import authReducer from './slice/authSlice'
 
 export default configureStore({
     reducer: {

@@ -10,7 +10,6 @@ interface DashboardCardProps {
 }
 
 const DashboardCard: FunctionComponent<DashboardCardProps> = (props: DashboardCardProps) => {
-
     const check_type_and_role = () => {
         if (props.type === "admin" && !props.isRole) return true
         if (props.type === "volunteer" && !props.isRole) return true
