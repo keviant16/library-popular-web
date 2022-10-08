@@ -11,7 +11,6 @@ export const client = axios.create({
         "Access-Control-Allow-Origin": "*",
         Accept: "*/*",
         Authorization: 'Bearer ' + jwtToken,
-        'mode': 'no-cors'
     }
 })
 

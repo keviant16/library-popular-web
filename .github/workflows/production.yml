@@ -9,7 +9,7 @@ on:
       - main
 
 jobs: 
-  Test-Preview:
+  Test-Production:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,8 +20,8 @@ jobs:
       - run: npm ci
       - run: npm test
       
-  Build-Preview:
-    needs: Test-Preview
+  Build-Production:
+    needs: Test-Production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
