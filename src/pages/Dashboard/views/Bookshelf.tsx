@@ -1,7 +1,7 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
-import { Header } from '../../components/Header';
-import AddModal from '../../components/AddModal';
-import BookshelfList from '../../features/bookshelves/BookshelfList';
+import { Header } from '../../../components/Header';
+import AddModal from '../../../components/AddModal';
+import BookshelfList from '../../../features/bookshelves/BookshelfList';
 import { add } from 'ionicons/icons';
 
 const Bookshelf: React.FC = () => {

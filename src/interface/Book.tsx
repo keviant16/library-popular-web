@@ -7,11 +7,13 @@ export default interface Book {
     image?: string
     isbn: string
     pageCount?: number
-    price: number
+    price?: number
     description?: string
-    authorsName: string[]
-    tagsName: string[],
-    bookshelfName: string
+    authors: string[]
+    tags: string[],
+    bookshelf: string
+    status?: string,
+    donatedMoney?: number
 }
 
 

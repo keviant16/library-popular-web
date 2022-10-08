@@ -25,6 +25,7 @@
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "ionicons": "^6.0.3",
+    "jwt-decode": "^3.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^8.0.4",
@@ -51,7 +52,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

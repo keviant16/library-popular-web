@@ -1,7 +1,7 @@
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonInput, IonLabel, IonList, IonItem, IonSpinner } from "@ionic/react"
 import { RefObject, useState } from "react"
 import { useDispatch } from "react-redux"
-import { pushBookshelf } from "../../app/features/bookshelf/bookshelfSlice"
+import { pushBookshelf } from "../../app/slice/bookshelfSlice"
 import Bookshelf from "../../interface/Bookshelf"
 import { addBookshelf } from "../../services/BookshelfService"
 

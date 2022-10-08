@@ -1,16 +1,12 @@
-import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonItemDivider, IonItemGroup, IonLabel, IonList, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
-import { RefObject, useEffect, useState } from 'react';
+import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonLabel, IonList, IonRow, IonSelect, IonSelectOption, IonSpinner, IonTitle, IonToolbar } from '@ionic/react';
+import { RefObject, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { initBookForm, pushBook, setBookForm, setBooks } from '../../app/features/book/bookSlice';
-import { setBookshelves } from '../../app/features/bookshelf/bookshelfSlice';
-import { setTags } from '../../app/features/tag/tagSlice';
-import Author from '../../interface/Author';
+import { pushBook, updateBook, } from '../../app/slice/bookSlice';
 import Book from '../../interface/Book';
 import Bookshelf from '../../interface/Bookshelf';
 import Tag from '../../interface/Tag';
-import { addBook, editBook, getAllbooks } from '../../services/BookService';
-import { getAllBookshelves } from '../../services/BookshelfService';
-import { getAllTags } from '../../services/TagService';
+import { addBook, editBook } from '../../services/BookService';
+import { handleStatusValue } from '../../utils/Utils';
 
 interface BookFormProps {
     modal: RefObject<HTMLIonModalElement>
@@ -18,53 +14,84 @@ interface BookFormProps {
     editable?: boolean
 }
 
+
+const BookFormItem = ({ head, content, select }: any) => (
+    <IonItem>
+        <IonLabel>
+            <h3>{head} :</h3>
+            {content}
+        </IonLabel>
+        {select}
+    </IonItem>
+)
+
+
 const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
+    const initialState = {
+        bookshelf: props.book.bookshelf,
+        price: props.book.price ? props.book.price : 0.50,
+        tags: props.book.tags && props.book.tags
+    }
+
     const [loading, setLoading] = useState<boolean>();
+    const [loading2, setLoading2] = useState<boolean>();
+    const [error, setError] = useState<string>("");
+    const [bookForm, setBookForm] = useState(initialState);
     const tags = useSelector((state: any) => state.tag.tags)
-    const bookForm = useSelector((state: any) => state.book.bookForm)
     const bookshelves = useSelector((state: any) => state.bookshelf.bookshelves)
     const dispatch = useDispatch()
 
-    console.log(bookForm);
-
-    useEffect(() => {
-        const initOnStart = async () => {
-            const response1: Tag[] = await getAllTags();
-            const response2: Tag[] = await getAllBookshelves();
-            const initialBookForm = {
-                tagsName: props.book.tagsName,
-                bookshelfName: props.book.bookshelfName,
-                price: props.book.price
-            }
-
-            dispatch(setTags(response1));
-            dispatch(setBookshelves(response2));
-            dispatch(initBookForm(initialBookForm));
-        }
-        initOnStart()
-    }, []);
-
-    const addOrEditBookOnClick = async () => {
-        if (!props.book.bookshelfName || !props.book.price) return
+    const addBookOnClick = async () => {
+        if (!bookForm.bookshelf) return setError("Etagère est vide")
         setLoading(true)
 
-        if (props.editable) {
-            await editBook(props.book, props.book.id)
-        } else {
-            await addBook(props.book)
+        const new_book: Book = {
+            ...props.book,
+            price: bookForm.price,
+            bookshelf: bookForm.bookshelf,
+            tags: bookForm.tags,
+            status: "IN_STOCK",
+            donatedMoney: 0.00
         }
 
-        const response: Book[] = await getAllbooks();
-        dispatch(setBooks(response))
+        const response_book_or_status: Book | number = await addBook(new_book)
         setLoading(false)
+        if (typeof response_book_or_status === "number") return setError("error" + response_book_or_status)
+        dispatch(pushBook(response_book_or_status))
         props.modal.current?.dismiss()
     }
 
-    const updateBookFormStates = (e: any) => {
-        const name: string = e.target.name;
-        const value = e.detail.value
+    const editBookOnClick = async () => {
+        setLoading(true)
 
-        dispatch(setBookForm({ name, value }))
+        const current_book: Book = {
+            ...props.book,
+            price: bookForm.price,
+            bookshelf: bookForm.bookshelf,
+            tags: bookForm.tags,
+        }
+        const response_book_or_status: Book | number = await editBook(current_book, props.book.id)
+        setLoading(false)
+
+        if (typeof response_book_or_status === "number") return setError("error" + response_book_or_status)
+        dispatch(updateBook(response_book_or_status))
+        props.modal.current?.dismiss()
+    }
+
+    const toogleStatusBookOnClick = async () => {
+        setLoading2(true)
+
+        const current_book: Book = {
+            ...props.book,
+            status: props.book.status === "GONE" ? "IN_STOCK" : "GONE"
+        }
+
+        const response_book_or_status: Book | number = await editBook(current_book, props.book.id)
+        setLoading(false)
+
+        if (typeof response_book_or_status === "number") return setError("error" + response_book_or_status)
+        dispatch(updateBook(response_book_or_status))
+        props.modal.current?.dismiss()
     }
 
     return (
@@ -72,10 +99,13 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
             <IonHeader>
                 <IonToolbar>
                     {props.editable ?
-                        <IonTitle><h3>Modifier</h3></IonTitle> :
+                        <IonTitle>
+                            <h3>Modifier</h3>
+                        </IonTitle>
+                        :
                         <>
                             <IonButtons slot='start'>
-                                <IonBackButton ></IonBackButton>
+                                <IonBackButton></IonBackButton>
                             </IonButtons>
                             <IonTitle>
                                 <h3>2. Ajouter</h3>
@@ -97,104 +127,98 @@ const BookForm: React.FC<BookFormProps> = (props: BookFormProps) => {
                         </IonCol>
                         <IonCol sizeSm="9">
                             <IonList>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Titre :</h3>
-                                        <p>{props.book.title}</p>
-                                    </IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Auteur(s) :</h3>
-                                        <ul>
-                                            {props.book.authorsName.map((authorName: string, idx: number) => (
-                                                <li key={idx}><p>{authorName}</p></li>
-                                            ))}
-                                        </ul>
-                                    </IonLabel>
-                                </IonItem>
+                                <BookFormItem head="Titre" content={<p>{props.book.title}</p>} />
+                                <BookFormItem head="Auteur" content={
+                                    <ul>
+                                        {props.book.authors && props.book.authors.map((authorName: string, idx: number) => (
+                                            <li key={idx}><p>{authorName}</p></li>
+                                        ))}
+                                    </ul>
+                                } />
                             </IonList>
                         </IonCol>
                         <IonCol size="12" sizeSm="12">
                             <IonList>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Sous-titre :</h3>
-                                        <p>{props.book.subtitle ? props.book.subtitle : "-"}</p>
-                                    </IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Description :</h3>
-                                        <p>{props.book.description ? props.book.description : "-"}</p>
-                                    </IonLabel>
-                                </IonItem>
+                                <BookFormItem head="Sous-titre" content={<p>{props.book.subtitle ? props.book.subtitle : "-"}</p>} />
+                                <BookFormItem head="Description" content={<p>{props.book.description ? props.book.description : "-"}</p>} />
+                                <BookFormItem head="Editeur" content={<p>{props.book.publisher ? props.book.publisher : "-"}</p>} />
+                                <BookFormItem head="Date de publication " content={<p>{props.book.publishedDate ? props.book.publishedDate : "-"}</p>} />
+                                <BookFormItem head="Nombre de page" content={<p>{props.book.pageCount ? props.book.pageCount : "-"}</p>} />
 
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Editeur :</h3>
-                                        <p>{props.book.publisher ? props.book.publisher : "-"}</p>
-                                    </IonLabel>
-                                </IonItem>
+                                {props.editable &&
+                                    <>
+                                        <BookFormItem head="Argent des donnations" content={<p>{props.book.donatedMoney} €</p>} />
+                                        <BookFormItem head="Status" content={<p>{props.book.status && handleStatusValue(props.book.status)}</p>} />
+                                    </>
+                                }
 
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Date de publication :</h3>
-                                        <p>{props.book.publishedDate ? props.book.publishedDate : "-"}</p>
-                                    </IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Nombre de livre :</h3>
-                                        <p>{props.book.pageCount ? props.book.pageCount : "-"}</p>
-                                    </IonLabel>
-                                </IonItem>
-
-                                <IonItemDivider>
-                                    <IonLabel>Information à remplir</IonLabel>
-                                </IonItemDivider>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Etagère :</h3>
-                                    </IonLabel>
-                                    <IonSelect name='bookshelfName' value={bookForm.bookshelfName} onIonChange={(e) => updateBookFormStates(e)}>
-                                        {bookshelves ? bookshelves.map((bookshelf: Bookshelf) => (
+                                <BookFormItem head="Etagère" select={
+                                    <IonSelect name='bookshelf' value={bookForm.bookshelf}
+                                        onIonChange={(e) => setBookForm(prev => ({ ...prev, bookshelf: e.detail.value }))}
+                                    >
+                                        {bookshelves.map((bookshelf: Bookshelf) => (
                                             <IonSelectOption key={bookshelf.id} value={bookshelf.name}>{bookshelf.name}</IonSelectOption>
-                                        )) : <IonSpinner name="bubbles" />}
+                                        ))}
                                     </IonSelect>
-                                </IonItem>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Tags :</h3>
-                                    </IonLabel>
-                                    <IonSelect multiple name="tagsName" value={bookForm.tagsName} onIonChange={(e) => updateBookFormStates(e)}>
-                                        {tags ? tags.map((tag: Tag) => (
+                                } />
+
+                                <BookFormItem head="Tags" select={
+                                    <IonSelect multiple name="tags" value={bookForm.tags}
+                                        onIonChange={(e) => setBookForm(prev => ({ ...prev, tags: e.detail.value }))}
+                                    >
+                                        {tags.map((tag: Tag) => (
                                             <IonSelectOption key={tag.id} value={tag.name}>{tag.name}</IonSelectOption>
-                                        )) : <IonSpinner name="bubbles" />}
+                                        ))}
                                     </IonSelect>
-                                </IonItem>
-                                <IonItem>
-                                    <IonLabel>
-                                        <h3>Prix :</h3>
-                                    </IonLabel>
-                                    <IonSelect name="price" value={bookForm.price} placeholder="(en €)" onIonChange={(e) => updateBookFormStates(e)}>
+                                } />
+
+                                <BookFormItem head="Prix" select={
+                                    <IonSelect
+                                        name="price"
+                                        value={bookForm.price}
+                                        placeholder="(en €)"
+                                        onIonChange={(e) => setBookForm(prev => ({ ...prev, price: e.detail.value }))}
+                                    >
                                         <IonSelectOption value={1.00}>1.00 €</IonSelectOption>
                                         <IonSelectOption value={0.50}>0.50 €</IonSelectOption>
                                     </IonSelect>
-                                </IonItem>
+                                } />
+
+
+                                {error &&
+                                    <IonItem>
+                                        <IonLabel slot="error" color={"danger"}>{error}</IonLabel>
+                                    </IonItem>
+                                }
+
                                 {props.editable ?
-                                    loading ? <IonSpinner name="bubbles" /> : <>
-                                        <IonButton expand="full" onClick={addOrEditBookOnClick}>
-                                            Editer
+                                    <>
+                                        <IonButton expand="full"
+                                            onClick={editBookOnClick}
+                                            color={"primary"}
+                                            size="default"
+                                            fill="solid"
+                                        >
+                                            {loading ? <IonSpinner name="bubbles" /> : "Editer"}
                                         </IonButton>
-                                        <IonButton color={"danger"} expand="full">
-                                            Retirer
+                                        <IonButton expand="full"
+                                            onClick={toogleStatusBookOnClick}
+                                            color={props.book.status === "GONE" ? "success" : "danger"}
+                                            size="default"
+                                            fill="solid"
+                                        >
+                                            {loading2 ? <IonSpinner name="bubbles" /> : props.book.status === "GONE" ? "Restorer" : "Retirer"}
                                         </IonButton>
-                                    </> :
-                                    loading ? <IonSpinner name="bubbles" /> :
-                                        <IonButton expand="full" onClick={addOrEditBookOnClick}>
-                                            Ajouter
-                                        </IonButton>
+                                    </>
+                                    :
+                                    <IonButton expand="full"
+                                        onClick={addBookOnClick}
+                                        color={"primary"}
+                                        size="default"
+                                        fill="solid"
+                                    >
+                                        {loading ? <IonSpinner name="bubbles" /> : "Ajouter"}
+                                    </IonButton>
                                 }
                             </IonList>
                         </IonCol>

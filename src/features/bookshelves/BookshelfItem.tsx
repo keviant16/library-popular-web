@@ -2,9 +2,8 @@ import { IonButton, IonButtons, IonIcon, IonInput, IonItem, IonLabel, IonSpinner
 import { checkmark, pencil, trash } from "ionicons/icons";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setBookshelves } from "../../app/features/bookshelf/bookshelfSlice";
+import { filterBookshelf, updateBookshelf } from "../../app/slice/bookshelfSlice";
 import Bookshelf from "../../interface/Bookshelf"
-import { getAllbooks } from "../../services/BookService";
 import { deleteBookshelf, editBookshelf } from "../../services/BookshelfService";
 
 interface BookshelfProps {
@@ -19,11 +18,6 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
     const [presentAlert] = useIonAlert();
     const dispatch = useDispatch()
 
-    const updateBookshelves = async () => {
-        const response: Bookshelf[] = await getAllbooks();
-        dispatch(setBookshelves(response))
-    }
-
     const handleChange = (e: any) => {
         setInput(e.detail.value!)
         setError("")
@@ -34,50 +28,39 @@ const BookshelfItem: React.FC<BookshelfProps> = (props: BookshelfProps) => {
             header: "Attention !",
             subHeader: `Etes vous sur de vouloir supprimer la section ${props.bookshelf.name} ?`,
             message: `Les livres présents dans la section ${props.bookshelf.name} se retrouvevron sans étagères`,
-            buttons: [
-                {
-                    text: 'Annuler',
-                    role: 'cancel',
-                    handler: () => {
-                        //cancel
-                    },
+            buttons: [{
+                text: 'Annuler',
+                role: 'cancel',
+            },
+            {
+                text: 'Confirmer',
+                role: 'confirm',
+                handler: () => {
+                    deleteBookshelfOnClick(props.bookshelf.id)
                 },
-                {
-                    text: 'Confirmer',
-                    role: 'confirm',
-                    handler: () => {
-                        //confirm
-                        deleteBookshelfOnClick(props.bookshelf.id)
-                    },
-                },
+            },
             ],
         })
     }
 
     const editOnOnClick = async () => {
         if (!input) return setError("Le champs est vide")
-
         setLoading(true)
-        const value: Bookshelf = { id: props.bookshelf.id, name: input, qty: props.bookshelf.qty }
-        const response: any = await editBookshelf(value, props.bookshelf.id);
 
-        if (response === 409) {
-            setError("La étagère " + input + " existe déjà.")
-            setLoading(false)
-        } else if (typeof response !== "number") {
-            await updateBookshelves()
-            setEditing(!editing)
-        } else {
-            console.error("unhandle error" + response);
-        }
-
+        const current_bookshelf: Bookshelf = { id: props.bookshelf.id, name: input, qty: props.bookshelf.qty }
+        const response_bookshelf_or_status: any = await editBookshelf(current_bookshelf, props.bookshelf.id);
         setLoading(false)
+        setEditing(!editing)
+
+        if (response_bookshelf_or_status === 409) return setError("Le tag " + input + " existe déjà.")
+        if (typeof response_bookshelf_or_status === "number") return setError("error" + response_bookshelf_or_status)
+        dispatch(updateBookshelf(response_bookshelf_or_status))
     }
 
     const deleteBookshelfOnClick = async (id?: number) => {
         setLoading(true)
         await deleteBookshelf(id);
-        await updateBookshelves()
+        dispatch(filterBookshelf(props.bookshelf))
         setLoading(false)
     }
 

@@ -1,17 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-
-import { book, cart, home, logIn, logOut, person, statsChart } from 'ionicons/icons';
-
-import Home from './pages/Home';
-import Books from './pages/Books';
-import Dashboard from './pages/Dashboard';
-import Reservations from './pages/dashboards/Reservations';
-import Tags from './pages/dashboards/Tags';
-import Booking from './pages/Booking';
-import Bookshelf from './pages/dashboards/Bookshelf';
-import Stock from './pages/dashboards/Stock';
+import { book, cart, home, logIn, logOut, menu, statsChart } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -34,74 +24,163 @@ import './theme/variables.css';
 import './theme/styles.css';
 import './theme/typography.css';
 
+import Login from './pages/Login';
+import { useDispatch, useSelector } from 'react-redux';
+import { set_is_admim, set_is_auth, set_is_volunteer } from './app/slice/authSlice';
+import { useEffect } from 'react';
+import Credential from './pages/Dashboard/views/Credential';
+import Home from './pages/Home/Home';
+import Books from './pages/Books';
+import Dashboard from './pages/Dashboard/Dashboard';
+import Reservations from './pages/Dashboard/views/Reservations';
+import Tags from './pages/Dashboard/views/Tags';
+import Booking from './pages/Booking';
+import BookshelfDashboad from './pages/Dashboard/views/Bookshelf';
+import Stock from './pages/Dashboard/views/Stock';
+import { getAllTags } from './services/TagService';
+import Tag from './interface/Tag';
+import { setTags } from './app/slice/tagSlice';
+import Book from './interface/Book';
+import { getAllbooks } from './services/BookService';
+import { setBooks } from './app/slice/bookSlice';
+import { getAllBookshelves } from './services/BookshelfService';
+import { setBookshelves } from './app/slice/bookshelfSlice';
+import Bookshelf from './interface/Bookshelf';
+
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonMenu contentId='main'>
-      <IonHeader>
-        <IonToolbar color="primary">
-          <IonTitle>
-            Menu
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
+const App: React.FC = () => {
+  const { is_volunteer, is_admin, is_auth } = useSelector((state: any) => state.auth)
+  const dispatch = useDispatch()
 
-      <IonContent>
-        <IonMenuToggle auto-hide="false">
-          <IonList>
-            <IonItem button routerLink='/accueil'>
-              <IonIcon slot='start' color='secondary' icon={home} />
-              <IonLabel>Accueil</IonLabel>
-            </IonItem>
+  useEffect(() => {
+    const has_token = localStorage.getItem("jwtToken") ? true : false
+    const has_admin = localStorage.getItem("isAdmin") ? true : false
+    const has_volunteer = localStorage.getItem("isVolunteer") ? true : false
 
-            <IonItem button routerLink="/livres">
-              <IonIcon slot='start' color='secondary' icon={book} />
-              <IonLabel>Rechercher un livre</IonLabel>
-            </IonItem>
+    const initStates = async () => {
+      const response_tags: Tag[] = await getAllTags();
+      const response_bookshelves: Bookshelf[] = await getAllBookshelves();
+      const response_books: Book[] = await getAllbooks();
 
-            <IonItem button routerLink="/panier">
-              <IonIcon slot='start' color='secondary' icon={cart} />
-              <IonLabel>Panier</IonLabel>
-            </IonItem>
+      dispatch(setBooks(response_books))
+      dispatch(setBookshelves(response_bookshelves))
+      dispatch(setTags(response_tags))
+    }
 
-            <IonItem button>
-              <IonIcon icon={logIn} slot='start' color='secondary' />
-              <IonLabel>Connexion</IonLabel>
-            </IonItem>
+    initStates()
+    dispatch(set_is_auth(has_token))
+    dispatch(set_is_admim(has_admin))
+    dispatch(set_is_volunteer(has_volunteer))
 
-            <IonItem button routerLink='/tableau-de-bord'>
-              <IonIcon color='secondary' slot='start' icon={statsChart} />
-              <IonLabel>Tableau de board</IonLabel>
-            </IonItem>
+  }, [dispatch]);
 
-            <IonItem button routerLink='/'>
-              <IonIcon color='secondary' slot='start' icon={person} />
-              <IonLabel>Profil</IonLabel>
-            </IonItem>
-            <IonItem button routerLink='/'>
-              <IonIcon color='secondary' slot='start' icon={logOut} />
-              <IonLabel>Déconnexion</IonLabel>
-            </IonItem>
-          </IonList>
-        </IonMenuToggle>
-      </IonContent>
-    </IonMenu>
+  return (
+    <IonApp>
+      <IonSplitPane contentId='main'>
+        <IonMenu contentId='main'>
+          <IonHeader>
+            <IonToolbar color="primary">
+              <IonButtons slot="start">
+                <IonMenuToggle>
+                  <IonButton>
+                    <IonIcon slot="icon-only" icon={menu}></IonIcon>
+                  </IonButton>
+                </IonMenuToggle>
+              </IonButtons>
+              <IonTitle>
+                Menu
+              </IonTitle>
+            </IonToolbar>
+          </IonHeader>
 
-    <IonReactRouter>
-      <IonRouterOutlet id='main'>
-        <Route exact path="/accueil" component={Home} />
-        <Route exact path="/livres" component={Books} />
-        <Route exact path="/panier" component={Booking} />
-        <Route exact path="/tableau-de-bord" component={Dashboard} />
-        <Route exact path="/tableau-de-bord/étagères" component={Bookshelf} />
-        <Route exact path="/tableau-de-bord/livres" component={Stock} />
-        <Route exact path="/tableau-de-bord/tags" component={Tags} />
-        <Route exact path="/tableau-de-bord/reservations" component={Reservations} />
-        <Redirect exact from="/" to="/accueil" />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+          <IonContent>
+            <IonMenuToggle auto-hide="false">
+              <IonList>
+                <IonItem button routerLink='/accueil'>
+                  <IonIcon slot='start' color='secondary' icon={home} />
+                  <IonLabel>Accueil</IonLabel>
+                </IonItem>
 
+                <IonItem button routerLink="/livres">
+                  <IonIcon slot='start' color='secondary' icon={book} />
+                  <IonLabel>Rechercher un livre</IonLabel>
+                </IonItem>
+
+                <IonItem button routerLink="/panier">
+                  <IonIcon slot='start' color='secondary' icon={cart} />
+                  <IonLabel>Panier</IonLabel>
+                </IonItem>
+
+                {!is_auth &&
+                  <IonItem button routerLink="/connexion">
+                    <IonIcon icon={logIn} slot='start' color='secondary' />
+                    <IonLabel>Connexion</IonLabel>
+                  </IonItem>
+                }
+
+                {is_auth &&
+                  <IonItem button routerLink='/tableau-de-bord'>
+                    <IonIcon color='secondary' slot='start' icon={statsChart} />
+                    <IonLabel>Espace {is_admin && "admin"} {is_admin && is_volunteer && "/"}  {is_volunteer && "bénévole"} </IonLabel>
+                  </IonItem>
+                }
+
+                {is_auth &&
+                  <IonItem button routerLink='/logout' >
+                    <IonIcon color='secondary' slot='start' icon={logOut} />
+                    <IonLabel>Déconnexion</IonLabel>
+                  </IonItem>
+                }
+              </IonList>
+            </IonMenuToggle>
+          </IonContent>
+        </IonMenu>
+
+        <IonReactRouter>
+          <IonRouterOutlet id='main'>
+            <Route exact path="/accueil" component={Home} />
+            <Route exact path="/livres" component={Books} />
+            <Route exact path="/panier" component={Booking} />
+            <Route exact path="/connexion" component={Login} />
+
+            <Route exact path="/tableau-de-bord/identifiants" render={() => {
+              return is_admin ? <Credential /> : <Home />
+            }} />
+
+            <Route exact path="/tableau-de-bord" render={() => {
+              return is_auth ? <Dashboard /> : <Home />
+            }} />
+
+            <Route exact path="/tableau-de-bord/étagères" render={() => {
+              return is_volunteer ? <BookshelfDashboad /> : <Home />
+            }} />
+
+            <Route exact path="/tableau-de-bord/livres" render={() => {
+              return is_volunteer ? <Stock /> : <Home />
+            }} />
+
+            <Route exact path="/tableau-de-bord/tags" render={() => {
+              return is_volunteer ? <Tags /> : <Home />
+            }} />
+
+            <Route exact path="/tableau-de-bord/reservations" render={() => {
+              return is_volunteer ? <Reservations /> : <Home />
+            }} />
+
+            <Route path="/logout" render={() => {
+              localStorage.clear()
+              dispatch(set_is_auth(false))
+              dispatch(set_is_admim(false))
+              dispatch(set_is_volunteer(false))
+              return <Redirect to={{ pathname: "/" }} />;
+            }}
+            />
+            <Redirect exact from="/" to="/accueil" />
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonSplitPane>
+    </IonApp>
+  );
+}
 export default App;

@@ -1,10 +1,9 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
-import Footer from '../components/Footer';
-import { Header } from '../components/Header';
-import About from '../components/sections/About';
-import Faq from '../components/sections/Faq';
-import Overview from '../components/sections/Overview';
-import NewBookList from '../features/books/NewBookList';
+import { Header } from '../../components/Header';
+import About from './sections/About';
+import Faq from './sections/Faq';
+import Overview from './sections/Overview';
+import NewBookList from '../../features/books/NewBookList';
 
 const Home: React.FC = () => {
   return (
@@ -12,19 +11,20 @@ const Home: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid>
-          <IonRow>
+
+          <IonRow className='blue'>
             <IonCol>
               <Overview />
             </IonCol>
           </IonRow>
 
-          <IonRow>
+          <IonRow >
             <IonCol>
               <NewBookList />
             </IonCol>
           </IonRow>
 
-          <IonRow>
+          <IonRow className='red'>
             <IonCol>
               <About />
             </IonCol>
@@ -35,12 +35,6 @@ const Home: React.FC = () => {
               <Faq />
             </IonCol>
           </IonRow>
-
-          {/* <IonRow>
-            <IonCol>
-              <Footer />
-            </IonCol>
-          </IonRow> */}
 
         </IonGrid>
       </IonContent>
