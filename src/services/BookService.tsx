@@ -45,3 +45,12 @@ export const getbooksByIsbn: any = async (isbn: string) => {
         return error.response.status
     }
 }
+
+export const getBooksByTitle: any = async (query: string) => {
+    try {
+        const response = await client.get("/books/search=" + query)
+        return response.data
+    } catch (error: any) {
+        console.error(error);
+    }
+}

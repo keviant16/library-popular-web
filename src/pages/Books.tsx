@@ -1,47 +1,59 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonIcon, IonImg, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonRow, IonSearchbar, IonThumbnail, } from '@ionic/react';
+import { IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonPage, IonSearchbar } from '@ionic/react';
 import { filter } from 'ionicons/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setBooks } from '../app/slice/bookSlice';
 import { Header } from '../components/Header';
+import BookList from '../features/books/BookList';
+import { getBooksByTitle } from '../services/BookService';
 
 const Books: React.FC = () => {
     const [searchText, setSearchText] = useState('');
+    const dispatch = useDispatch()
 
-    function handleChange(value: string) {
+    useEffect(() => {
+        fetchBooksByTitle()
+    }, [searchText])
+
+    const handleChange = async (value: string) => {
         setSearchText(value)
     }
+
+    const fetchBooksByTitle = async () => {
+        const search_response = await getBooksByTitle(searchText)
+        dispatch(setBooks(search_response))
+    }
+
 
     return (
         <IonPage>
             <Header />
             <IonContent >
-                <IonGrid fixed >
-                    <IonRow>
-                        <IonCol>
-                            <IonList>
-                                <IonItem lines='none'>
-                                    <IonLabel>Searchbar with cancel button shown on focus</IonLabel>
-                                    <IonSearchbar debounce={250} placeholder='ex : London' animated value={searchText} onIonChange={e => handleChange(e.detail.value!)} showCancelButton="focus"></IonSearchbar>
-                                    <IonButton slot='end' size='default'><IonIcon icon={filter} /> </IonButton>
-                                </IonItem>
-                                <IonListHeader>
-                                    Resultats ...
-                                </IonListHeader>
-                                <IonItem button>
-                                    <IonThumbnail style={{ with: 100 }} slot="start">
-                                        <IonImg alt="couverture-du-livre" src="https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg" />
-                                    </IonThumbnail>
-                                    <IonLabel>
-                                        <h2>Title</h2>
-                                        <p>Auteur / Section</p>
-                                        <p>tags</p>
-                                    </IonLabel>
-                                </IonItem>
-                            </IonList>
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
-            </IonContent>
-        </IonPage>
+                <IonList>
+                    <IonListHeader>
+                        <h1>Rechercher un livre</h1>
+                    </IonListHeader>
+                    <IonItem lines='none'>
+                        <IonLabel>Searchbar with cancel button shown on focus</IonLabel>
+                        <IonSearchbar
+                            debounce={250}
+                            placeholder='ex : Le Horla'
+                            animated
+                            value={searchText}
+                            onIonChange={e => handleChange(e.detail.value!)}
+                            showCancelButton="focus"
+                        />
+                        <IonButton slot='end' size='default'>
+                            <IonIcon icon={filter} />
+                        </IonButton>
+                    </IonItem>
+                    <IonItem>
+                        Resultats de la recherche pour : {searchText}
+                    </IonItem>
+                    <BookList />
+                </IonList>
+            </IonContent >
+        </IonPage >
     );
 };
 
