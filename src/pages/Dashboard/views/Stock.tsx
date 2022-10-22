@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
+import { IonContent, IonPage } from '@ionic/react';
 import { add, } from 'ionicons/icons';
 import AddModal from '../../../components/AddModal';
 import { Header } from '../../../components/Header';
@@ -9,13 +9,7 @@ const Stock: React.FC = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid fixed>
-                    <IonRow>
-                        <IonCol>
-                            <BookList />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
+                <BookList />
                 <AddModal view="book" icon={add} />
             </IonContent>
         </IonPage>

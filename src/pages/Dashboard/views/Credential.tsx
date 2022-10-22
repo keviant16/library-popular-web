@@ -15,13 +15,7 @@ const Credential: FunctionComponent<CredentialProps> = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid fixed>
-                    <IonRow>
-                        <IonCol>
-                            <CredentialList />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
+                <CredentialList />
                 <AddModal view="credential" icon={add} />
             </IonContent>
         </IonPage>

@@ -9,13 +9,7 @@ const Tags: React.FC = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid fixed>
-                    <IonRow>
-                        <IonCol>
-                            <TagList />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
+                <TagList />
                 <AddModal view="tag" icon={add} />
             </IonContent>
         </IonPage>

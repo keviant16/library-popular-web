@@ -1,7 +1,9 @@
-import { IonList, IonListHeader, IonLabel, IonSpinner } from "@ionic/react";
+import { IonList, IonListHeader, IonLabel, IonSpinner, IonButton, IonIcon } from "@ionic/react";
+import { arrowBack } from "ionicons/icons";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { set_credentials } from "../../app/slice/authSlice";
+import ListHeader from "../../components/ListHeader";
 import { getAllCredentials } from "../../services/CredentialService";
 import CredentialItem from "./CredentialItem";
 
@@ -24,11 +26,7 @@ const CredentialList: FunctionComponent<CredentialListProps> = () => {
 
     return (
         <IonList>
-            <IonListHeader>
-                <IonLabel>
-                    <h1>Identifiants</h1>
-                </IonLabel>
-            </IonListHeader>
+            <ListHeader icon={arrowBack} header={"Identifiants"} />
             {loading ?
                 <IonSpinner name="bubbles" />
                 :

@@ -1,5 +1,7 @@
-import { IonList, IonListHeader, IonLabel, } from "@ionic/react";
+import { IonList, IonSearchbar } from "@ionic/react";
+import { arrowBack } from "ionicons/icons";
 import { useSelector } from "react-redux";
+import ListHeader from "../../components/ListHeader";
 import Tag from "../../interface/Tag";
 import TagItem from "./TagItem";
 
@@ -8,11 +10,7 @@ const TagList: React.FC = () => {
 
     return (
         <IonList>
-            <IonListHeader>
-                <IonLabel>
-                    <h1>Tags</h1>
-                </IonLabel>
-            </IonListHeader>
+            <ListHeader icon={arrowBack} header={"Tags"} search={<IonSearchbar></IonSearchbar>} />
             {tags.map((tag: Tag) => (
                 <TagItem key={tag.id} tag={tag} />
             ))}

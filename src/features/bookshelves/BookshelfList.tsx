@@ -1,5 +1,7 @@
-import { IonLabel, IonList, IonListHeader, } from "@ionic/react"
+import { IonList } from "@ionic/react"
+import { arrowBack } from "ionicons/icons";
 import { useSelector } from "react-redux";
+import ListHeader from "../../components/ListHeader";
 import Bookshelf from "../../interface/Bookshelf"
 import BookshelfItem from "./BookshelfItem";
 
@@ -8,11 +10,7 @@ const BookshelfList: React.FC = () => {
 
     return (
         <IonList>
-            <IonListHeader>
-                <IonLabel>
-                    <h1>étagères</h1>
-                </IonLabel>
-            </IonListHeader>
+            <ListHeader icon={arrowBack} header={"étagères"} />
             {bookshelves.map((bookshelf: Bookshelf) => (
                 <BookshelfItem key={bookshelf.id} bookshelf={bookshelf} />
             ))}

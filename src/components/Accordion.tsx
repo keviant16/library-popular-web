@@ -1,8 +1,9 @@
 import { IonAccordion, IonItem, IonLabel } from "@ionic/react";
 
-
 interface AccordionProps {
-    value: string, label: string, content: string
+    value: string,
+    label: string,
+    content: string
 }
 
 const AccordionStyle = {

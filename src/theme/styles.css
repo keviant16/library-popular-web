@@ -22,3 +22,7 @@
      overflow: hidden;
      line-height: 0;
  }
+
+ ion-searchbar.custom {
+     width: 40vh;
+ }

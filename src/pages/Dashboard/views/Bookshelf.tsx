@@ -10,13 +10,7 @@ const Bookshelf: React.FC = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid fixed>
-                    <IonRow>
-                        <IonCol>
-                            <BookshelfList />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
+                <BookshelfList />
                 <AddModal view="bookshelf" icon={add} />
             </IonContent>
         </IonPage>
