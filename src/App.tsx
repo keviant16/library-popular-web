@@ -32,9 +32,7 @@ import Credential from './pages/Dashboard/views/Credential';
 import Home from './pages/Home/Home';
 import Books from './pages/Books';
 import Dashboard from './pages/Dashboard/Dashboard';
-import Reservations from './pages/Dashboard/views/Reservations';
 import Tags from './pages/Dashboard/views/Tags';
-import Booking from './pages/Booking';
 import BookshelfDashboad from './pages/Dashboard/views/Bookshelf';
 import Stock from './pages/Dashboard/views/Stock';
 import { getAllTags } from './services/TagService';
@@ -107,11 +105,6 @@ const App: React.FC = () => {
                   <IonLabel>Rechercher un livre</IonLabel>
                 </IonItem>
 
-                <IonItem button routerLink="/panier">
-                  <IonIcon slot='start' color='secondary' icon={cart} />
-                  <IonLabel>Panier</IonLabel>
-                </IonItem>
-
                 {!is_auth &&
                   <IonItem button routerLink="/connexion">
                     <IonIcon icon={logIn} slot='start' color='secondary' />
@@ -141,7 +134,6 @@ const App: React.FC = () => {
           <IonRouterOutlet id='main'>
             <Route exact path="/accueil" component={Home} />
             <Route exact path="/livres" component={Books} />
-            <Route exact path="/panier" component={Booking} />
             <Route exact path="/connexion" component={Login} />
 
             <Route exact path="/tableau-de-bord/identifiants" render={() => {
@@ -162,10 +154,6 @@ const App: React.FC = () => {
 
             <Route exact path="/tableau-de-bord/tags" render={() => {
               return is_volunteer ? <Tags /> : <Home />
-            }} />
-
-            <Route exact path="/tableau-de-bord/reservations" render={() => {
-              return is_volunteer ? <Reservations /> : <Home />
             }} />
 
             <Route path="/logout" render={() => {

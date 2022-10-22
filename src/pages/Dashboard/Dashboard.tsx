@@ -73,13 +73,7 @@ const Dashboard: React.FC = () => {
                             />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <DashboardCard
-                                subtitle={"Acces aux"}
-                                title={'Reservations'}
-                                href='/tableau-de-bord/reservations'
-                                type='volunteer'
-                                isRole={is_volunteer}
-                            />
+                            <DashboardCard subtitle={"..."} title={'....'} />
                         </IonCol>
                     </IonRow>
                     <IonRow>
