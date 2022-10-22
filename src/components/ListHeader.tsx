@@ -1,6 +1,7 @@
 import { IonListHeader, IonButton, IonIcon, IonLabel, IonAccordion, IonAccordionGroup, IonItem, IonList, IonSelect, IonSelectOption } from "@ionic/react";
 import { filter } from "ionicons/icons";
 import { FunctionComponent, useRef } from "react";
+import BookFiltre from "../features/books/BookFiltre";
 
 interface ListHeaderProps {
   icon: string | undefined
@@ -48,24 +49,7 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
       <IonAccordionGroup ref={accordionGroup}>
         <IonAccordion value="second">
           <div className="ion-padding" slot="content">
-            <IonList>
-              <IonItem>
-                <IonLabel>Etagères</IonLabel>
-                <IonSelect interface="popover">
-                  <IonSelectOption value="apples">Apples</IonSelectOption>
-                  <IonSelectOption value="oranges">Oranges</IonSelectOption>
-                  <IonSelectOption value="bananas">Bananas</IonSelectOption>
-                </IonSelect>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Tags</IonLabel>
-                <IonSelect interface="popover" multiple>
-                  <IonSelectOption value="apples">Apples</IonSelectOption>
-                  <IonSelectOption value="oranges">Oranges</IonSelectOption>
-                  <IonSelectOption value="bananas">Bananas</IonSelectOption>
-                </IonSelect>
-              </IonItem>
-            </IonList>
+            <BookFiltre />
           </div>
         </IonAccordion>
       </IonAccordionGroup>

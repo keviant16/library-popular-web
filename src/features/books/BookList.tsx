@@ -8,26 +8,26 @@ import BookItem from "./BookItem";
 import BookSearchbar from "./BookSearchbar";
 
 interface BookListProps {
-    hideReturn?: boolean
+  hideReturn?: boolean
 }
 
 const BookList = (props: BookListProps) => {
-    const books: Book[] = useSelector((state: any) => state.book.books)
+  const books: Book[] = useSelector((state: any) => state.book.books)
 
-    return (
-        <IonList>
-            <ListHeader
-                icon={arrowBack}
-                header={props.hideReturn ? "Rechercher un livre" : "Livres"}
-                search={<BookSearchbar />}
-                fitreActive
-                hideReturn={props.hideReturn}
-            />
-            {books.map((book: Book, idx: number) => (
-                <BookItem key={idx} book={book} editable={true} />
-            ))}
-        </IonList>
-    )
+  return (
+    <IonList>
+      <ListHeader
+        icon={arrowBack}
+        header={props.hideReturn ? "Rechercher un livre" : "Livres"}
+        search={<BookSearchbar />}
+        fitreActive
+        hideReturn={props.hideReturn}
+      />
+      {books.map((book: Book, idx: number) => (
+        <BookItem key={idx} book={book} editable={true} />
+      ))}
+    </IonList>
+  )
 }
 
 export default BookList
