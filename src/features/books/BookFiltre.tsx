@@ -1,6 +1,8 @@
-import { IonButton, IonIcon, IonItem, IonLabel, IonList, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonButton, IonIcon, IonItem, IonLabel, IonList } from "@ionic/react";
 import { removeCircleOutline } from "ionicons/icons";
 import { FunctionComponent } from "react";
+import BookshelfSelect from "../bookshelves/BookshelfSelect";
+import TagSelect from "../tags/TagSelect";
 
 interface BookFiltreProps { }
 
@@ -14,22 +16,8 @@ const BookFiltre: FunctionComponent<BookFiltreProps> = () => {
                     Retirer filter
                 </IonButton>
             </IonItem>
-            <IonItem>
-                <IonLabel>Etagères</IonLabel>
-                <IonSelect interface="popover">
-                    <IonSelectOption value="apples">Apples</IonSelectOption>
-                    <IonSelectOption value="oranges">Oranges</IonSelectOption>
-                    <IonSelectOption value="bananas">Bananas</IonSelectOption>
-                </IonSelect>
-            </IonItem>
-            <IonItem>
-                <IonLabel>Tags</IonLabel>
-                <IonSelect interface="popover" multiple>
-                    <IonSelectOption value="apples">Apples</IonSelectOption>
-                    <IonSelectOption value="oranges">Oranges</IonSelectOption>
-                    <IonSelectOption value="bananas">Bananas</IonSelectOption>
-                </IonSelect>
-            </IonItem>
+            <BookshelfSelect />
+            <TagSelect />
         </IonList>
     );
 }

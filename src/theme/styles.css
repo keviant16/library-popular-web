@@ -1,28 +1,42 @@
  @import './variables.css';
 
  .section-image {
-     border-radius: 25px;
-     box-shadow: 0 5px 10px gray;
-     padding: 10px;
+   border-radius: 25px;
+   box-shadow: 0 5px 10px gray;
+   padding: 10px;
  }
 
  .blue {
-     background-color: var(--ion-color-primary-tint);
+   background-color: var(--ion-color-primary-tint);
  }
 
  .red {
-     background-color: var(--ion-color-secondary-tint);
+   background-color: var(--ion-color-secondary-tint);
  }
 
  .book-blue {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     overflow: hidden;
-     line-height: 0;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   overflow: hidden;
+   line-height: 0;
+ }
+
+ ion-spinner {
+   color: var(--ion-color-secondary);
+ }
+
+ ion-spinner.custom {
+   color: black;
  }
 
  ion-searchbar.custom {
-     width: 40vh;
+   width: 40vh;
+ }
+
+ .credential-form {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
  }

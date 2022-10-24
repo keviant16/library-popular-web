@@ -1,4 +1,4 @@
-import { IonListHeader, IonButton, IonIcon, IonLabel, IonAccordion, IonAccordionGroup, IonItem, IonList, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonListHeader, IonButton, IonIcon, IonLabel, IonAccordion, IonAccordionGroup } from "@ionic/react";
 import { filter } from "ionicons/icons";
 import { FunctionComponent, useRef } from "react";
 import BookFiltre from "../features/books/BookFiltre";
@@ -9,13 +9,14 @@ interface ListHeaderProps {
   search?: any
   fitreActive?: boolean
   hideReturn?: boolean
+  hideAddBook?: boolean
 }
 
 const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
   const accordionGroup = useRef<null | HTMLIonAccordionGroupElement>(null);
+
   const toggleAccordion = () => {
     if (!accordionGroup.current) return;
-
     const nativeEl = accordionGroup.current;
 
     if (nativeEl.value === 'second') {
