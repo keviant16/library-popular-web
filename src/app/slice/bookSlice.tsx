@@ -36,10 +36,13 @@ export const bookSlice = createSlice({
         setBookForm: (state, action: PayloadAction<any>) => {
             const { name, value } = action.payload
             state.bookForm[`${name}`] = value
+        },
+        initBookForm: (state, action: PayloadAction<any>) => {
+            state.bookForm = action.payload
         }
     }
 })
 
-export const { pushBook, setBooks, filterBook, updateBook, setBookForm } = bookSlice.actions
+export const { initBookForm, pushBook, setBooks, filterBook, updateBook, setBookForm } = bookSlice.actions
 
 export default bookSlice.reducer

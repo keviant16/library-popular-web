@@ -18,6 +18,9 @@ const BookFormSegment1: FunctionComponent<BookFormSegment1Props> = () => {
     dispatch(setBookForm({ name: e.target.name, value: e.target.value }))
   }
 
+  console.log(bookForm);
+
+
   return (
     <>
       <BookshelfSelect />

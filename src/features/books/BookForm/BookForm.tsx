@@ -2,27 +2,24 @@ import { IonBackButton, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonH
 import { FunctionComponent, RefObject, useState } from "react";
 import Book from "../../../interface/Book";
 import BookFormSegment1 from "./BookFormSegment1";
-import BookFormDefaultItem from "./BookFormDefaultItem";
 import BookFormSegment2 from "./BookFormSegment2";
-import { useDispatch, useSelector } from "react-redux";
-import { useCreateBookMutation, useCreateBookshelfMutation } from "../../../app/api/api";
-import Spinner from "../../../components/Spinner";
-import { BookFormItem } from "../BookFormItem";
+import { useSelector } from "react-redux";
+import { useCreateBookMutation, } from "../../../app/api/api";
 
 interface BookFormProps {
   book: Book,
   modal: RefObject<HTMLIonModalElement>
+  editable?: boolean
 }
 
 const BookForm: FunctionComponent<BookFormProps> = (props) => {
   const [createBook, { isLoading }] = useCreateBookMutation();
-  const [segment, setSegment] = useState("default");
+  const [segment, setSegment] = useState("info");
   const bookForm = useSelector((state: any) => state.book.bookForm)
 
-  const handleSegment = (segment: "default" | "segment1" | "segment2") => {
-    if (segment === "default") return setSegment("default")
-    if (segment === "segment1") return setSegment("segment1")
-    return setSegment("segment2")
+  const handleSegment = (segment: "form" | "info") => {
+    if (segment === "form") return setSegment("form")
+    return setSegment("info")
   }
 
   const handleClick = async () => {
@@ -41,7 +38,7 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
     <>
       <IonHeader>
         <IonToolbar className="ion-padding" color={"primary"}>
-          <IonTitle>Ajouter un livre</IonTitle>
+          <IonTitle>{props.editable ? "Modifer" : "Ajouter"} livre</IonTitle>
           <IonButtons slot='start'>
             <IonBackButton></IonBackButton>
           </IonButtons>
@@ -84,20 +81,18 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
 
           <IonRow>
             <IonCol>
-              <IonSegment>
-                <IonSegmentButton value="default" onClick={() => handleSegment("segment1")}>
-                  <IonLabel>Formulaire</IonLabel>
-                </IonSegmentButton>
-                <IonSegmentButton value="segment2" onClick={() => handleSegment("segment2")}>
+              <IonSegment value={segment}>
+                <IonSegmentButton value="info" onClick={() => handleSegment("info")}>
                   <IonLabel>Info +</IonLabel>
+                </IonSegmentButton>
+                <IonSegmentButton value="form" onClick={() => handleSegment("form")}>
+                  <IonLabel>Formulaire</IonLabel>
                 </IonSegmentButton>
               </IonSegment>
               <IonList>
-                {segment === "default"
-                  ? <BookFormDefaultItem book={props.book} />
-                  : segment === "segment1"
-                    ? <BookFormSegment1 book={props.book} />
-                    : <BookFormSegment2 book={props.book} />
+                {segment === "form"
+                  ? <BookFormSegment1 book={props.book} />
+                  : <BookFormSegment2 book={props.book} />
                 }
               </IonList>
             </IonCol>

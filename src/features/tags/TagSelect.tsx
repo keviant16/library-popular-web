@@ -11,7 +11,7 @@ interface TagSelectProps { }
 
 const TagSelect: FunctionComponent<TagSelectProps> = () => {
   const { data, error, isLoading } = useGetAllTagsQuery('')
-  // const bookForm = useSelector((state: any) => state.book.bookForm)
+  const bookForm = useSelector((state: any) => state.book.bookForm)
   const dispatch = useDispatch()
 
   const handleBookForm = (e: any) => {
@@ -26,7 +26,7 @@ const TagSelect: FunctionComponent<TagSelectProps> = () => {
       <IonLabel>Tag</IonLabel>
       <IonSelect
         multiple
-        // value={bookForm.tags}
+        value={bookForm.tags}
         name="tags"
         onIonChange={handleBookForm}>
         {data && data.map((tag: Tag) => (
