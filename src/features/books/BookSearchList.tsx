@@ -1,7 +1,6 @@
-import { IonHeader, IonToolbar, IonContent, IonList, IonLabel, IonSearchbar, IonItem, IonItemGroup, IonItemDivider, IonSpinner, IonButton } from "@ionic/react";
+import { IonHeader, IonToolbar, IonContent, IonList, IonLabel, IonSearchbar, IonItemGroup, IonItemDivider, IonButton } from "@ionic/react";
 import { FunctionComponent, RefObject, useEffect, useState } from "react";
 import { getGoogleBooksByCodeIsbn } from "../../services/BookAPIService";
-import { useGetBooksByIsbnQuery } from "../../app/api/api";
 import GoogleBook from "../../interface/GoogleBook";
 import Book from "../../interface/Book";
 import BookItem from "./BookItem";

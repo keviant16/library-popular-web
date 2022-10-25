@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 interface SpinnerProps { }
 
 const Spinner: FunctionComponent<SpinnerProps> = () => (
-  <IonItem lines="none">
+  <IonItem lines="none" className="hidden">
     <IonSpinner name="lines" />
   </IonItem>
 )

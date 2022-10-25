@@ -4,10 +4,16 @@ import { checkId } from '../../utils/Utils'
 
 interface BookState {
     books: Book[],
+    bookForm: any
 }
 
 const initialState: BookState = {
     books: [],
+    bookForm: {
+        price: 0.50,
+        bookshelf: "",
+        tags: []
+    }
 }
 
 export const bookSlice = createSlice({
@@ -27,9 +33,13 @@ export const bookSlice = createSlice({
             const index = state.books.findIndex((value) => checkId(action.payload.id, value.id))
             state.books[index] = action.payload
         },
+        setBookForm: (state, action: PayloadAction<any>) => {
+            const { name, value } = action.payload
+            state.bookForm[`${name}`] = value
+        }
     }
 })
 
-export const { pushBook, setBooks, filterBook, updateBook } = bookSlice.actions
+export const { pushBook, setBooks, filterBook, updateBook, setBookForm } = bookSlice.actions
 
 export default bookSlice.reducer
