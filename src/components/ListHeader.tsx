@@ -1,7 +1,10 @@
 import { IonListHeader, IonButton, IonIcon, IonLabel, IonAccordion, IonAccordionGroup } from "@ionic/react";
 import { filter } from "ionicons/icons";
 import { FunctionComponent, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { initBookForm } from "../app/slice/bookSlice";
 import BookFiltre from "../features/books/BookFiltre";
+import BookFormSegment1 from "../features/books/BookForm/BookFormSegment1";
 
 interface ListHeaderProps {
   icon: string | undefined

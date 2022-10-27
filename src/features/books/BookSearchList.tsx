@@ -3,14 +3,14 @@ import { FunctionComponent, RefObject, useEffect, useState } from "react";
 import { getGoogleBooksByCodeIsbn } from "../../services/BookAPIService";
 import GoogleBook from "../../interface/GoogleBook";
 import Book from "../../interface/Book";
-import BookItem from "./BookItem";
 import { getbooksByIsbn } from "../../services/BookService";
 import Book404Item from "./Book404Item";
 import Spinner from "../../components/Spinner";
 import SearchBookItem from "./SearchBookItem";
 
 interface BookSearchListProps {
-  modal: RefObject<HTMLIonModalElement>
+  modal: RefObject<HTMLIonModalElement>,
+  isbn?: string | undefined
 }
 
 interface BookDataProps {
@@ -19,7 +19,7 @@ interface BookDataProps {
 }
 
 const BookSearchList: FunctionComponent<BookSearchListProps> = (props) => {
-  const [searchText, setSearchText] = useState<string>("");
+  const [searchText, setSearchText] = useState<string>(props.isbn || "");
   const [bookDatas, setBookDatas] = useState<BookDataProps>({ googleBooks: [], libraryBooks: [] });
   const [loading, setLoading] = useState({ google: false, library: false });
 
@@ -91,11 +91,14 @@ const BookSearchList: FunctionComponent<BookSearchListProps> = (props) => {
           <IonItemGroup>
             <IonItemDivider>
               <IonLabel>Dans la librairie</IonLabel>
+              <IonLabel slot="end">{bookDatas.libraryBooks?.length} Resultats</IonLabel>
             </IonItemDivider>
             {loading.library
               ? <Spinner />
               : bookDatas.libraryBooks?.length
-                ? bookDatas.libraryBooks.map((book: Book, index: number) => <BookItem key={index} book={book} />)
+                ? bookDatas.libraryBooks.map((book: Book) => (
+                  <SearchBookItem key={book.id} book={book} modal={props.modal} editable={true} />
+                ))
                 : <Book404Item />
             }
           </IonItemGroup>
@@ -103,6 +106,7 @@ const BookSearchList: FunctionComponent<BookSearchListProps> = (props) => {
           <IonItemGroup>
             <IonItemDivider>
               <IonLabel>Dans Google Book Api</IonLabel>
+              <IonLabel slot="end">{bookDatas.googleBooks?.length} Resultats</IonLabel>
             </IonItemDivider>
             {loading.google
               ? <Spinner />
@@ -118,6 +122,5 @@ const BookSearchList: FunctionComponent<BookSearchListProps> = (props) => {
     </>
   );
 }
-{/* 9782253136460 */ }
 
 export default BookSearchList;

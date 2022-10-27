@@ -14,23 +14,28 @@ const BookFormSegment1: FunctionComponent<BookFormSegment1Props> = () => {
   const bookForm = useSelector((state: any) => state.book.bookForm)
   const dispatch = useDispatch()
 
-  const handleBookForm = (e: any) => {
+  const handleSelect = (e: any) => {
     dispatch(setBookForm({ name: e.target.name, value: e.target.value }))
   }
 
-  console.log(bookForm);
-
-
   return (
     <>
-      <BookshelfSelect />
-      <TagSelect />
+      <BookshelfSelect
+        value={bookForm.bookshelf}
+        name={"bookshelf"}
+        handleChange={handleSelect}
+      />
+      <TagSelect
+        value={bookForm.tags}
+        name={"tags"}
+        handleChange={handleSelect}
+      />
       <IonItem>
         <IonLabel>Prix</IonLabel>
         <IonSelect
           name="price"
           value={bookForm.price}
-          onIonChange={handleBookForm}
+          onIonChange={handleSelect}
         >
           <IonSelectOption value={1.00}>1.00 €</IonSelectOption>
           <IonSelectOption value={0.50}>0.50 €</IonSelectOption>

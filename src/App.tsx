@@ -35,15 +35,6 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Tags from './pages/Dashboard/views/Tags';
 import BookshelfDashboad from './pages/Dashboard/views/Bookshelf';
 import Stock from './pages/Dashboard/views/Stock';
-import { getAllTags } from './services/TagService';
-import Tag from './interface/Tag';
-import { setTags } from './app/slice/tagSlice';
-import Book from './interface/Book';
-import { getAllbooks } from './services/BookService';
-import { setBooks } from './app/slice/bookSlice';
-import { getAllBookshelves } from './services/BookshelfService';
-import { setBookshelves } from './app/slice/bookshelfSlice';
-import Bookshelf from './interface/Bookshelf';
 
 setupIonicReact();
 
@@ -56,17 +47,6 @@ const App: React.FC = () => {
     const has_admin = localStorage.getItem("isAdmin") ? true : false
     const has_volunteer = localStorage.getItem("isVolunteer") ? true : false
 
-    const initStates = async () => {
-      const response_tags: Tag[] = await getAllTags();
-      const response_bookshelves: Bookshelf[] = await getAllBookshelves();
-      const response_books: Book[] = await getAllbooks();
-
-      dispatch(setBooks(response_books))
-      dispatch(setBookshelves(response_bookshelves))
-      dispatch(setTags(response_tags))
-    }
-
-    initStates()
     dispatch(set_is_auth(has_token))
     dispatch(set_is_admim(has_admin))
     dispatch(set_is_volunteer(has_volunteer))

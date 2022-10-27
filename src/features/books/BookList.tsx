@@ -1,6 +1,8 @@
-import { IonItem, IonLabel, IonList, IonSpinner } from "@ionic/react";
+import { IonItem, IonItemDivider, IonLabel, IonList, IonSpinner } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
-import { useGetAllBooksQuery } from "../../app/api/api";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { useGetAllBooksQuery, useGetAllTagsQuery } from "../../app/api/api";
 import ListHeader from "../../components/ListHeader";
 import Book from "../../interface/Book";
 import BookItem from "./BookItem";
@@ -13,6 +15,14 @@ interface BookListProps {
 
 const BookList = (props: BookListProps) => {
   const { data, error, isLoading } = useGetAllBooksQuery('')
+  const { searchValue, bookFilter }: any = useSelector((state: any) => state.book)
+
+  const filtredBook: Book[] | undefined = useMemo(() => data?.filter((book: Book) => {
+    return book.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      && (bookFilter.bookshelf ? book.bookshelf === bookFilter.bookshelf : true)
+      && (bookFilter.tags ? book.tags.filter(tag => bookFilter.tags.includes(tag)) : true)
+  }), [searchValue, data, bookFilter])
+
 
   return (
     <IonList>
@@ -34,7 +44,10 @@ const BookList = (props: BookListProps) => {
         </IonItem>
       ) : data ? (
         <>
-          {data.map((book: Book, idx: number) => <BookItem key={idx} book={book} editable={true} />)}
+          <IonItemDivider>
+            <IonLabel>{filtredBook?.length} Résultats</IonLabel>
+          </IonItemDivider>
+          {filtredBook?.map((book: Book, idx: number) => <BookItem key={idx} book={book} editable={true} />)}
         </>
       ) : null}
     </IonList>

@@ -7,28 +7,26 @@ import Error from "../../components/Error";
 import Spinner from "../../components/Spinner";
 import Tag from "../../interface/Tag";
 
-interface TagSelectProps { }
+interface TagSelectProps {
+  value: string,
+  name: string,
+  handleChange: (e: any) => void
+}
 
-const TagSelect: FunctionComponent<TagSelectProps> = () => {
+const TagSelect: FunctionComponent<TagSelectProps> = (props) => {
   const { data, error, isLoading } = useGetAllTagsQuery('')
-  const bookForm = useSelector((state: any) => state.book.bookForm)
-  const dispatch = useDispatch()
-
-  const handleBookForm = (e: any) => {
-    dispatch(setBookForm({ name: e.target.name, value: e.target.value }))
-  }
 
   if (isLoading) return <Spinner />
   if (error) return <Error />
 
   return (
     <IonItem>
-      <IonLabel>Tag</IonLabel>
+      <IonLabel>Tags</IonLabel>
       <IonSelect
         multiple
-        value={bookForm.tags}
-        name="tags"
-        onIonChange={handleBookForm}>
+        value={props.value}
+        name={props.name}
+        onIonChange={props.handleChange}>
         {data && data.map((tag: Tag) => (
           <IonSelectOption key={tag.id} value={tag.name}>
             {tag.name}

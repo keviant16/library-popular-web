@@ -14,20 +14,10 @@ interface BookItemProps {
 
 const BookItem: React.FC<BookItemProps> = (props: BookItemProps) => {
   const modal = useRef<HTMLIonModalElement>(null);
-  const dispatch = useDispatch()
-
-  const handleInitBookForm = () => {
-
-    dispatch(initBookForm({
-      price: props.book.price,
-      bookshelf: props.book.bookshelf,
-      tags: props.book.tags
-    }))
-  }
 
   return (
     <>
-      <IonItem button id={"open-modal-" + props.book.id} onClick={handleInitBookForm}>
+      <IonItem button id={"open-modal-" + props.book.id}>
         <IonThumbnail slot="start">
           <IonImg
             alt={"couverture-du-livre" + props.book.title}

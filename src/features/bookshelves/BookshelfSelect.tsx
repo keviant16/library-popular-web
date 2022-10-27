@@ -7,17 +7,14 @@ import Error from "../../components/Error";
 import Spinner from "../../components/Spinner";
 import Bookshelf from "../../interface/Bookshelf";
 
-interface BookshelfSelectProps { }
+interface BookshelfSelectProps {
+  value: string,
+  name: string,
+  handleChange: (e: any) => void
+}
 
-const BookshelfSelect: FunctionComponent<BookshelfSelectProps> = () => {
+const BookshelfSelect: FunctionComponent<BookshelfSelectProps> = (props) => {
   const { data, error, isLoading } = useGetAllBookshelvesQuery('')
-  const bookForm = useSelector((state: any) => state.book.bookForm)
-  const dispatch = useDispatch()
-
-  const handleBookForm = (e: any) => {
-    console.log(bookForm);
-    dispatch(setBookForm({ name: e.target.name, value: e.target.value }))
-  }
 
   if (isLoading) return <Spinner />
   if (error) return <Error />
@@ -26,9 +23,9 @@ const BookshelfSelect: FunctionComponent<BookshelfSelectProps> = () => {
     <IonItem>
       <IonLabel>Etagère</IonLabel>
       <IonSelect
-        value={bookForm.bookshelf}
-        name="bookshelf"
-        onIonChange={handleBookForm}
+        value={props.value}
+        name={props.name}
+        onIonChange={props.handleChange}
       >
         {data && data.map((bookshelf: Bookshelf) => (
           <IonSelectOption key={bookshelf.id} value={bookshelf.name}>
