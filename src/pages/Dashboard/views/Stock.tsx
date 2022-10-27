@@ -1,5 +1,5 @@
-import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonFabList, IonHeader, IonIcon, IonModal, IonNav, IonPage, IonToolbar } from '@ionic/react';
-import { add, scan, stopCircleOutline } from 'ionicons/icons';
+import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonModal, IonNav, IonPage, IonToolbar } from '@ionic/react';
+import { scan, stopCircleOutline } from 'ionicons/icons';
 import { useEffect, useRef, useState } from 'react';
 import { Header } from '../../../components/Header';
 import BookList from '../../../features/books/BookList';

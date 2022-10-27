@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
+import { IonApp, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonProgressBar, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { book, cart, home, logIn, logOut, menu, statsChart } from 'ionicons/icons';
 
@@ -27,14 +27,15 @@ import './theme/typography.css';
 import Login from './pages/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { set_is_admim, set_is_auth, set_is_volunteer } from './app/slice/authSlice';
-import { useEffect } from 'react';
-import Credential from './pages/Dashboard/views/Credential';
-import Home from './pages/Home/Home';
-import Books from './pages/Books';
-import Dashboard from './pages/Dashboard/Dashboard';
-import Tags from './pages/Dashboard/views/Tags';
-import BookshelfDashboad from './pages/Dashboard/views/Bookshelf';
-import Stock from './pages/Dashboard/views/Stock';
+import React, { useEffect } from 'react';
+
+const Stock = React.lazy(() => import('./pages/Dashboard/views/Stock'));
+const BookshelfDashboad = React.lazy(() => import('./pages/Dashboard/views/Bookshelf'));
+const Tags = React.lazy(() => import('./pages/Dashboard/views/Tags'));
+const Dashboard = React.lazy(() => import('./pages/Dashboard/Dashboard'));
+const Books = React.lazy(() => import('./pages/Books'));
+const Home = React.lazy(() => import('./pages/Home/Home'));
+const Credential = React.lazy(() => import('./pages/Dashboard/views/Credential'));
 
 setupIonicReact();
 
@@ -112,38 +113,41 @@ const App: React.FC = () => {
 
         <IonReactRouter>
           <IonRouterOutlet id='main'>
-            <Route exact path="/accueil" component={Home} />
-            <Route exact path="/livres" component={Books} />
-            <Route exact path="/connexion" component={Login} />
+            <React.Suspense fallback={<IonProgressBar type="indeterminate" />}>
 
-            <Route exact path="/tableau-de-bord/identifiants" render={() => {
-              return is_admin ? <Credential /> : <Home />
-            }} />
+              <Route exact path="/accueil" component={Home} />
+              <Route exact path="/livres" component={Books} />
+              <Route exact path="/connexion" component={Login} />
 
-            <Route exact path="/tableau-de-bord" render={() => {
-              return is_auth ? <Dashboard /> : <Home />
-            }} />
+              <Route exact path="/tableau-de-bord/identifiants" render={() => {
+                return is_admin ? <Credential /> : <Home />
+              }} />
 
-            <Route exact path="/tableau-de-bord/étagères" render={() => {
-              return is_volunteer ? <BookshelfDashboad /> : <Home />
-            }} />
+              <Route exact path="/tableau-de-bord" render={() => {
+                return is_auth ? <Dashboard /> : <Home />
+              }} />
 
-            <Route exact path="/tableau-de-bord/livres" render={() => {
-              return is_volunteer ? <Stock /> : <Home />
-            }} />
+              <Route exact path="/tableau-de-bord/étagères" render={() => {
+                return is_volunteer ? <BookshelfDashboad /> : <Home />
+              }} />
 
-            <Route exact path="/tableau-de-bord/tags" render={() => {
-              return is_volunteer ? <Tags /> : <Home />
-            }} />
+              <Route exact path="/tableau-de-bord/livres" render={() => {
+                return is_volunteer ? <Stock /> : <Home />
+              }} />
 
-            <Route path="/logout" render={() => {
-              localStorage.clear()
-              dispatch(set_is_auth(false))
-              dispatch(set_is_admim(false))
-              dispatch(set_is_volunteer(false))
-              return <Redirect to={{ pathname: "/" }} />;
-            }}
-            />
+              <Route exact path="/tableau-de-bord/tags" render={() => {
+                return is_volunteer ? <Tags /> : <Home />
+              }} />
+
+              <Route path="/logout" render={() => {
+                localStorage.clear()
+                dispatch(set_is_auth(false))
+                dispatch(set_is_admim(false))
+                dispatch(set_is_volunteer(false))
+                return <Redirect to={{ pathname: "/" }} />;
+              }}
+              />
+            </React.Suspense>
             <Redirect exact from="/" to="/accueil" />
           </IonRouterOutlet>
         </IonReactRouter>
