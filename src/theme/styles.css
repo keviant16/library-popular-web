@@ -1,5 +1,12 @@
  @import './variables.css';
 
+ .horizontal-scrollbar {
+   overflow-x: scroll;
+   overflow-y: hidden;
+   height: 80px;
+   white-space: nowrap;
+ }
+
  .section-image {
    border-radius: 25px;
    box-shadow: 0 5px 10px gray;

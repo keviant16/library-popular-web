@@ -1,10 +1,7 @@
 import { IonListHeader, IonButton, IonIcon, IonLabel, IonAccordion, IonAccordionGroup } from "@ionic/react";
-import { filter } from "ionicons/icons";
-import { FunctionComponent, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { initBookForm } from "../app/slice/bookSlice";
+import { filter, search } from "ionicons/icons";
+import { FunctionComponent, useRef, useState } from "react";
 import BookFiltre from "../features/books/BookFiltre";
-import BookFormSegment1 from "../features/books/BookForm/BookFormSegment1";
 
 interface ListHeaderProps {
   icon: string | undefined
@@ -13,10 +10,13 @@ interface ListHeaderProps {
   fitreActive?: boolean
   hideReturn?: boolean
   hideAddBook?: boolean
+  searchActive?: boolean
 }
 
 const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
   const accordionGroup = useRef<null | HTMLIonAccordionGroupElement>(null);
+  const searchRef = useRef<null | any>(null);
+  const [isSearchToogle, setIsSearchToogle] = useState(false);
 
   const toggleAccordion = () => {
     if (!accordionGroup.current) return;
@@ -29,6 +29,11 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
     }
   };
 
+  const toggleSearchBar = () => {
+
+
+  }
+
   return (
     <>
       <IonListHeader>
@@ -38,16 +43,27 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
           </IonButton>
         }
 
-        <IonLabel>
-          <h1>{props.header}</h1>
-        </IonLabel>
-        {props.search}
+        {isSearchToogle ? props.search :
+          <IonLabel>
+            <h1>{props.header}</h1>
+          </IonLabel>
+        }
+
+
+        {props?.searchActive &&
+          <IonButton color={"primary"} onClick={() => setIsSearchToogle(!isSearchToogle)}>
+            <IonIcon icon={search} />
+          </IonButton>
+        }
+
+
 
         {props?.fitreActive &&
           <IonButton color={"primary"} onClick={toggleAccordion}>
             <IonIcon icon={filter} />
           </IonButton>
         }
+
 
       </IonListHeader>
       <IonAccordionGroup ref={accordionGroup}>

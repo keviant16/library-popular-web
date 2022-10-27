@@ -2,7 +2,7 @@ import { IonItem, IonItemDivider, IonLabel, IonList, IonSpinner } from "@ionic/r
 import { arrowBack } from "ionicons/icons";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { useGetAllBooksQuery, useGetAllTagsQuery } from "../../app/api/api";
+import { useGetAllBooksQuery } from "../../app/api/api";
 import ListHeader from "../../components/ListHeader";
 import Book from "../../interface/Book";
 import BookItem from "./BookItem";
@@ -31,6 +31,7 @@ const BookList = (props: BookListProps) => {
         icon={arrowBack}
         header={props.hideReturn ? "Rechercher un livre" : "Livres"}
         search={<BookSearchbar />}
+        searchActive
         fitreActive
         hideAddBook={props.hideAddBook}
         hideReturn={props.hideReturn}
