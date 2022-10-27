@@ -11,6 +11,7 @@ import BookSearchbar from "./BookSearchbar";
 interface BookListProps {
   hideReturn?: boolean
   hideAddBook?: boolean
+  isVisitor?: boolean
 }
 
 const BookList = (props: BookListProps) => {

@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import Book from "../../../interface/Book";
-import { BookFormItem } from "../BookFormItem";
+import { BookFormItem } from "./BookFormItem";
 
 interface BookFormSegment2Props {
   book: Book

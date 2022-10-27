@@ -1,11 +1,8 @@
 import { IonItem, IonThumbnail, IonImg, IonLabel, IonModal, IonChip } from "@ionic/react";
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
-import { initBookForm } from "../../app/slice/bookSlice";
-import Book from "../../interface/Book";
 import { handleStatusChipColor, handleStatusValue } from "../../utils/Utils";
+import { useRef } from "react";
+import Book from "../../interface/Book";
 import BookForm from "./BookForm/BookForm";
-
 
 interface BookItemProps {
   book: Book,

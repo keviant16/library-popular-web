@@ -37,11 +37,11 @@ const BookFiltre: FunctionComponent<BookFiltreProps> = () => {
         name={"bookshelf"}
         handleChange={handleSelect}
       />
-      <TagSelect
+      {/* <TagSelect
         value={bookFilter.tags}
         name={"tags"}
         handleChange={handleSelect}
-      />
+      /> */}
     </IonList>
   );
 }

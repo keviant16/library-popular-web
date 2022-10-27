@@ -15,6 +15,8 @@ interface BookFormProps {
 }
 
 const BookForm: FunctionComponent<BookFormProps> = (props) => {
+  const { is_volunteer } = useSelector((state: any) => state.auth)
+
   const [createBook, { isLoading: isCreating }] = useCreateBookMutation();
   const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
   const [deleteBook, { isLoading: isDeleting }] = useDeleteBookMutation();
@@ -66,7 +68,13 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
     <>
       <IonHeader>
         <IonToolbar className="ion-padding" color={"primary"}>
-          <IonTitle>{props.editable ? "Modifer" : "Ajouter"} livre</IonTitle>
+          <IonTitle>
+            {is_volunteer
+              ? props.editable ? "Modifer le " : "Ajouter le "
+              : "Détail du "
+            }
+            livre
+          </IonTitle>
           <IonButtons slot='start'>
             <IonBackButton></IonBackButton>
           </IonButtons>
@@ -74,7 +82,7 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
             onClick={() => props.modal.current?.dismiss()}
             color={"secondary"}
             slot="end">
-            Annuler
+            Fermer
           </IonButton>
         </IonToolbar>
       </IonHeader>
@@ -129,34 +137,24 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
             </IonCol>
           </IonRow>
 
-          {segment === "form" &&
+          {segment === "form" && is_volunteer &&
             <IonRow>
               <IonCol>
                 {isCreating || isUpdating || isDeleting
                   ? <IonSpinner />
-                  : props.editable ?
+                  : props.editable
+                    ?
                     <IonButtons>
-                      <IonButton
-                        color={"warning"}
-                        onClick={() => handleClick("update")}
-                        fill="solid"
-                      >
+                      <IonButton color={"warning"} onClick={() => handleClick("update")} fill="solid">
                         Modifier
                       </IonButton>
 
-                      <IonButton
-                        onClick={() => handleClick("status")}
-                        color={props.book.status === "IN_STOCK" ? "danger" : "success"}
-                        fill="solid"
-                      >
+                      <IonButton onClick={() => handleClick("status")} color={props.book.status === "IN_STOCK" ? "danger" : "success"} fill="solid">
                         {props.book.status === "IN_STOCK" ? "Désactivé" : "Activé"}
                       </IonButton>
                     </IonButtons>
                     :
-                    <IonButton
-                      onClick={() => handleClick("add")}
-                      expand="full"
-                    >
+                    <IonButton onClick={() => handleClick("add")} expand="full">
                       Ajouter
                     </IonButton>
                 }

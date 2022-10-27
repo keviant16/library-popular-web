@@ -1,5 +1,4 @@
 import { IonImg, IonItem, IonLabel, IonNavLink, IonThumbnail } from "@ionic/react";
-import { book } from "ionicons/icons";
 import { FunctionComponent, RefObject } from "react";
 import Book from "../../interface/Book";
 import BookForm from "./BookForm/BookForm";

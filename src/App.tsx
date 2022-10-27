@@ -1,7 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonProgressBar, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { book, cart, home, logIn, logOut, menu, statsChart } from 'ionicons/icons';
+import { book, home, logIn, logOut, menu, statsChart } from 'ionicons/icons';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -24,7 +24,6 @@ import './theme/variables.css';
 import './theme/styles.css';
 import './theme/typography.css';
 
-import Login from './pages/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { set_is_admim, set_is_auth, set_is_volunteer } from './app/slice/authSlice';
 import React, { useEffect } from 'react';
@@ -36,6 +35,7 @@ const Dashboard = React.lazy(() => import('./pages/Dashboard/Dashboard'));
 const Books = React.lazy(() => import('./pages/Books'));
 const Home = React.lazy(() => import('./pages/Home/Home'));
 const Credential = React.lazy(() => import('./pages/Dashboard/views/Credential'));
+const Login = React.lazy(() => import('./pages/Login'));
 
 setupIonicReact();
 
