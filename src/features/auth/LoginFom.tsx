@@ -3,9 +3,9 @@ import { IonItem, IonLabel, IonInput, IonList, IonButton, InputChangeEventDetail
 import { FunctionComponent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { set_is_admim, set_is_auth, set_is_volunteer } from "../../app/slice/authSlice";
 import { login } from "../../services/CredentialService";
 import jwt_decode from "jwt-decode";
+import { setIsAdmim, setIsVolunteer } from "../../app/slice/authSlice";
 
 interface LoginFormProps { }
 
@@ -51,10 +51,8 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         localStorage.setItem("isAdmin", isAdmin)
         localStorage.setItem("isVolunteer", isVolunteer)
 
-        if (isAdmin) dispatch(set_is_admim(true))
-        if (isVolunteer) dispatch(set_is_volunteer(true))
-        dispatch(set_is_auth(true))
-
+        if (isAdmin) dispatch(setIsAdmim(true))
+        if (isVolunteer) dispatch(setIsVolunteer(true))
         return isAdmin
     }
 

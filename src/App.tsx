@@ -25,7 +25,7 @@ import './theme/styles.css';
 import './theme/typography.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { set_is_admim, set_is_auth, set_is_volunteer } from './app/slice/authSlice';
+import { setIsAdmim, setIsVolunteer } from './app/slice/authSlice';
 import React, { useEffect } from 'react';
 
 const Stock = React.lazy(() => import('./pages/Dashboard/views/Stock'));
@@ -40,18 +40,15 @@ const Login = React.lazy(() => import('./pages/Login'));
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { is_volunteer, is_admin, is_auth } = useSelector((state: any) => state.auth)
+  const { isVolunteer, isAdmin } = useSelector((state: any) => state.auth)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const has_token = localStorage.getItem("jwtToken") ? true : false
-    const has_admin = localStorage.getItem("isAdmin") ? true : false
-    const has_volunteer = localStorage.getItem("isVolunteer") ? true : false
+    const hasAdminTokenItem = localStorage.getItem("isAdmin") ? true : false
+    const hasVolunteerItem = localStorage.getItem("isVolunteer") ? true : false
 
-    dispatch(set_is_auth(has_token))
-    dispatch(set_is_admim(has_admin))
-    dispatch(set_is_volunteer(has_volunteer))
-
+    dispatch(setIsAdmim(hasAdminTokenItem))
+    dispatch(setIsVolunteer(hasVolunteerItem))
   }, [dispatch]);
 
   return (
@@ -86,21 +83,21 @@ const App: React.FC = () => {
                   <IonLabel>Rechercher un livre</IonLabel>
                 </IonItem>
 
-                {!is_auth &&
+                {!(isVolunteer || isAdmin) &&
                   <IonItem button routerLink="/connexion">
                     <IonIcon icon={logIn} slot='start' color='secondary' />
                     <IonLabel>Connexion</IonLabel>
                   </IonItem>
                 }
 
-                {is_auth &&
+                {(isVolunteer || isAdmin) &&
                   <IonItem button routerLink='/tableau-de-bord'>
                     <IonIcon color='secondary' slot='start' icon={statsChart} />
-                    <IonLabel>Espace {is_admin && "admin"} {is_admin && is_volunteer && "/"}  {is_volunteer && "bénévole"} </IonLabel>
+                    <IonLabel>Espace {isAdmin && "admin"} {isAdmin && isAdmin && "/"}  {isAdmin && "bénévole"} </IonLabel>
                   </IonItem>
                 }
 
-                {is_auth &&
+                {(isVolunteer || isAdmin) &&
                   <IonItem button routerLink='/logout' >
                     <IonIcon color='secondary' slot='start' icon={logOut} />
                     <IonLabel>Déconnexion</IonLabel>
@@ -120,30 +117,29 @@ const App: React.FC = () => {
               <Route exact path="/connexion" component={Login} />
 
               <Route exact path="/tableau-de-bord/identifiants" render={() => {
-                return is_admin ? <Credential /> : <Home />
+                return isAdmin ? <Credential /> : <Home />
               }} />
 
               <Route exact path="/tableau-de-bord" render={() => {
-                return is_auth ? <Dashboard /> : <Home />
+                return isVolunteer || isAdmin ? <Dashboard /> : <Home />
               }} />
 
               <Route exact path="/tableau-de-bord/étagères" render={() => {
-                return is_volunteer ? <BookshelfDashboad /> : <Home />
+                return isVolunteer ? <BookshelfDashboad /> : <Home />
               }} />
 
               <Route exact path="/tableau-de-bord/livres" render={() => {
-                return is_volunteer ? <Stock /> : <Home />
+                return isVolunteer ? <Stock /> : <Home />
               }} />
 
               <Route exact path="/tableau-de-bord/tags" render={() => {
-                return is_volunteer ? <Tags /> : <Home />
+                return isVolunteer ? <Tags /> : <Home />
               }} />
 
               <Route path="/logout" render={() => {
                 localStorage.clear()
-                dispatch(set_is_auth(false))
-                dispatch(set_is_admim(false))
-                dispatch(set_is_volunteer(false))
+                dispatch(setIsAdmim(false))
+                dispatch(setIsVolunteer(false))
                 return <Redirect to={{ pathname: "/" }} />;
               }}
               />

@@ -2,14 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Book from '../../interface/Book'
 
 interface BookState {
-    books: Book[],
     bookForm: any,
     searchValue: string,
     bookFilter: any
 }
 
 const initialState: BookState = {
-    books: [],
+
     bookForm: {
         price: 0.50,
         bookshelf: "",
