@@ -47,7 +47,7 @@ const Dashboard: React.FC = () => {
                     <IonRow className="ion-justify-content-center">
                         <IonCol size="6" sizeSm="3">
                             <DashboardCard
-                                subtitle={"Acces aux"}
+                                subtitle={"page"}
                                 title={"Etagères"}
                                 href='/tableau-de-bord/étagères'
                                 type='volunteer'
@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
                             <DashboardCard
-                                subtitle={"Acces aux"}
+                                subtitle={"page"}
                                 title={'Tags'}
                                 href='/tableau-de-bord/tags'
                                 type='volunteer'
@@ -65,7 +65,7 @@ const Dashboard: React.FC = () => {
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
                             <DashboardCard
-                                subtitle={"Acces aux"}
+                                subtitle={"page"}
                                 title={'Livres'}
                                 href='/tableau-de-bord/livres'
                                 type='volunteer'
@@ -73,7 +73,11 @@ const Dashboard: React.FC = () => {
                             />
                         </IonCol>
                         <IonCol size="6" sizeSm="3">
-                            <DashboardCard subtitle={"..."} title={'....'} />
+                            <DashboardCard
+                                subtitle={"page"}
+                                title={'Calendrier'}
+                                disabled={true}
+                            />
                         </IonCol>
                     </IonRow>
                     <IonRow>
@@ -81,7 +85,7 @@ const Dashboard: React.FC = () => {
                             <IonRow>
                                 <IonCol>
                                     <DashboardCard
-                                        subtitle={"Acces aux"}
+                                        subtitle={"page"}
                                         title={'Identifiants'}
                                         href='tableau-de-bord/identifiants'
                                         type='admin'
@@ -89,12 +93,16 @@ const Dashboard: React.FC = () => {
                                     />
                                 </IonCol>
                                 <IonCol>
-                                    <DashboardCard subtitle={"..."} title={'....'} />
+                                    <DashboardCard
+                                        subtitle={"page"}
+                                        title={'Réservation'}
+                                        disabled={true}
+                                    />
                                 </IonCol>
                             </IonRow>
                             <IonRow>
                                 <IonCol>
-                                    <DashboardCard subtitle={"..."} title={'....'} />
+                                    <DashboardCard subtitle={"page"} title={'Bilan'} disabled={true} />
                                 </IonCol>
                                 <IonCol>
                                     <DashboardCard subtitle={"..."} title={'....'} />
@@ -102,7 +110,7 @@ const Dashboard: React.FC = () => {
                             </IonRow>
                         </IonCol>
                         <IonCol size="12" sizeSm="6">
-                            <DashboardCard subtitle={"..."} title={'....'} />
+                            <DashboardCard subtitle={"..."} title={"Télécharger l'application mobile"} disabled={true} />
                         </IonCol>
                     </IonRow>
                 </IonGrid>
