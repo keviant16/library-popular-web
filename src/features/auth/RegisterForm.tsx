@@ -2,7 +2,7 @@ import { IonInputCustomEvent } from "@ionic/core";
 import { IonItem, IonLabel, IonInput, IonList, IonButton, InputChangeEventDetail, IonSpinner, IonSelect, IonSelectOption, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 import { FunctionComponent, RefObject, useState } from "react";
 import { useDispatch } from "react-redux";
-import { set_credentials } from "../../app/slice/authSlice";
+import { setCredentials } from "../../app/slice/authSlice";
 import { getAllCredentials, register } from "../../services/CredentialService";
 
 interface RegisterFormProps {
@@ -34,7 +34,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = (props: RegisterFormP
     if (response !== 'Credential has been save !') return handle_error("roles_length");
 
     const allCredentials: any[] = await getAllCredentials();
-    dispatch(set_credentials(allCredentials))
+    dispatch(setCredentials(allCredentials))
 
     setLoading(false)
   }

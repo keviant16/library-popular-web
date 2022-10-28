@@ -18,6 +18,9 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
   const searchRef = useRef<null | any>(null);
   const [isSearchToogle, setIsSearchToogle] = useState(false);
 
+  console.log(search);
+
+
   const toggleAccordion = () => {
     if (!accordionGroup.current) return;
     const nativeEl = accordionGroup.current;
@@ -28,11 +31,6 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
       nativeEl.value = 'second';
     }
   };
-
-  const toggleSearchBar = () => {
-
-
-  }
 
   return (
     <>
@@ -48,7 +46,6 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
             <h1>{props.header}</h1>
           </IonLabel>
         }
-
 
         {props?.searchActive &&
           <IonButton color={"primary"} onClick={() => setIsSearchToogle(!isSearchToogle)}>
