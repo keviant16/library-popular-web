@@ -12,13 +12,7 @@ const Login: FunctionComponent<LoginProps> = () => {
         <IonPage>
             <Header />
             <IonContent>
-                <IonGrid>
-                    <IonRow className="ion-padding ion-justify-content-center ion-align-items-center">
-                        <IonCol size="12" sizeSm="6">
-                            <LoginForm />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
+                <LoginForm />
             </IonContent>
         </IonPage>
     );
