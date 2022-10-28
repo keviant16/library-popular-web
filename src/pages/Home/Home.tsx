@@ -18,7 +18,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          <IonRow >
+          <IonRow>
             <IonCol>
               <NewBookList />
             </IonCol>

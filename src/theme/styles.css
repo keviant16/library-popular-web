@@ -1,24 +1,77 @@
  @import './variables.css';
 
+ .horizontal-scrollbar {
+   overflow-x: scroll;
+   overflow-y: hidden;
+   height: 80px;
+   white-space: nowrap;
+ }
+
  .section-image {
-     border-radius: 25px;
-     box-shadow: 0 5px 10px gray;
-     padding: 10px;
+   border-radius: 25px;
+   box-shadow: 0 5px 10px gray;
+   width: 350px;
+   height: auto;
+   padding: 10px;
  }
 
  .blue {
-     background-color: var(--ion-color-primary-tint);
+   background-color: var(--ion-color-primary-tint);
  }
 
  .red {
-     background-color: var(--ion-color-secondary-tint);
+   background-color: var(--ion-color-secondary-tint);
  }
 
  .book-blue {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     overflow: hidden;
-     line-height: 0;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   overflow: hidden;
+   line-height: 0;
+ }
+
+ ion-spinner {
+   color: var(--ion-color-secondary);
+ }
+
+ .book-form-img {
+   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+   width: 120px;
+   height: auto;
+ }
+
+ ion-searchbar.custom {
+   width: 40vh;
+ }
+
+ .credential-form {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-evenly;
+ }
+
+ .hideBg::part(background) {
+   display: none;
+ }
+
+ /* .start-scan-button {
+   text-align: center;
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+ } */
+
+ .scan-box {
+   border: 2px solid #fff;
+   box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+   display: block;
+   left: 50%;
+   height: 70vw;
+   position: absolute;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   width: 70vw;
  }

@@ -16,8 +16,8 @@ const NewBookCard = ({ src, title, subtitle, content }: any) => {
 const NewBookList: React.FC = () => {
 
     return (
-        <IonGrid >
-            <IonRow className="ion-justify-content-center">
+        <IonGrid>
+            <IonRow className="ion-justify-content-center horizontal-scrollbar">
                 <IonCol size="12" sizeSm="12">
                     <h1>Nouveautés !</h1>
                     <p>Voici la liste des livres ajoutées cette semaine.</p>

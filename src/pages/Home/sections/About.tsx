@@ -1,5 +1,5 @@
 import { IonCol, IonGrid, IonRow } from "@ionic/react";
-import library_picture from "../../../assets/images/about-picture.jpg";
+import library_picture from "../../../assets/images/about-picture.webp";
 
 const About: React.FC = () => {
     return (
