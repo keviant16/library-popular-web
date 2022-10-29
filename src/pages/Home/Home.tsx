@@ -30,11 +30,11 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          <IonRow>
+          {/* <IonRow>
             <IonCol>
               <Faq />
             </IonCol>
-          </IonRow>
+          </IonRow> */}
 
         </IonGrid>
       </IonContent>
