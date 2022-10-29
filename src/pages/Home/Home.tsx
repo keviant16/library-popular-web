@@ -4,6 +4,7 @@ import About from './sections/About';
 import Faq from './sections/Faq';
 import Overview from './sections/Overview';
 import NewBookList from '../../features/books/NewBookList';
+import Contact from './sections/Contact';
 
 const Home: React.FC = () => {
   return (
@@ -11,23 +12,16 @@ const Home: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid>
-
           <IonRow className='blue'>
-            <IonCol>
-              <Overview />
-            </IonCol>
+            <IonCol><Overview /></IonCol>
           </IonRow>
 
           <IonRow>
-            <IonCol>
-              <NewBookList />
-            </IonCol>
+            <IonCol><NewBookList /></IonCol>
           </IonRow>
 
           <IonRow className='red'>
-            <IonCol>
-              <About />
-            </IonCol>
+            <IonCol><About /></IonCol>
           </IonRow>
 
           {/* <IonRow>
@@ -35,6 +29,14 @@ const Home: React.FC = () => {
               <Faq />
             </IonCol>
           </IonRow> */}
+
+
+          <IonRow>
+            <IonCol>
+              <Contact />
+            </IonCol>
+          </IonRow>
+
 
         </IonGrid>
       </IonContent>

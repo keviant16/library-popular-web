@@ -6,7 +6,7 @@ interface ErrorProps { }
 const Error: FunctionComponent<ErrorProps> = () => {
   return (
     <IonItem>
-      <IonLabel color={"danger"}>Oh non, il y a eu une erreur</IonLabel>
+      <IonLabel color={"danger"}>Oh non, il y a eu une erreur, veuillez nous contactez par email au </IonLabel>
     </IonItem>
   );
 }
