@@ -9,8 +9,8 @@ interface ListHeaderProps {
   search?: any
   fitreActive?: boolean
   hideReturn?: boolean
-  hideAddBook?: boolean
   searchActive?: boolean
+  addButton?: any
 }
 
 const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
@@ -52,6 +52,8 @@ const ListHeader: FunctionComponent<ListHeaderProps> = (props) => {
             <IonIcon icon={search} />
           </IonButton>
         }
+
+        {props?.addButton && props?.addButton}
 
 
 

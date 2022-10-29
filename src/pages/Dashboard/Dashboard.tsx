@@ -4,7 +4,7 @@ import DashboardCard from '../../components/DashboardCard';
 import { Header } from '../../components/Header';
 
 const Dashboard: React.FC = () => {
-  const { is_volunteer, is_admin } = useSelector((state: any) => state.auth)
+  const { isVolunteer, isAdmin } = useSelector((state: any) => state.auth)
 
   return (
     <IonPage>
@@ -15,54 +15,62 @@ const Dashboard: React.FC = () => {
             <IonCol>
               <IonItem lines='none' >
                 <IonLabel>
-                  <h1>Espace {is_volunteer && "Bénévole"}  {is_volunteer && is_admin && " / "}  {is_admin && "Admin"}</h1>
+                  <h1>Espace Librarie</h1>
                 </IonLabel>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Gains"} title={10 + " $"} />
+              <DashboardCard
+                subtitle={"Donnations"}
+                title={10 + " $"}
+              />
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Livre vendu"} title={100} />
+              <DashboardCard
+                subtitle={"Livre vendu"}
+                title={100} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Livre Indisponible"} title={17} />
+              <DashboardCard
+                subtitle={"Livre reserver"}
+                title={17} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Livre disponible"} title={17}
+              <DashboardCard
+                subtitle={"Livre disponible"}
+                title={17}
               />
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Acces aux"} title={"Etagères"} href='/tableau-de-bord/étagères' />
+              <DashboardCard subtitle={"page"} title={"Etagères"} href='/tableau-de-bord/étagères' disabled={!isVolunteer} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Acces aux"} title={'Tags'} href='/tableau-de-bord/tags'
-              />
+              <DashboardCard subtitle={"page"} title={'Tags'} href='/tableau-de-bord/tags' disabled={!isVolunteer} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"Acces aux"} title={'Livres'} href='/tableau-de-bord/livres' />
+              <DashboardCard subtitle={"page"} title={'Livres'} href='/tableau-de-bord/livres' disabled={!isVolunteer} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard subtitle={"..."} title={'....'} />
+              <DashboardCard subtitle={"page"} title={'Calendrier'} disabled={true} />
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol size="12" sizeSm="6">
               <IonRow>
                 <IonCol>
-                  <DashboardCard subtitle={"Acces aux"} title={'Identifiants'} href='tableau-de-bord/identifiants' />
+                  <DashboardCard subtitle={"page"} title={'Identifiants'} href='tableau-de-bord/identifiants' disabled={!isAdmin} />
                 </IonCol>
                 <IonCol>
-                  <DashboardCard subtitle={"..."} title={'....'} />
+                  <DashboardCard subtitle={"page"} title={'Réservation'} disabled={true} />
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <DashboardCard subtitle={"..."} title={'....'} />
+                  <DashboardCard subtitle={"page"} title={'Bilan'} disabled={true} />
                 </IonCol>
                 <IonCol>
                   <DashboardCard subtitle={"..."} title={'....'} />
@@ -70,7 +78,7 @@ const Dashboard: React.FC = () => {
               </IonRow>
             </IonCol>
             <IonCol size="12" sizeSm="6">
-              <DashboardCard subtitle={"..."} title={'....'} />
+              <DashboardCard subtitle={"..."} title={"Télécharger l'application mobile"} disabled={true} />
             </IonCol>
           </IonRow>
         </IonGrid>

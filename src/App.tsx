@@ -93,7 +93,7 @@ const App: React.FC = () => {
                 {(isVolunteer || isAdmin) &&
                   <IonItem button routerLink='/tableau-de-bord'>
                     <IonIcon color='secondary' slot='start' icon={statsChart} />
-                    <IonLabel>Espace {isAdmin && "admin"} {isAdmin && isAdmin && "/"}  {isAdmin && "bénévole"} </IonLabel>
+                    <IonLabel>Espace Librarie</IonLabel>
                   </IonItem>
                 }
 

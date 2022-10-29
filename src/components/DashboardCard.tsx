@@ -9,7 +9,6 @@ interface DashboardCardProps {
 }
 
 const DashboardCard: FunctionComponent<DashboardCardProps> = (props) => {
-
     return (
         <IonCard>
             <IonItem href={props.href} disabled={props.disabled}>

@@ -33,7 +33,7 @@ const TagList: React.FC = () => {
   return (
     <IonList>
       <ListHeader icon={arrowBack} header={"Tags"}
-        search={
+        addButton={
           <IonButton onClick={toggleAccordion}>
             <IonIcon icon={add} />
           </IonButton>

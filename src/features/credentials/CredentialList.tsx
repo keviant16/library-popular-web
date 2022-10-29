@@ -47,7 +47,7 @@ const CredentialList: FunctionComponent<CredentialListProps> = () => {
   return (
     <IonList>
       <ListHeader icon={arrowBack} header={"Identifiants"}
-        search={
+        addButton={
           <IonButton onClick={toggleAccordion}>
             <IonIcon icon={add} />
           </IonButton>

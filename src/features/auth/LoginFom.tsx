@@ -37,9 +37,9 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     }
 
     const handle_error = (error_name: string) => {
-        if (error_name === "incorrect_credentials") setError("Uid ou mot de passe incorrect.")
+        if (error_name === "incorrect_credentials") setError("identifiant ou mot de passe incorrect.")
         if (error_name === "uid_password") setError("Mot de passe est trop court. (4 charactères)")
-        if (error_name === "uid_length") setError("Uid est trop court.(8 charactères)")
+        if (error_name === "uid_length") setError("identifiant est trop court.(8 charactères)")
 
         setLoading(false)
     }

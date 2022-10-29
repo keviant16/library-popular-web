@@ -33,7 +33,6 @@ const BookList = (props: BookListProps) => {
         search={<BookSearchbar />}
         searchActive
         fitreActive
-        hideAddBook={props.hideAddBook}
         hideReturn={props.hideReturn}
       />
       {error ? (

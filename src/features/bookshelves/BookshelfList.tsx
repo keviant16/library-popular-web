@@ -32,7 +32,7 @@ const BookshelfList: React.FC = () => {
     return (
         <IonList>
             <ListHeader icon={arrowBack} header={"étagères"}
-                search={
+                addButton={
                     <IonButton onClick={toggleAccordion}>
                         <IonIcon icon={add} />
                     </IonButton>
