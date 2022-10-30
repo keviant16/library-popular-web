@@ -7,7 +7,6 @@ on:
     branches-ignore:
       - main
 jobs:
-
   Test-Preview:
     runs-on: ubuntu-latest
     steps:
