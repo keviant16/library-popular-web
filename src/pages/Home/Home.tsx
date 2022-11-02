@@ -13,15 +13,21 @@ const Home: React.FC = () => {
       <IonContent fullscreen>
         <IonGrid>
           <IonRow className='blue'>
-            <IonCol><Overview /></IonCol>
+            <IonCol>
+              <Overview />
+            </IonCol>
           </IonRow>
 
           <IonRow>
-            <IonCol><NewBookList /></IonCol>
+            <IonCol>
+              <NewBookList />
+            </IonCol>
           </IonRow>
 
-          <IonRow className='red'>
-            <IonCol><About /></IonCol>
+          <IonRow className='blue'>
+            <IonCol>
+              <About />
+            </IonCol>
           </IonRow>
 
           {/* <IonRow>

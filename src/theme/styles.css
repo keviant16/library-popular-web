@@ -3,17 +3,13 @@
  .section-image {
    border-radius: 25px;
    box-shadow: 0 5px 10px gray;
-   width: 350px;
+   width: 450px;
    height: auto;
    padding: 10px;
  }
 
  .blue {
    background-color: var(--ion-color-primary-tint);
- }
-
- .red {
-   background-color: var(--ion-color-secondary-tint);
  }
 
  .book-blue {
