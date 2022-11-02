@@ -1,4 +1,4 @@
-import { IonBackButton, IonButton, IonButtons, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonSpinner, IonTitle, IonToolbar } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonChip, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonRow, IonSegment, IonSegmentButton, IonSpinner, IonTitle, IonToolbar } from "@ionic/react";
 import { FunctionComponent, RefObject, useState } from "react";
 import Book from "../../../interface/Book";
 import BookFormSegment1 from "./BookFormSegment1";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCreateBookMutation, useDeleteBookMutation, useUpdateBookMutation, } from "../../../app/api/api";
 import { handleStatusChipColor, handleStatusValue } from "../../../utils/Utils";
 import { initBookForm } from "../../../app/slice/bookSlice";
+import { close } from "ionicons/icons";
 
 interface BookFormProps {
   book: Book,
@@ -15,7 +16,8 @@ interface BookFormProps {
 }
 
 const BookForm: FunctionComponent<BookFormProps> = (props) => {
-  const { is_volunteer } = useSelector((state: any) => state.auth)
+  const { isVolunteer } = useSelector((state: any) => state.auth)
+
 
   const [createBook, { isLoading: isCreating }] = useCreateBookMutation();
   const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
@@ -69,8 +71,10 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
       <IonHeader>
         <IonToolbar className="ion-padding" color={"primary"}>
           <IonTitle>
-            {is_volunteer
-              ? props.editable ? "Modifer le " : "Ajouter le "
+            {isVolunteer
+              ? props.editable
+                ? "Modifer le "
+                : "Ajouter le "
               : "Détail du "
             }
             livre
@@ -82,7 +86,7 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
             onClick={() => props.modal.current?.dismiss()}
             color={"secondary"}
             slot="end">
-            Fermer
+            <IonIcon icon={close} />
           </IonButton>
         </IonToolbar>
       </IonHeader>
@@ -137,7 +141,7 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
             </IonCol>
           </IonRow>
 
-          {segment === "form" && is_volunteer &&
+          {segment === "form" && isVolunteer &&
             <IonRow>
               <IonCol>
                 {isCreating || isUpdating || isDeleting

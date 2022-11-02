@@ -49,8 +49,7 @@ const BookItem: React.FC<BookItemProps> = (props: BookItemProps) => {
           {props.book.price && <p>{props.book.price} €</p>}
         </IonLabel>
       </IonItem>
-      {
-        props.editable &&
+      {props.editable &&
         <IonModal ref={modal} trigger={"open-modal-" + props.book.id}>
           <BookForm modal={modal} book={props.book} editable={props.editable} />
         </IonModal>

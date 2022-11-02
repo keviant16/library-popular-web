@@ -3,7 +3,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, 
 const NewBookCard = ({ src, title, subtitle, content }: any) => {
     return (
         <IonCard>
-            <IonImg src={src} />
+            <IonImg src={src} alt="new-book" />
             <IonCardHeader>
                 <IonCardSubtitle>{subtitle}</IonCardSubtitle>
                 <IonCardTitle>{title}</IonCardTitle>

@@ -22,7 +22,6 @@ const Stock: React.FC = () => {
 
     // if the result has content
     if (result.hasContent) {
-      console.log(result.content);
       setInput(result.content)
       setIsOpen(true)
       // log the raw scanned content
@@ -66,8 +65,7 @@ const Stock: React.FC = () => {
       <IonContent className={hideBg}>
 
         {hideBg ?
-          <div hidden={!hideBg} className="scan-box" />
-          :
+          <div hidden={!hideBg} className="scan-box" /> :
           <>
             <BookList hideAddBook />
             <BookModal />

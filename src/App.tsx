@@ -64,9 +64,7 @@ const App: React.FC = () => {
                   </IonButton>
                 </IonMenuToggle>
               </IonButtons>
-              <IonTitle>
-                Menu
-              </IonTitle>
+              <IonTitle>Menu</IonTitle>
             </IonToolbar>
           </IonHeader>
 
