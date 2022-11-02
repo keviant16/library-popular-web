@@ -19,6 +19,7 @@ const BookItem: React.FC<BookItemProps> = (props: BookItemProps) => {
           <IonImg
             alt={"couverture-du-livre" + props.book.title}
             src={props.book.image ? props.book.image : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"}
+
           />
         </IonThumbnail>
         <IonLabel>

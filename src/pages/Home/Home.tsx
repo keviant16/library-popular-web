@@ -20,7 +20,7 @@ const Home: React.FC = () => {
             <IonCol><NewBookList /></IonCol>
           </IonRow>
 
-          <IonRow className='red'>
+          <IonRow className='blue'>
             <IonCol><About /></IonCol>
           </IonRow>
 
