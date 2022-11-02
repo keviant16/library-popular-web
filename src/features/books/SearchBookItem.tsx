@@ -10,14 +10,21 @@ interface SearchBookItemProps {
   editable?: boolean
 }
 
+
+
+
 const SearchBookItem: FunctionComponent<SearchBookItemProps> = (props) => {
   return (
     <IonNavLink
       routerDirection="forward"
       component={() => <BookForm book={props.book} modal={props.modal} editable={props.editable} />}
     >
-      {props.editable
-        ? <BookItem key={props.book.id} book={props.book} editable={props.editable} />
+      {props.editable ?
+        <BookItem
+          key={props.book.id}
+          book={props.book}
+          editable={props.editable}
+        />
         :
         <IonItem button>
           <IonThumbnail slot="start">
@@ -28,22 +35,18 @@ const SearchBookItem: FunctionComponent<SearchBookItemProps> = (props) => {
           </IonThumbnail>
           <IonLabel>
             <h3>{props.book.title}</h3>
-
             <p>
               {props.book.authors &&
                 props.book.authors.map((authorName: string, idx: number) =>
                   idx < props.book.authors.length - 1 ? authorName + ", " : authorName)
               }
             </p>
-
           </IonLabel>
           <IonLabel slot="end">
             {props.book.price && <p>{props.book.price} €</p>}
           </IonLabel>
         </IonItem>
       }
-
-
     </IonNavLink>
   );
 }

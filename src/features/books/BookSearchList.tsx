@@ -1,4 +1,4 @@
-import { IonHeader, IonToolbar, IonContent, IonList, IonLabel, IonSearchbar, IonItemGroup, IonItemDivider, IonButton } from "@ionic/react";
+import { IonHeader, IonToolbar, IonContent, IonList, IonLabel, IonSearchbar, IonItemGroup, IonItemDivider, IonButton, IonItem, IonIcon } from "@ionic/react";
 import { FunctionComponent, RefObject, useEffect, useState } from "react";
 import { getGoogleBooksByCodeIsbn } from "../../services/BookAPIService";
 import GoogleBook from "../../interface/GoogleBook";
@@ -7,6 +7,7 @@ import { getbooksByIsbn } from "../../services/BookService";
 import Book404Item from "./Book404Item";
 import Spinner from "../../components/Spinner";
 import SearchBookItem from "./SearchBookItem";
+import { close } from "ionicons/icons";
 
 interface BookSearchListProps {
   modal: RefObject<HTMLIonModalElement>,
@@ -83,7 +84,9 @@ const BookSearchList: FunctionComponent<BookSearchListProps> = (props) => {
             onIonChange={e => setSearchText(e.detail.value!)}
             color={"light"}
           />
-          <IonButton onClick={() => props.modal.current?.dismiss()} color={"secondary"} slot="end">Annuler</IonButton>
+          <IonButton onClick={() => props.modal.current?.dismiss()} color={"secondary"} slot="end">
+            <IonIcon icon={close} />
+          </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

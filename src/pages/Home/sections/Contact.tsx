@@ -10,9 +10,9 @@ const Contact: FunctionComponent<ContactProps> = () => {
     <IonGrid>
       <IonRow>
         <IonCol>
-          <h1>Une pane ?</h1>
+          <h1>En cas de problème</h1>
           <p>
-            Veuillez me concater en cas de problème par <a href="">email</a> pour me prévenir de vos problèmes rencontrées.
+            Veuillez me <a href="mailto:librarie.populaire@gmail.com">contacter par email</a>
           </p>
         </IonCol>
       </IonRow>

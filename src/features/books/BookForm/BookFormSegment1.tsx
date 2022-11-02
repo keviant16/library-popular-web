@@ -13,7 +13,7 @@ interface BookFormSegment1Props {
 
 const BookFormSegment1: FunctionComponent<BookFormSegment1Props> = (props) => {
   const bookForm = useSelector((state: any) => state.book.bookForm)
-  const { is_volunteer } = useSelector((state: any) => state.auth)
+  const { isVolunteer } = useSelector((state: any) => state.auth)
 
   const dispatch = useDispatch()
 
@@ -23,7 +23,7 @@ const BookFormSegment1: FunctionComponent<BookFormSegment1Props> = (props) => {
 
   return (
     <>
-      {is_volunteer ?
+      {isVolunteer ?
         <>
           <BookshelfSelect
             value={bookForm.bookshelf}
