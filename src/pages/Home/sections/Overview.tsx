@@ -8,7 +8,7 @@ const Overview: React.FC = () => {
                 <IonCol size="12" sizeMd="6" >
                     <h1>Bienvenue visiteur et bénévole !</h1>
                     <h2>- La librairie bénévole ouvre son site </h2>
-                    <p>Grâce à ce site, vous aurez la possibilité de rechercher un livre présent dans la librairie et de les réserver.</p>
+                    <p>Grâce à ce site, il vous sera possible de rechercher un livre en librairie.</p>
                     <IonButton>Rechercher</IonButton>
                 </IonCol>
                 <IonCol size="12" sizeMd="6">
