@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonImg, IonItem, IonList, IonRow } from "@ionic/react"
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonGrid, IonImg, IonRow } from "@ionic/react"
 import { useGetNewBooksQuery } from "../../app/api/api"
 import Error from "../../components/Error"
 import Spinner from "../../components/Spinner"
@@ -33,8 +33,8 @@ const NewBookList: React.FC = () => {
           ? <Error />
           : isLoading ?
             <Spinner />
-            : data ? data.map((book: Book) => (
-              <IonCol key={book.id} size="12" sizeSm="4">
+            : data ? data.map((book: Book, idx: number) => (
+              <IonCol key={idx} size="12" sizeSm="4">
                 <NewBookCard
                   src={book.image}
                   title={book.title}

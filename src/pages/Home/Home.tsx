@@ -1,7 +1,6 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow, } from '@ionic/react';
 import { Header } from '../../components/Header';
 import About from './sections/About';
-import Faq from './sections/Faq';
 import Overview from './sections/Overview';
 import NewBookList from '../../features/books/NewBookList';
 import Contact from './sections/Contact';
@@ -24,7 +23,7 @@ const Home: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          <IonRow className='blue'>
+          <IonRow className='red'>
             <IonCol>
               <About />
             </IonCol>
