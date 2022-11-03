@@ -5,6 +5,8 @@ import Bookshelf from '../../interface/Bookshelf';
 import Tag from '../../interface/Tag';
 
 const JWTTOKEN = localStorage.getItem('jwtToken')
+// https://library-popular-web-service.herokuapp.com/api
+// http://localhost:8080/api
 
 // Define a service using a base URL and expected endpoints
 export const api = createApi({
@@ -120,11 +122,19 @@ export const api = createApi({
       transformResponse: (res: Book[]) => res.sort((a, b) => b.id! - a.id!),
       providesTags: ['Book']
     }),
+
+    getNewBooks: builder.query({
+      query: () => `/books/new`,
+      transformResponse: (res: Book[]) => res.sort((a, b) => b.id! - a.id!),
+      providesTags: ['Book']
+    }),
+
     getBooksByIsbn: builder.query({
       query: (isbn: string) => `/books/isbn=${isbn}`,
       transformResponse: (res: Book[]) => res.sort((a, b) => b.id! - a.id!),
       providesTags: ['Book']
     }),
+
     createBook: builder.mutation({
       query: (book: Book) => ({
         url: `/books`,
@@ -155,5 +165,5 @@ export const {
   useGetAllTagsQuery, useCreateTagMutation, useDeleteTagMutation, useUpdateTagMutation,
   useCreateBookshelfMutation, useDeleteBookshelfMutation, useGetAllBookshelvesQuery, useUpdateBookshelfMutation,
   useDeleteCredentialMutation, useLoginMutation, useRegisterMutation, useGetAllCredentialsQuery,
-  useCreateBookMutation, useDeleteBookMutation, useGetAllBooksQuery, useUpdateBookMutation, useGetBooksByIsbnQuery
+  useGetNewBooksQuery, useCreateBookMutation, useDeleteBookMutation, useGetAllBooksQuery, useUpdateBookMutation, useGetBooksByIsbnQuery
 } = api;

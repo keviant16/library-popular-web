@@ -8,9 +8,6 @@
    padding: 10px;
  }
 
- .blue {
-   background-color: var(--ion-color-primary-tint);
- }
 
  .book-blue {
    position: absolute;
@@ -60,4 +57,16 @@
    top: 50%;
    transform: translate(-50%, -50%);
    width: 70vw;
+ }
+
+ .horizontal-scrollbar {
+   border: 1px solid black;
+   overflow-x: scroll
+ }
+
+
+
+ .new-books-section {
+   display: flex;
+   flex-direction: row;
  }

@@ -15,7 +15,7 @@ const Dashboard: React.FC = () => {
             <IonCol>
               <IonItem lines='none' >
                 <IonLabel>
-                  <h1>Espace Librarie</h1>
+                  <h1>Espace librarie</h1>
                 </IonLabel>
               </IonItem>
             </IonCol>
@@ -23,24 +23,24 @@ const Dashboard: React.FC = () => {
           <IonRow className="ion-justify-content-center">
             <IonCol size="6" sizeSm="3">
               <DashboardCard
-                subtitle={"Donnations"}
+                subtitle={"Caisse"}
                 title={10 + " $"}
               />
             </IonCol>
             <IonCol size="6" sizeSm="3">
               <DashboardCard
-                subtitle={"Livre vendu"}
+                subtitle={"Livre disponible"}
                 title={100} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
               <DashboardCard
-                subtitle={"Livre reserver"}
+                subtitle={"Livre indisponible"}
                 title={17} />
             </IonCol>
             <IonCol size="6" sizeSm="3">
               <DashboardCard
-                subtitle={"Livre disponible"}
-                title={17}
+                subtitle={"Livre vendu"}
+                title={10}
               />
             </IonCol>
           </IonRow>
