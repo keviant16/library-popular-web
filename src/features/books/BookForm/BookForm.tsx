@@ -93,14 +93,14 @@ const BookForm: FunctionComponent<BookFormProps> = (props) => {
       <IonContent className="ion-padding">
         <IonGrid>
           <IonRow className="ion-justify-content-center ">
-            <IonCol size="4">
+            <IonCol size="6" sizeMd="3">
               <IonImg
                 className="book-form-img"
                 alt={"couverture-du-livre-" + props.book.title}
                 src={props.book.image ? props.book.image : "https://ionicframework.com/docs/demos/api/thumbnail/thumbnail.svg"}
               />
             </IonCol>
-            <IonCol size="8">
+            <IonCol size="6" sizeMd="9">
               <IonItem>
                 <IonLabel>
                   <h3>Titre : {props.book.title}</h3>
