@@ -1,10 +1,18 @@
 import { IonCol, IonContent, IonGrid, IonItem, IonLabel, IonPage, IonRow } from '@ionic/react';
 import { useSelector } from 'react-redux';
+import { useGetBookCountByStatusQuery, useGetBookCountQuery, useGetBookDonationQuery } from '../../app/api/api';
 import DashboardCard from '../../components/DashboardCard';
+import Error from '../../components/Error';
 import { Header } from '../../components/Header';
+import Spinner from '../../components/Spinner';
 
 const Dashboard: React.FC = () => {
   const { isVolunteer, isAdmin } = useSelector((state: any) => state.auth)
+  const { data: donation, error: donationError, isLoading: isDonationLoading } = useGetBookDonationQuery('')
+  const { data: count, error: countError, isLoading: isCountLoading } = useGetBookCountQuery('')
+  const { data: statusGone, error: statusGoneError, isLoading: isStatusGoneLoading } = useGetBookCountByStatusQuery(1)
+  const { data: statusInStock, error: statusInStockError, isLoading: isStatusInStockLoading } = useGetBookCountByStatusQuery(0)
+
 
   return (
     <IonPage>
@@ -15,33 +23,42 @@ const Dashboard: React.FC = () => {
             <IonCol>
               <IonItem lines='none' >
                 <IonLabel>
-                  <h1>Espace Librarie</h1>
+                  <h1>Espace librarie</h1>
                 </IonLabel>
               </IonItem>
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">
             <IonCol size="6" sizeSm="3">
+              {donationError ? <Error /> : isDonationLoading ? <Spinner /> :
+                <DashboardCard
+                  subtitle={"Gains"}
+                  title={donation + " €"}
+                />
+              }
+            </IonCol>
+            <IonCol size="6" sizeSm="3">
               <DashboardCard
-                subtitle={"Donnations"}
-                title={10 + " $"}
+                subtitle={"..."}
+                title={"..."}
               />
+
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard
-                subtitle={"Livre vendu"}
-                title={100} />
+              {statusGoneError ? <Error /> : isStatusGoneLoading ? <Spinner /> :
+                <DashboardCard
+                  subtitle={"Livre indisponible"}
+                  title={statusGone}
+                />
+              }
             </IonCol>
             <IonCol size="6" sizeSm="3">
-              <DashboardCard
-                subtitle={"Livre reserver"}
-                title={17} />
-            </IonCol>
-            <IonCol size="6" sizeSm="3">
-              <DashboardCard
-                subtitle={"Livre disponible"}
-                title={17}
-              />
+              {statusInStockError ? <Error /> : isStatusInStockLoading ? <Spinner /> :
+                <DashboardCard
+                  subtitle={"Livre disponible"}
+                  title={statusInStock}
+                />
+              }
             </IonCol>
           </IonRow>
           <IonRow className="ion-justify-content-center">

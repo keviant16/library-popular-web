@@ -1,12 +1,12 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { useSelector } from 'react-redux';
 import Book from '../../interface/Book';
 import Bookshelf from '../../interface/Bookshelf';
 import Tag from '../../interface/Tag';
 
 const JWTTOKEN = localStorage.getItem('jwtToken')
 
-// Define a service using a base URL and expected endpoints
 export const api = createApi({
   reducerPath: 'tagApi',
   baseQuery: fetchBaseQuery({
@@ -125,6 +125,22 @@ export const api = createApi({
       transformResponse: (res: Book[]) => res.sort((a, b) => b.id! - a.id!),
       providesTags: ['Book']
     }),
+
+    getBookCount: builder.query({
+      query: () => `/books/count`,
+      providesTags: ['Book']
+    }),
+
+    getBookCountByStatus: builder.query({
+      query: (status) => `/books/status=${status}`,
+      providesTags: ['Book']
+    }),
+
+    getBookDonation: builder.query({
+      query: () => `/books/donation`,
+      providesTags: ['Book']
+    }),
+
     createBook: builder.mutation({
       query: (book: Book) => ({
         url: `/books`,
@@ -148,6 +164,7 @@ export const api = createApi({
       }),
       invalidatesTags: ['Book']
     }),
+
   }),
 })
 
@@ -155,5 +172,6 @@ export const {
   useGetAllTagsQuery, useCreateTagMutation, useDeleteTagMutation, useUpdateTagMutation,
   useCreateBookshelfMutation, useDeleteBookshelfMutation, useGetAllBookshelvesQuery, useUpdateBookshelfMutation,
   useDeleteCredentialMutation, useLoginMutation, useRegisterMutation, useGetAllCredentialsQuery,
-  useCreateBookMutation, useDeleteBookMutation, useGetAllBooksQuery, useUpdateBookMutation, useGetBooksByIsbnQuery
+  useCreateBookMutation, useDeleteBookMutation, useGetAllBooksQuery, useUpdateBookMutation, useGetBooksByIsbnQuery,
+  useGetBookCountQuery, useGetBookDonationQuery, useGetBookCountByStatusQuery
 } = api;
